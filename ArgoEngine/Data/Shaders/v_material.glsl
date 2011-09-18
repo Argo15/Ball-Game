@@ -1,4 +1,4 @@
-#version 110
+#version 120
 
 attribute vec3 v_vertex;
 attribute vec2 v_texture;
