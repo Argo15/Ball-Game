@@ -165,12 +165,68 @@
 				RelativePath=".\main.cpp"
 				>
 			</File>
+			<Filter
+				Name="GameStates"
+				>
+				<Filter
+					Name="LevelStates"
+					>
+					<File
+						RelativePath=".\LevelState.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="MenuStates"
+					>
+					<File
+						RelativePath=".\MainMenuState.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\MenuState.cpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\Globals.h"
+				>
+			</File>
+			<Filter
+				Name="GameStates"
+				>
+				<File
+					RelativePath=".\GameState.h"
+					>
+				</File>
+				<Filter
+					Name="LevelStates"
+					>
+					<File
+						RelativePath=".\LevelState.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="MenuStates"
+					>
+					<File
+						RelativePath=".\MainMenuState.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MenuState.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"
