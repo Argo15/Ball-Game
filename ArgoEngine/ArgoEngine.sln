@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArgoEngine", "ArgoEngine.vcproj", "{346DD4C7-6691-49E8-8423-575B39C4389B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{346DD4C7-6691-49E8-8423-575B39C4389B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{346DD4C7-6691-49E8-8423-575B39C4389B}.Debug|Win32.Build.0 = Debug|Win32
+		{346DD4C7-6691-49E8-8423-575B39C4389B}.Release|Win32.ActiveCfg = Release|Win32
+		{346DD4C7-6691-49E8-8423-575B39C4389B}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
