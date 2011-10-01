@@ -1,11 +1,12 @@
+#include <stdlib.h>
 #include <GL/glut.h>
 #include "Globals.h"
 #include "LevelState.h"
 #include "MainMenuState.h"
 
 void init() {
-	//GAMESTATE = new LevelState();		// Bill will work on this
-	GAMESTATE = new MainMenuState();	// Mike will work on this
+	GAMESTATE = new LevelState();		// Bill will work on this
+	//GAMESTATE = new MainMenuState();	// Mike will work on this
 }
 
 void resize(int w, int h) {

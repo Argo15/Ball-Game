@@ -162,7 +162,23 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\GLee.c"
+				>
+			</File>
+			<File
 				RelativePath=".\main.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Material.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\model.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Texture.cpp"
 				>
 			</File>
 			<Filter
@@ -199,11 +215,31 @@
 				RelativePath=".\Globals.h"
 				>
 			</File>
+			<File
+				RelativePath=".\Material.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Model.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Texture.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TextureRegistry.h"
+				>
+			</File>
 			<Filter
 				Name="GameStates"
 				>
 				<File
 					RelativePath=".\GameState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ModelRegistry.h"
 					>
 				</File>
 				<Filter

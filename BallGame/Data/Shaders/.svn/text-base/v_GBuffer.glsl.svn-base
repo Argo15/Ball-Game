@@ -1,0 +1,11 @@
+#version 110
+
+varying vec4 color;
+varying vec3 normal;
+
+void main() {
+	gl_TexCoord[0] = gl_TextureMatrix[0]*gl_MultiTexCoord0;
+	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+	normal = vec4(gl_TextureMatrix[7]*vec4(gl_Normal,0.0)).xyz;
+	color = gl_Color;
+}
