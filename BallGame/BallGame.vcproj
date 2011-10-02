@@ -58,6 +58,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				GenerateDebugInformation="true"
+				SubSystem="1"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -162,7 +163,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\Camera.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\GLee.c"
+				>
+			</File>
+			<File
+				RelativePath=".\Level.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LevelFile.cpp"
 				>
 			</File>
 			<File
@@ -178,12 +191,20 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Object.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Texture.cpp"
 				>
 			</File>
 			<Filter
 				Name="GameStates"
 				>
+				<File
+					RelativePath=".\GameState.cpp"
+					>
+				</File>
 				<Filter
 					Name="LevelStates"
 					>
@@ -205,6 +226,30 @@
 					</File>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="Math"
+				>
+				<File
+					RelativePath=".\ArgoMatrix3.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ArgoMatrix4.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ArgoQuaternion.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ArgoVector3.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ArgoVector4.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -212,7 +257,23 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\ArgoMatrix.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Camera.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Globals.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Level.h"
+				>
+			</File>
+			<File
+				RelativePath=".\LevelFile.h"
 				>
 			</File>
 			<File
@@ -220,7 +281,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MaterialRegistry.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Model.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ModelRegistry.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Object.h"
 				>
 			</File>
 			<File
@@ -236,10 +309,6 @@
 				>
 				<File
 					RelativePath=".\GameState.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ModelRegistry.h"
 					>
 				</File>
 				<Filter

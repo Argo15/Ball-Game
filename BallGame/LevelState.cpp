@@ -11,22 +11,17 @@ LevelState::LevelState() {
 	glDepthFunc(GL_LEQUAL);					// lesser than or equal to depth
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);	// Really Nice Perspective Calculations
 	glEnable(GL_NORMALIZE);
+
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	float direction[] = {1.0,2.0,3.0,0.0};
-	glLightfv(GL_LIGHT0,GL_POSITION,direction);
-	Model *testModel = new Model();
-	Texture *testTexture = new Texture();
-	testModel->load("Data/Models/AOBJ/Bunny.aobj");
-	testTexture->load("Data/Textures/TGA/Stone.tga");
-	testMat = new Material();
-	testMat->setTexture("stone");
-	testMat->setTexScale(10,15);
 
-	textures = new TextureRegistry();
-	textures->addTexture("stone",testTexture);
-	models = new ModelRegistry();
-	models->addModel("bunny",testModel);
+	camera = new Camera();
+	camera->setRotSpeed(2.0);
+
+	levelFile = new LevelFile();
+	levelFile->loadFile("Data/Saves/Test Level.ascn");
+	level = new Level();
+	levelFile->initializeLevel(level);
 }
 
 void LevelState::resize(int w, int h) {
@@ -45,11 +40,24 @@ void LevelState::update(int fps) {
 }
 
 void LevelState::render() {
-	glLoadIdentity();
-	glTranslated(0,0,-5.0);
 
-	testMat->useNoShaders(textures);
-	models->getModel("bunny")->drawNoShaders();
+
+	glLoadIdentity();
+
+	camera->transform();
+
+	float direction[] = {1.0,2.0,3.0,0.0};
+	glLightfv(GL_LIGHT0,GL_POSITION,direction);
+
+	level->drawNoShaders();
 
 	glutSwapBuffers();
+}
+
+void LevelState::mousePressedMove(int x, int y) {
+	camera->mouseRotate(x, y);
+}
+
+void LevelState::mouseReleasedMove(int x, int y) {
+	camera->noRotate();
 }

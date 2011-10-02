@@ -2,14 +2,14 @@
 #define LEVELSTATE_H
 
 #include "GameState.h"
-#include "Material.h"
-#include "ModelRegistry.h"
+#include "Camera.h"
+#include "LevelFile.h"
 
 class LevelState : public GameState {
 private:
-	Material *testMat;
-	ModelRegistry *models;
-	TextureRegistry *textures;
+	Camera *camera;
+	LevelFile *levelFile;
+	Level *level;
 
 public:
 	LevelState();
@@ -18,6 +18,9 @@ public:
 	void resize(int w, int h);
 	void update(int fps);
 	void render();
+
+	void mousePressedMove(int x, int y);
+	void mouseReleasedMove(int x, int y);
 };
 
 #endif
