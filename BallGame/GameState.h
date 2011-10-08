@@ -4,10 +4,10 @@
 class GameState {
 protected:
 	bool keys[256];
-	bool mouse[3];
+	bool mouse[10];
 
 public:
-	GameState() {}
+	GameState() {for (int i=0;i<3;i++) mouse[i]=false; for (int i=0;i<256;i++) keys[i]=false;}
 	~GameState() {}
 
 	virtual void resize(int w, int h) = 0;

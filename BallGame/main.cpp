@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <GL/glut.h>
 #include <GL/freeglut.h>
 #include "Globals.h"
 #include "LevelState.h"

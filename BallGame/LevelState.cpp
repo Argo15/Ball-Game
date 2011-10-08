@@ -17,6 +17,7 @@ LevelState::LevelState() {
 
 	camera = new Camera();
 	camera->setRotSpeed(2.0);
+	camera->updateFromDistance();
 
 	levelFile = new LevelFile();
 	levelFile->loadFile("Data/Saves/Test Level.ascn");
@@ -40,8 +41,6 @@ void LevelState::update(int fps) {
 }
 
 void LevelState::render() {
-
-
 	glLoadIdentity();
 
 	camera->transform();
@@ -55,7 +54,8 @@ void LevelState::render() {
 }
 
 void LevelState::mousePressedMove(int x, int y) {
-	camera->mouseRotate(x, y);
+	if (mouse[2])
+		camera->mouseRotate(x, y);
 }
 
 void LevelState::mouseReleasedMove(int x, int y) {

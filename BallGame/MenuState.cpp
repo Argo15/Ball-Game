@@ -13,7 +13,6 @@ MenuState::MenuState() {
 	glEnable(GL_DEPTH_TEST);				// enable depth testing
 	glEnable(GL_TEXTURE_2D);				// enable texturing
 	glDepthFunc(GL_LEQUAL);					// lesser than or equal to depth
-
 }
 
 void MenuState::resize(int w, int h) {
@@ -41,6 +40,7 @@ void MenuState::render() {
 
 void MenuItem::drawItem()
 {
+	glBindTexture(GL_TEXTURE_2D,0);
 	glBegin(GL_QUADS);
 	glColor3f(0.0, 1.0, 1.0);
 		glVertex3f(bottomRightX, topLeftY, -1.0);
@@ -52,8 +52,8 @@ void MenuItem::drawItem()
 	int textWidth = glutBitmapLength(GLUT_BITMAP_HELVETICA_18,(const unsigned char*)description.c_str());
 	int textHeight = glutBitmapHeight(GLUT_BITMAP_HELVETICA_18);
 
-	glRasterPos2f(bottomRightX/2-topLeftX/2, topLeftY/2+bottomRightY/2);
 	glColor3f(1.0f, 1.0f, 1.0f);
+	glRasterPos2f(bottomRightX/2-topLeftX/2, topLeftY/2+bottomRightY/2);
 	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*)description.c_str());
 
 }

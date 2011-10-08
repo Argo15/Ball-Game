@@ -49,6 +49,8 @@ struct SaveObject
 	float translation[3];
 	float rotation[4];
 	float scale[3];
+
+	BodyType type;
 };
 
 struct SaveDirectLight
@@ -94,7 +96,6 @@ struct SavePort
 
 struct SaveRigidBody
 {
-	BodyType type;
 	int numTriangles;
 	float *triangles;
 };
