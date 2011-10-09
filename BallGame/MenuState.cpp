@@ -15,12 +15,9 @@ MenuState::MenuState() {
 	glEnable(GL_DEPTH_TEST);				// enable depth testing
 	glEnable(GL_TEXTURE_2D);				// enable texturing
 	glDepthFunc(GL_LEQUAL);					// lesser than or equal to depth
-<<<<<<< HEAD
 	glEnable(GL_COLOR_MATERIAL);
 	glDisable(GL_LIGHTING);
-=======
 	glEnable(GL_BLEND);
->>>>>>> 21015f4ef4db1fa4dc91a3bcf1f8b1866ea739b6
 }
 
 void MenuState::resize(int w, int h) {
@@ -97,5 +94,5 @@ void MenuItem::setButtonLink(GameState* link)
 
 void MenuItem::switchState()
 {
-GAMESTATE = new LevelState();
+	GameState::GAMESTATE = new LevelState();
 }
