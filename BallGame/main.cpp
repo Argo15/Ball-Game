@@ -5,7 +5,8 @@
 #include "MainMenuState.h"
 
 void init() {
-	GameState::GAMESTATE = new LevelState();		// Bill will work on this
+	//GameState::GAMESTATE = new LevelState();		// Bill will work on this
+	GameState::GAMESTATE = new MainMenuState();		// Mike will work on this
 }
 
 void resize(int w, int h) {

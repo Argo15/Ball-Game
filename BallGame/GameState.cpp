@@ -4,6 +4,11 @@
 
 GameState *GameState::GAMESTATE = 0;
 
+void GameState::resize(int w, int h) {
+	width = w;
+	height = h;
+}
+
 void GameState::keyDown(unsigned char key, int xx, int yy)
 {
 	keys[key]=true;

@@ -5,6 +5,7 @@ class GameState {
 protected:
 	bool keys[256];
 	bool mouse[10];
+	int width, height;
 
 public:
 	GameState() {for (int i=0;i<3;i++) mouse[i]=false; for (int i=0;i<256;i++) keys[i]=false;}
@@ -12,7 +13,7 @@ public:
 
 	static GameState *GAMESTATE;
 
-	virtual void resize(int w, int h) = 0;
+	virtual void resize(int w, int h);
 	virtual void update(int fps) = 0;
 	virtual void render() = 0;
 	virtual void keyDown(unsigned char key, int xx, int yy);

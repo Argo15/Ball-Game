@@ -28,6 +28,7 @@ LevelState::LevelState() {
 }
 
 void LevelState::resize(int w, int h) {
+	GameState::resize(w,h);
 	if(h == 0)
 		h = 1;
 	GLfloat aspect = GLfloat(w) / h;
@@ -40,8 +41,10 @@ void LevelState::resize(int w, int h) {
 
 void LevelState::update(int fps) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	if (keys['r'])
-w		GameState::GAMESTATE = new MainMenuState();
+	if (keys['r']){
+		GameState::GAMESTATE = new MainMenuState();
+		GameState::GAMESTATE->resize(width,height);
+	}
 }
 
 void LevelState::render() {

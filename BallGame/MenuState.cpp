@@ -21,6 +21,7 @@ MenuState::MenuState() {
 }
 
 void MenuState::resize(int w, int h) {
+	GameState::resize(w,h);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glViewport(0, 0, w, h);
