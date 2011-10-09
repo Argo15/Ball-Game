@@ -4,14 +4,22 @@ Level::Level() {
 	textures = new TextureRegistry();
 	materials = new MaterialRegistry();
 	models = new ModelRegistry();
+
+	btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
+	btCollisionDispatcher* dispatcher = new	btCollisionDispatcher(collisionConfiguration);
+	btBroadphaseInterface* overlappingPairCache = new btDbvtBroadphase();
+	btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
+	dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher,overlappingPairCache,solver,collisionConfiguration);
+	dynamicsWorld->setGravity(btVector3(0,-10,0));
 }
 
 void Level::drawNoShaders() {
-	for (int i=0; i<numObjects; i++) {
+	map<string,Object *>::iterator i;
+	for (i = objects.begin(); i != objects.end(); i++) {
 		glPushMatrix();
-			objects[i]->transform();
-			materials->getMaterial(objects[i]->getMaterial())->useNoShaders(textures);
-			models->getModel(objects[i]->getModel())->drawNoShaders();
+			i->second->transform();
+			materials->getMaterial(i->second->getMaterial())->useNoShaders(textures);
+			models->getModel(i->second->getModel())->drawNoShaders();
 		glPopMatrix();
 	}
 }

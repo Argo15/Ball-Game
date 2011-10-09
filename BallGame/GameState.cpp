@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 
+GameState *GameState::GAMESTATE = 0;
+
 void GameState::keyDown(unsigned char key, int xx, int yy)
 {
 	keys[key]=true;

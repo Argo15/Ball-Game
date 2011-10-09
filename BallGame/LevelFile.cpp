@@ -38,6 +38,15 @@ void LevelFile::loadFile(const char *filename)
 		file.read((char*)&entrance,sizeof(SavePort));
 		file.read((char*)&exit,sizeof(SavePort));
 
+		file.read((char*)&numRigidBodies,sizeof(numRigidBodies));
+		bodies = new SaveRigidBody[numRigidBodies];
+		for (int i=0; i<numRigidBodies; i++){
+			file.read((char*)&bodies[i].objectName[0],sizeof(char)*100);
+			file.read((char*)&bodies[i].numTriangles,sizeof(int));
+			bodies[i].triangles = new float[9*bodies[i].numTriangles];
+			file.read((char*)&bodies[i].triangles[0],sizeof(float)*9*bodies[i].numTriangles);
+		}
+
 		file.close();
 	}
 }
@@ -46,7 +55,6 @@ void LevelFile::initializeLevel(Level *level) {
 	TextureRegistry *texReg = level->getTextures();
 	MaterialRegistry *matReg = level->getMaterials();
 	ModelRegistry *modelReg = level->getModels();
-	Object **newObjects = new Object*[numObjects];
 
 	for (int i=0; i<numTextures; i++) {
 		Texture *texture = new Texture();
@@ -78,13 +86,36 @@ void LevelFile::initializeLevel(Level *level) {
 	level->setNumObjects(numObjects);
 
 	for (int i=0; i<numObjects; i++){
-		newObjects[i] = new Object();
-		newObjects[i]->setModel(objects[i].model);
-		newObjects[i]->setMaterial(objects[i].material);
-		newObjects[i]->setTranslate(objects[i].translation[0],objects[i].translation[1],objects[i].translation[2]);
-		newObjects[i]->setRotate(ArgoQuaternion(objects[i].rotation[0],objects[i].rotation[1],objects[i].rotation[2],objects[i].rotation[3]));
-		newObjects[i]->setScale(objects[i].scale[0],objects[i].scale[1],objects[i].scale[2]);
+		Object *newObject = new Object();
+		newObject->setModel(objects[i].model);
+		newObject->setMaterial(objects[i].material);
+		newObject->setTranslate(objects[i].translation[0],objects[i].translation[1],objects[i].translation[2]);
+		newObject->setRotate(ArgoQuaternion(objects[i].rotation[0],objects[i].rotation[1],objects[i].rotation[2],objects[i].rotation[3]));
+		newObject->setScale(objects[i].scale[0],objects[i].scale[1],objects[i].scale[2]);
+		level->setObject(objects[i].name, newObject);
 	}
 
-	level->setObjects(newObjects);
+	for (int i=0; i<numRigidBodies; i++) {
+		btTriangleMesh *mesh = new btTriangleMesh();
+		for (int j =0; j<bodies[i].numTriangles*9; j+=9) {
+			mesh->addTriangle(
+				btVector3(bodies[i].triangles[j],bodies[i].triangles[j+1],bodies[i].triangles[j+2]),
+				btVector3(bodies[i].triangles[j+3],bodies[i].triangles[j+4],bodies[i].triangles[j+5]),
+				btVector3(bodies[i].triangles[j+6],bodies[i].triangles[j+7],bodies[i].triangles[j+8])
+			);
+		}
+		mesh->addTriangle(btVector3(0,0,0),btVector3(0,0,0),btVector3(0,0,0));
+		btCollisionShape* bodyShape = new btBvhTriangleMeshShape(mesh,true);
+		btTransform bodyTransform;
+		bodyTransform.setIdentity();
+		ArgoVector3 org = level->getObject(bodies[i].objectName)->getTranslateV();
+		bodyTransform.setOrigin(btVector3(org[0],org[1],org[2]));
+		btScalar mass(0.);
+		btVector3 localInertia(0,0,0);
+		btDefaultMotionState* myMotionState = new btDefaultMotionState(bodyTransform);
+		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,myMotionState,bodyShape,localInertia);
+		btRigidBody *newBody = new btRigidBody(rbInfo);
+
+		level->getObject(bodies[i].objectName)->setRigidBody(newBody);
+	}
 }

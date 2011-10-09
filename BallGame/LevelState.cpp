@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 #include "LevelState.h"
+#include "Globals.h"
+#include "MainMenuState.h"
 
 // init
 LevelState::LevelState() {
@@ -38,6 +40,8 @@ void LevelState::resize(int w, int h) {
 
 void LevelState::update(int fps) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	if (keys['r'])
+		GameState::GAMESTATE = new MainMenuState();
 }
 
 void LevelState::render() {

@@ -1,9 +1,12 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
+#include <map>
 #include "MaterialRegistry.h"
 #include "ModelRegistry.h"
 #include "Object.h"
+#include "btBulletDynamicsCommon.h"
+using namespace std;
 
 class Level {
 private: 
@@ -11,7 +14,9 @@ private:
 	MaterialRegistry *materials;
 	ModelRegistry *models;
 	int numObjects;
-	Object **objects;
+	map<string,Object *> objects;
+
+	btDiscreteDynamicsWorld* dynamicsWorld;
 
 public:
 	Level();
@@ -21,10 +26,12 @@ public:
 	MaterialRegistry *getMaterials() {return materials;}
 	ModelRegistry *getModels() {return models;}
 
-	Object **getObjects() {return objects;}
-	void setObjects(Object **objs) {objects=objs;}
+	map<string,Object *> getObjects() {return objects;}
+	Object *getObject(string name) {return objects[name];}
+	void setObject(string name, Object *newObject) {objects[name]=newObject;}
 
 	void setNumObjects(int count) {numObjects = count;}
+	void buildDynamicsWorld();
 
 	void drawNoShaders();
 };

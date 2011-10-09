@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include "Level.h"
+#include "btBulletDynamicsCommon.h"
+#include "ArgoMatrix.h"
 using namespace std;
 
 enum PortType { ENTRANCE, EXIT };
@@ -96,6 +98,8 @@ struct SavePort
 
 struct SaveRigidBody
 {
+	char objectName[100];
+
 	int numTriangles;
 	float *triangles;
 };

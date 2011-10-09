@@ -13,6 +13,8 @@ MenuState::MenuState() {
 	glEnable(GL_DEPTH_TEST);				// enable depth testing
 	glEnable(GL_TEXTURE_2D);				// enable texturing
 	glDepthFunc(GL_LEQUAL);					// lesser than or equal to depth
+	glEnable(GL_COLOR_MATERIAL);
+	glDisable(GL_LIGHTING);
 }
 
 void MenuState::resize(int w, int h) {

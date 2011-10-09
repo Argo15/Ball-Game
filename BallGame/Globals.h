@@ -1,3 +1,3 @@
 #include "GameState.h"
 
-static GameState *GAMESTATE = 0;
+//GameState *GAMESTATE = 0;

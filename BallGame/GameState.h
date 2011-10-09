@@ -10,6 +10,8 @@ public:
 	GameState() {for (int i=0;i<3;i++) mouse[i]=false; for (int i=0;i<256;i++) keys[i]=false;}
 	~GameState() {}
 
+	static GameState *GAMESTATE;
+
 	virtual void resize(int w, int h) = 0;
 	virtual void update(int fps) = 0;
 	virtual void render() = 0;

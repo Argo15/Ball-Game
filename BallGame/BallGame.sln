@@ -2,17 +2,58 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BallGame", "BallGame.vcproj", "{1844A53E-BB98-4FCD-BB70-B5A6C4AD880E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{66F96008-C5E6-47E1-B94C-8079AFF55C2C} = {66F96008-C5E6-47E1-B94C-8079AFF55C2C}
+		{14B6655B-D5EB-4190-A26C-BAB4FCD367BB} = {14B6655B-D5EB-4190-A26C-BAB4FCD367BB}
+		{096A01BA-75E4-4931-85B7-B6B0A3E78507} = {096A01BA-75E4-4931-85B7-B6B0A3E78507}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BulletCollision", "src\BulletCollision\BulletCollision.vcproj", "{096A01BA-75E4-4931-85B7-B6B0A3E78507}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BulletDynamics", "src\BulletDynamics\BulletDynamics.vcproj", "{66F96008-C5E6-47E1-B94C-8079AFF55C2C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LinearMath", "src\LinearMath\LinearMath.vcproj", "{14B6655B-D5EB-4190-A26C-BAB4FCD367BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
+		MinSizeRel|Win32 = MinSizeRel|Win32
 		Release|Win32 = Release|Win32
+		RelWithDebInfo|Win32 = RelWithDebInfo|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1844A53E-BB98-4FCD-BB70-B5A6C4AD880E}.Debug|Win32.ActiveCfg = Debug|Win32
 		{1844A53E-BB98-4FCD-BB70-B5A6C4AD880E}.Debug|Win32.Build.0 = Debug|Win32
+		{1844A53E-BB98-4FCD-BB70-B5A6C4AD880E}.MinSizeRel|Win32.ActiveCfg = Release|Win32
+		{1844A53E-BB98-4FCD-BB70-B5A6C4AD880E}.MinSizeRel|Win32.Build.0 = Release|Win32
 		{1844A53E-BB98-4FCD-BB70-B5A6C4AD880E}.Release|Win32.ActiveCfg = Release|Win32
 		{1844A53E-BB98-4FCD-BB70-B5A6C4AD880E}.Release|Win32.Build.0 = Release|Win32
+		{1844A53E-BB98-4FCD-BB70-B5A6C4AD880E}.RelWithDebInfo|Win32.ActiveCfg = Release|Win32
+		{1844A53E-BB98-4FCD-BB70-B5A6C4AD880E}.RelWithDebInfo|Win32.Build.0 = Release|Win32
+		{096A01BA-75E4-4931-85B7-B6B0A3E78507}.Debug|Win32.ActiveCfg = Debug|Win32
+		{096A01BA-75E4-4931-85B7-B6B0A3E78507}.Debug|Win32.Build.0 = Debug|Win32
+		{096A01BA-75E4-4931-85B7-B6B0A3E78507}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
+		{096A01BA-75E4-4931-85B7-B6B0A3E78507}.MinSizeRel|Win32.Build.0 = MinSizeRel|Win32
+		{096A01BA-75E4-4931-85B7-B6B0A3E78507}.Release|Win32.ActiveCfg = Release|Win32
+		{096A01BA-75E4-4931-85B7-B6B0A3E78507}.Release|Win32.Build.0 = Release|Win32
+		{096A01BA-75E4-4931-85B7-B6B0A3E78507}.RelWithDebInfo|Win32.ActiveCfg = RelWithDebInfo|Win32
+		{096A01BA-75E4-4931-85B7-B6B0A3E78507}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
+		{66F96008-C5E6-47E1-B94C-8079AFF55C2C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{66F96008-C5E6-47E1-B94C-8079AFF55C2C}.Debug|Win32.Build.0 = Debug|Win32
+		{66F96008-C5E6-47E1-B94C-8079AFF55C2C}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
+		{66F96008-C5E6-47E1-B94C-8079AFF55C2C}.MinSizeRel|Win32.Build.0 = MinSizeRel|Win32
+		{66F96008-C5E6-47E1-B94C-8079AFF55C2C}.Release|Win32.ActiveCfg = Release|Win32
+		{66F96008-C5E6-47E1-B94C-8079AFF55C2C}.Release|Win32.Build.0 = Release|Win32
+		{66F96008-C5E6-47E1-B94C-8079AFF55C2C}.RelWithDebInfo|Win32.ActiveCfg = RelWithDebInfo|Win32
+		{66F96008-C5E6-47E1-B94C-8079AFF55C2C}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
+		{14B6655B-D5EB-4190-A26C-BAB4FCD367BB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{14B6655B-D5EB-4190-A26C-BAB4FCD367BB}.Debug|Win32.Build.0 = Debug|Win32
+		{14B6655B-D5EB-4190-A26C-BAB4FCD367BB}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
+		{14B6655B-D5EB-4190-A26C-BAB4FCD367BB}.MinSizeRel|Win32.Build.0 = MinSizeRel|Win32
+		{14B6655B-D5EB-4190-A26C-BAB4FCD367BB}.Release|Win32.ActiveCfg = Release|Win32
+		{14B6655B-D5EB-4190-A26C-BAB4FCD367BB}.Release|Win32.Build.0 = Release|Win32
+		{14B6655B-D5EB-4190-A26C-BAB4FCD367BB}.RelWithDebInfo|Win32.ActiveCfg = RelWithDebInfo|Win32
+		{14B6655B-D5EB-4190-A26C-BAB4FCD367BB}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

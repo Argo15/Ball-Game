@@ -4,6 +4,7 @@
 #include <string>
 #include "ArgoMatrix.h"
 #include "ModelRegistry.h"
+#include "btBulletDynamicsCommon.h"
 using namespace std;
 
 class Object {
@@ -14,6 +15,8 @@ protected:
 	float translations[3];
 	ArgoQuaternion rotation;
 	float scale[3];
+
+	btRigidBody* body;
 
 public:
 	Object() {}
@@ -39,6 +42,9 @@ public:
 	ArgoVector3 getTranslateV() {return ArgoVector3(translations[0],translations[1],translations[2]);}
 
 	float getScaledRadius(ModelRegistry *models);
+
+	btRigidBody* getRigidBody() {return body;}
+	void setRigidBody(btRigidBody* newBody) {body = newBody;}
 
 	void transform();
 };
