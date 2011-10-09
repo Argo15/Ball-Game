@@ -15,6 +15,7 @@ public:
 private:
 	Texture* background;
 	void drawBackground();
+	bool keyDown[256];
 };
 
 

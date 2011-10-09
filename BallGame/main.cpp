@@ -5,8 +5,13 @@
 #include "MainMenuState.h"
 
 void init() {
+<<<<<<< HEAD
 	GameState::GAMESTATE = new LevelState();		// Bill will work on this
 	//GAMESTATE = new MainMenuState();	// Mike will work on this
+=======
+	//GAMESTATE = new LevelState();		// Bill will work on this
+	GAMESTATE = new MainMenuState();	// Mike will work on this
+>>>>>>> 21015f4ef4db1fa4dc91a3bcf1f8b1866ea739b6
 }
 
 void resize(int w, int h) {
@@ -37,6 +42,10 @@ void mousePressedMove(int x, int y) {
 void mouseReleasedMove(int x, int y) {
 	GameState::GAMESTATE->mouseReleasedMove(x, y);
 }
+void specialKeyDown(int key, int xx, int yy)
+{
+
+}
 
 void mouseWheel(int button, int dir, int x, int y)
 {
@@ -57,6 +66,7 @@ int main(int argc, char **argv) {
 	glutIdleFunc(render);
 	glutKeyboardFunc(keyDown);
 	glutKeyboardUpFunc(keyUp);
+	glutSpecialFunc(specialKeyDown);
 	glutMouseFunc(mousePress);
 	glutMotionFunc(mousePressedMove);
 	glutPassiveMotionFunc(mouseReleasedMove);

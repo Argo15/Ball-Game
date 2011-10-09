@@ -2,6 +2,8 @@
 #include <GL/glut.h>
 #include <GL/freeglut.h>
 #include "MenuState.h"
+#include "LevelState.h"
+#include "Globals.h"
 #include <string>
 using namespace std;
  int MenuState::screenHeight = 1;
@@ -13,8 +15,12 @@ MenuState::MenuState() {
 	glEnable(GL_DEPTH_TEST);				// enable depth testing
 	glEnable(GL_TEXTURE_2D);				// enable texturing
 	glDepthFunc(GL_LEQUAL);					// lesser than or equal to depth
+<<<<<<< HEAD
 	glEnable(GL_COLOR_MATERIAL);
 	glDisable(GL_LIGHTING);
+=======
+	glEnable(GL_BLEND);
+>>>>>>> 21015f4ef4db1fa4dc91a3bcf1f8b1866ea739b6
 }
 
 void MenuState::resize(int w, int h) {
@@ -42,13 +48,21 @@ void MenuState::render() {
 
 void MenuItem::drawItem()
 {
-	glBindTexture(GL_TEXTURE_2D,0);
+    texture->use();
 	glBegin(GL_QUADS);
-	glColor3f(0.0, 1.0, 1.0);
-		glVertex3f(bottomRightX, topLeftY, -1.0);
-		glVertex3f(bottomRightX,  bottomRightY, -1.0);
-		glVertex3f( topLeftX, bottomRightY, -1.0);
-		glVertex3f(topLeftX,topLeftY,-1.0);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	if(current)
+	{
+	glColor4f(0.0, 1.0, 1.0,0.9);
+	}
+	else
+	{
+	glColor4f(1,1,1,1);
+	}
+		glTexCoord2f(bottomRightX,topLeftY);glVertex3f(bottomRightX, topLeftY, -1.0);
+		glTexCoord2f(bottomRightX,bottomRightY);glVertex3f(bottomRightX,  bottomRightY, -1.0);
+		glTexCoord2f(topLeftX,bottomRightY);glVertex3f( topLeftX, bottomRightY, -1.0);
+		glTexCoord2f(topLeftX,topLeftY);glVertex3f(topLeftX,topLeftY,-1.0);
 	glEnd();
 
 	int textWidth = glutBitmapLength(GLUT_BITMAP_HELVETICA_18,(const unsigned char*)description.c_str());
@@ -74,4 +88,14 @@ void MenuItem::setBottomRight(float x, float y)
 void MenuItem::setDescription(string desc)
 {
 	description = desc;
+}
+
+void MenuItem::setButtonLink(GameState* link)
+{
+	buttonLink = link;
+}
+
+void MenuItem::switchState()
+{
+GAMESTATE = new LevelState();
 }

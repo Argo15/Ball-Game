@@ -3,6 +3,7 @@
 
 #include "GameState.h"
 #include <string>
+#include "Texture.h"
 using namespace std;
 class MenuItem;
 
@@ -26,6 +27,10 @@ public:
 	void setTopLeft(float,float);
 	void setBottomRight(float,float);
 	void setDescription(string);
+	void setButtonLink(GameState* link);
+	void switchState();
+	Texture* texture;
+	bool current;
 private:
 	string description;
 	GameState* buttonLink;
