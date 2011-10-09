@@ -7,6 +7,7 @@ void GameState::keyDown(unsigned char key, int xx, int yy)
 	keys[key]=true;
 }
 
+
 void GameState::keyUp(unsigned char key, int xx, int yy)
 {
 	keys[key]=false;
