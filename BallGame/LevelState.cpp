@@ -13,7 +13,7 @@ LevelState::LevelState() {
 	glDepthFunc(GL_LEQUAL);					// lesser than or equal to depth
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);	// Really Nice Perspective Calculations
 	glEnable(GL_NORMALIZE);
-
+	glDisable(GL_BLEND);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 
