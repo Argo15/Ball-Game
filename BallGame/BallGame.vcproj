@@ -324,6 +324,10 @@
 					Name="MenuStates"
 					>
 					<File
+						RelativePath=".\Background.h"
+						>
+					</File>
+					<File
 						RelativePath=".\MainMenuState.h"
 						>
 					</File>

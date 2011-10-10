@@ -4,6 +4,8 @@
 #include "MainMenuState.h"
 #include "LevelState.h"
 #include <iostream>
+#include "Background.h"
+#include "ArgoMatrix.h"
 using namespace std;
 
 // init
@@ -15,8 +17,7 @@ MainMenuState::MainMenuState() : MenuState() {
 	cout<<x<<endl;
 	}
 
-	background = new Texture();
-	background->load("Data/Textures/TGA/Background.tga");
+	background = new Background(width,height);
 	currentItem = 0;
 
 	items = new MenuItem*[2];
@@ -99,7 +100,7 @@ void MainMenuState::update(int fps) {
 void MainMenuState::render() {
 	glLoadIdentity();
 	
-	drawBackground();
+	background->drawBackground();
 
 	items[0]->drawItem();
 	items[1]->drawItem();
@@ -107,15 +108,19 @@ void MainMenuState::render() {
 	MenuState::render();
 }
 
-void MainMenuState::drawBackground()
+Background::Background(int w, int h)
 {
-	background->use();
-	glBegin(GL_QUADS);
-	glColor3f(1.0, 1.0, 1.0);
-	glTexCoord2f(1,1);	glVertex3f(1.0, 1.0, -9.0);
-	glTexCoord2f(1,0);	glVertex3f(1.0,  0.0, -9.0);
-	glTexCoord2f(0,0);	glVertex3f( 0.0, 0.0, -9.0);
-	glTexCoord2f(0,1);	glVertex3f(0.0,1.0,-9.0);
-	glEnd();
+	width=w;
+	height=h;
+	for(int x=0;x<sizeof(bullets)/sizeof(int);x++)
+	{
+	bullets[x]=new Bullet();
+	bullets[x].position= new Bullet((rand() / double(RAND_MAX)) * width,(rand() / double(RAND_MAX))*height,(rand() / double(RAND_MAX))*width,(rand() / double(RAND_MAX))*height);
+
+	}
+}
+void Background::drawBackground()
+{
+	
 }
 
