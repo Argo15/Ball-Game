@@ -45,7 +45,7 @@ void LevelState::update(int fps) {
 		GameState::GAMESTATE = new MainMenuState();
 		GameState::GAMESTATE->resize(width,height);
 	}
-	level->updateDynamicsWorld(keys,camera);
+	level->updateDynamicsWorld(keys,camera,fps);
 }
 
 void LevelState::render() {

@@ -37,7 +37,7 @@ public:
 
 	void setNumObjects(int count) {numObjects = count;}
 	void buildDynamicsWorld();
-	void updateDynamicsWorld(bool *keys, Camera *camera);
+	void updateDynamicsWorld(bool *keys, Camera *camera, int fps);
 
 	void drawNoShaders();
 };

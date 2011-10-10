@@ -4,6 +4,9 @@
 #include "LevelState.h"
 #include "MainMenuState.h"
 
+int currentTime = 0;
+int vsync = 0;
+
 void init() {
 	//GameState::GAMESTATE = new LevelState();		// Bill will work on this
 	GameState::GAMESTATE = new MainMenuState();		// Mike will work on this
@@ -14,8 +17,15 @@ void resize(int w, int h) {
 }
 
 void render(void) {
-	GameState::GAMESTATE->update(60);
-	GameState::GAMESTATE->render();
+	int lastTime = currentTime;
+	currentTime = glutGet( GLUT_ELAPSED_TIME );
+	int timePassed = currentTime - lastTime;
+	vsync += timePassed;
+	if (vsync > (1000/60)){
+		GameState::GAMESTATE->update(1000.0/(float)timePassed);
+		GameState::GAMESTATE->render();
+		vsync = 0;
+	}
 }
 
 void keyDown(unsigned char key, int xx, int yy) {

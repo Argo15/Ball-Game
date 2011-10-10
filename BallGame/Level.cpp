@@ -38,7 +38,7 @@ void Level::buildDynamicsWorld() {
 	dynamicsWorld->addRigidBody(ballBody);
 }
 
-void Level::updateDynamicsWorld(bool *keys, Camera *camera) {
+void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps) {
 	ArgoVector3 dir = ArgoVector3(0);
 	if (keys['w']) {
 		dir = camera->getLookAt()-camera->geteyeV();
@@ -84,6 +84,7 @@ void Level::drawNoShaders() {
 	btTransform trans;
 	ballBody->getMotionState()->getWorldTransform(trans);
 	glPushMatrix();
+		materials->getMaterial("Default")->useNoShaders(textures);
 		ballTex->use();
 		float mat[16];
 		trans.getOpenGLMatrix(mat);
