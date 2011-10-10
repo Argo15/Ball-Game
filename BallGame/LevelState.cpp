@@ -13,7 +13,7 @@ LevelState::LevelState() {
 	glDepthFunc(GL_LEQUAL);					// lesser than or equal to depth
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);	// Really Nice Perspective Calculations
 	glEnable(GL_NORMALIZE);
-
+	glDisable(GL_BLEND);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 
@@ -25,6 +25,8 @@ LevelState::LevelState() {
 	levelFile->loadFile("Data/Saves/Test Level.ascn");
 	level = new Level();
 	levelFile->initializeLevel(level);
+
+	endDistance = 0.5;
 }
 
 void LevelState::resize(int w, int h) {
@@ -41,11 +43,11 @@ void LevelState::resize(int w, int h) {
 
 void LevelState::update(int fps) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	if (keys['r']){
+	level->updateDynamicsWorld(keys,camera,fps);
+	if (level->distanceFromEnd() < endDistance) {
 		GameState::GAMESTATE = new MainMenuState();
 		GameState::GAMESTATE->resize(width,height);
 	}
-	level->updateDynamicsWorld(keys,camera,fps);
 }
 
 void LevelState::render() {

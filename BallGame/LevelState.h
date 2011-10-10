@@ -6,10 +6,12 @@
 #include "LevelFile.h"
 
 class LevelState : public GameState {
-private:
+protected:
 	Camera *camera;
 	LevelFile *levelFile;
 	Level *level;
+
+	float endDistance;
 
 public:
 	LevelState();

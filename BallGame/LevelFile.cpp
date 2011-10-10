@@ -115,7 +115,14 @@ void LevelFile::initializeLevel(Level *level) {
 		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,myMotionState,bodyShape,localInertia);
 		btRigidBody *newBody = new btRigidBody(rbInfo);
 
+		if (objects[i].type == KINEMATIC) {
+			newBody->setCollisionFlags( newBody->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT); 
+			newBody->setActivationState(DISABLE_DEACTIVATION);
+		}
+
 		level->getObject(bodies[i].objectName)->setRigidBody(newBody);
+		level->setStart(entrance.object.translation);
+		level->setEnd(exit.object.translation);
 	}
 
 	level->buildDynamicsWorld();

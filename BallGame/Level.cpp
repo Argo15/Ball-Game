@@ -1,5 +1,23 @@
 #include "Level.h"
 
+struct BallCallback : public btCollisionWorld::ContactResultCallback
+{
+	bool canJump;
+
+	virtual	btScalar addSingleResult(btManifoldPoint& cp, const btCollisionObject* colObj0, int partId0, int index0, const btCollisionObject* colObj1, int partId1, int index1)
+	{
+		if (btVector3(
+			cp.m_normalWorldOnB.mVec128.m128_f32[0],
+			cp.m_normalWorldOnB.mVec128.m128_f32[1],
+			cp.m_normalWorldOnB.mVec128.m128_f32[2]
+		).dot(btVector3(0,1,0)) > 0.8) {
+			canJump = true;
+		}
+
+		return 0;
+	}
+};
+
 Level::Level() {
 	textures = new TextureRegistry();
 	materials = new MaterialRegistry();
@@ -16,6 +34,8 @@ Level::Level() {
 	myBall->load("Data/Models/AOBJ/Sphere.aobj");
 	ballTex = new Texture();
 	ballTex->load("Data/Textures/TGA/Beach Ball.tga");
+
+	canJump=true;
 }
 
 void Level::buildDynamicsWorld() {
@@ -30,7 +50,7 @@ void Level::buildDynamicsWorld() {
 	btScalar mass(10.f);
 	btVector3 localInertia(0,0,0);
 	colShape->calculateLocalInertia(mass,localInertia);
-	startTransform.setOrigin(btVector3(0,0.312359,1.21146));
+	startTransform.setOrigin(start);
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,myMotionState,colShape,localInertia);
 	ballBody = new btRigidBody(rbInfo);
@@ -39,7 +59,29 @@ void Level::buildDynamicsWorld() {
 }
 
 void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps) {
+	BallCallback ballCallback;
+	ballCallback.canJump = false;
+	dynamicsWorld->contactTest(ballBody,ballCallback);
+
+	btVector3 velocity = ballBody->getLinearVelocity();
+	float tempY = velocity.getY();
+	velocity.setY(0);
+	if (velocity.length()>4) {
+		velocity.normalize();
+		velocity *= 4;
+		velocity.setY(tempY);
+		ballBody->setLinearVelocity(velocity);
+	}
+
 	ArgoVector3 dir = ArgoVector3(0);
+	if (keys['r']) {
+		ballBody->setLinearVelocity(btVector3(0,0,0));
+		ballBody->setAngularVelocity(btVector3(0,0,0));
+		btTransform startTransform;
+		startTransform.setIdentity();
+		startTransform.setOrigin(start);
+		ballBody->setWorldTransform(startTransform);
+	}
 	if (keys['w']) {
 		dir = camera->getLookAt()-camera->geteyeV();
 		dir.set(dir[0],0,dir[2]);
@@ -72,12 +114,23 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps) {
 		ballBody->activate(true);
 		ballBody->applyCentralForce(velocity*100);
 	}
+	if (keys[32] && ballCallback.canJump) {
+		btVector3 velocity(0,1,0);
+		ballBody->activate(true);
+		ballBody->applyCentralForce(velocity*3000);
+	}
 	dynamicsWorld->stepSimulation(1.f/60.f,10);
 
 	btTransform trans;
 	ballBody->getMotionState()->getWorldTransform(trans);
 	camera->setLookAt(trans.getOrigin().getX(),trans.getOrigin().getY(),trans.getOrigin().getZ());
 	camera->updateFromDistance();
+}
+
+float Level::distanceFromEnd() {
+	btTransform trans;
+	ballBody->getMotionState()->getWorldTransform(trans);
+	return trans.getOrigin().distance(end);
 }
 
 void Level::drawNoShaders() {
