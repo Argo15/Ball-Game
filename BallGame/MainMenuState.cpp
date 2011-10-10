@@ -114,10 +114,15 @@ Background::Background(int w, int h)
 	height=h;
 	for(int x=0;x<sizeof(bullets)/sizeof(int);x++)
 	{
-	bullets[x]=new Bullet();
-	bullets[x].position= new Bullet((rand() / double(RAND_MAX)) * width,(rand() / double(RAND_MAX))*height,(rand() / double(RAND_MAX))*width,(rand() / double(RAND_MAX))*height);
+//	bullets[x]=new Bullet();
+	//bullets[x].position= new Bullet((rand() / double(RAND_MAX)) * width,(rand() / double(RAND_MAX))*height,(rand() / double(RAND_MAX))*width,(rand() / double(RAND_MAX))*height);
 
 	}
+}
+
+Background::Background()
+{
+
 }
 void Background::drawBackground()
 {
