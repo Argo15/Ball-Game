@@ -104,7 +104,6 @@ void LevelFile::initializeLevel(Level *level) {
 				btVector3(bodies[i].triangles[j+6],bodies[i].triangles[j+7],bodies[i].triangles[j+8])
 			);
 		}
-		mesh->addTriangle(btVector3(0,0,0),btVector3(0,0,0),btVector3(0,0,0));
 		btCollisionShape* bodyShape = new btBvhTriangleMeshShape(mesh,true);
 		btTransform bodyTransform;
 		bodyTransform.setIdentity();
@@ -118,4 +117,6 @@ void LevelFile::initializeLevel(Level *level) {
 
 		level->getObject(bodies[i].objectName)->setRigidBody(newBody);
 	}
+
+	level->buildDynamicsWorld();
 }

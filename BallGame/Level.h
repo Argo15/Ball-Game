@@ -6,6 +6,7 @@
 #include "ModelRegistry.h"
 #include "Object.h"
 #include "btBulletDynamicsCommon.h"
+#include "Camera.h"
 using namespace std;
 
 class Level {
@@ -16,6 +17,10 @@ private:
 	int numObjects;
 	map<string,Object *> objects;
 
+	Model *myBall;
+	Texture *ballTex;
+
+	btRigidBody* ballBody;
 	btDiscreteDynamicsWorld* dynamicsWorld;
 
 public:
@@ -32,6 +37,7 @@ public:
 
 	void setNumObjects(int count) {numObjects = count;}
 	void buildDynamicsWorld();
+	void updateDynamicsWorld(bool *keys, Camera *camera);
 
 	void drawNoShaders();
 };
