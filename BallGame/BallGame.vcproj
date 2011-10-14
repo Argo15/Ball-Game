@@ -213,6 +213,10 @@
 						RelativePath=".\LevelState.cpp"
 						>
 					</File>
+					<File
+						RelativePath=".\TestLevelOne.cpp"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="MenuStates"
@@ -248,6 +252,10 @@
 				</File>
 				<File
 					RelativePath=".\ArgoVector4.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Globals.cpp"
 					>
 				</File>
 			</Filter>
@@ -317,6 +325,10 @@
 					>
 					<File
 						RelativePath=".\LevelState.h"
+						>
+					</File>
+					<File
+						RelativePath=".\TestLevelOne.h"
 						>
 					</File>
 				</Filter>

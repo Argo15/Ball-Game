@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 
-GameState *GameState::GAMESTATE = 0;
-
 void GameState::resize(int w, int h) {
 	width = w;
 	height = h;

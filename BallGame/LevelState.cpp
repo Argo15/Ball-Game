@@ -21,11 +21,6 @@ LevelState::LevelState() {
 	camera->setRotSpeed(2.0);
 	camera->updateFromDistance();
 
-	levelFile = new LevelFile();
-	levelFile->loadFile("Data/Saves/Test Level.ascn");
-	level = new Level();
-	levelFile->initializeLevel(level);
-
 	endDistance = 0.5;
 }
 
@@ -45,8 +40,8 @@ void LevelState::update(int fps) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	level->updateDynamicsWorld(keys,camera,fps);
 	if (level->distanceFromEnd() < endDistance) {
-		GameState::GAMESTATE = new MainMenuState();
-		GameState::GAMESTATE->resize(width,height);
+		Globals::GAMESTATE = new MainMenuState();
+		Globals::GAMESTATE->resize(width,height);
 	}
 }
 

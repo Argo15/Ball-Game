@@ -8,6 +8,7 @@
 #include <iostream>
 #include "Background.h"
 #include "ArgoMatrix.h"
+#include "Globals.h"
 #include <time.h>
 #include <list>
 using namespace std;
@@ -87,7 +88,7 @@ void MainMenuState::update(int fps) {
 		keyDown[13]=true;
 		cout<<"enter down"<<endl;
 		items[currentItem]->switchState();
-		GameState::GAMESTATE->resize(width,height);
+		Globals::GAMESTATE->resize(width,height);
 	}
 
 

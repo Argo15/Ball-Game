@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <stdlib.h>
 #include <GL/freeglut.h>
 #include "Globals.h"
@@ -8,12 +9,12 @@ int currentTime = 0;
 int vsync = 0;
 
 void init() {
-	//GameState::GAMESTATE = new LevelState();		// Bill will work on this
-	GameState::GAMESTATE = new MainMenuState();		// Mike will work on this
+	//Globals::GAMESTATE = new TestLevelOne();		// Bill will work on this
+	Globals::GAMESTATE = new MainMenuState();		// Mike will work on this
 }
 
 void resize(int w, int h) {
-	GameState::GAMESTATE->resize(w, h);
+	Globals::GAMESTATE->resize(w, h);
 }
 
 void render(void) {
@@ -22,30 +23,33 @@ void render(void) {
 	int timePassed = currentTime - lastTime;
 	vsync += timePassed;
 	if (vsync > (1000/60)){
-		GameState::GAMESTATE->update(1000.0/(float)timePassed);
-		GameState::GAMESTATE->render();
+		float fps = 1000.0/timePassed;
+		if (fps > 60)
+			fps=60;
+		Globals::GAMESTATE->update(fps);
+		Globals::GAMESTATE->render();
 		vsync = 0;
 	}
 }
 
 void keyDown(unsigned char key, int xx, int yy) {
-	GameState::GAMESTATE->keyDown(key, xx, yy);
+	Globals::GAMESTATE->keyDown(key, xx, yy);
 }
 
 void keyUp(unsigned char key, int xx, int yy) {
-	GameState::GAMESTATE->keyUp(key, xx, yy);
+	Globals::GAMESTATE->keyUp(key, xx, yy);
 }
 
 void mousePress(int button, int state, int x, int y) {
-	GameState::GAMESTATE->mousePress(button, state, x, y);
+	Globals::GAMESTATE->mousePress(button, state, x, y);
 }
 
 void mousePressedMove(int x, int y) {
-	GameState::GAMESTATE->mousePressedMove(x, y);
+	Globals::GAMESTATE->mousePressedMove(x, y);
 }
 
 void mouseReleasedMove(int x, int y) {
-	GameState::GAMESTATE->mouseReleasedMove(x, y);
+	Globals::GAMESTATE->mouseReleasedMove(x, y);
 }
 
 void specialKeyDown(int key, int xx, int yy)

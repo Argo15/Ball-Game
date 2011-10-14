@@ -7,7 +7,11 @@ float Object::getScaledRadius(ModelRegistry *models)
 
 void Object::transform()
 {
-	glTranslatef(translations[0],translations[1],translations[2]);
+	btTransform trans;
+	body->getMotionState()->getWorldTransform(trans);
+	float mat[16];
+	trans.getOpenGLMatrix(mat);
+	glMultMatrixf(mat);
 	rotation.getMatrix().multiplyToCurrent();
 	glScalef(scale[0],scale[1],scale[2]);
 }

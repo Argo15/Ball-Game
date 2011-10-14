@@ -1,3 +1,10 @@
+#ifndef GLOBALS_H
+#define GLOBALS_H
 #include "GameState.h"
 
-//GameState *GAMESTATE = 0;
+class Globals {
+public:
+	static GameState *GAMESTATE;
+};
+
+#endif

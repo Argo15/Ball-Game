@@ -2,7 +2,7 @@
 #include <GL/glut.h>
 #include <GL/freeglut.h>
 #include "MenuState.h"
-#include "LevelState.h"
+#include "TestLevelOne.h"
 #include "Globals.h"
 #include <string>
 using namespace std;
@@ -99,5 +99,5 @@ void MenuItem::setButtonLink(GameState* link)
 
 void MenuItem::switchState()
 {
-	GameState::GAMESTATE = new LevelState();
+	Globals::GAMESTATE = new TestLevelOne();
 }

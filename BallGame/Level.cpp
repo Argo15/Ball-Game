@@ -10,7 +10,7 @@ struct BallCallback : public btCollisionWorld::ContactResultCallback
 			cp.m_normalWorldOnB.mVec128.m128_f32[0],
 			cp.m_normalWorldOnB.mVec128.m128_f32[1],
 			cp.m_normalWorldOnB.mVec128.m128_f32[2]
-		).dot(btVector3(0,1,0)) > 0.8) {
+		).dot(btVector3(0,1,0)) > 0.5) {
 			canJump = true;
 		}
 
@@ -88,7 +88,7 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps) {
 		dir.normalize();
 		btVector3 velocity(dir[0],0,dir[2]);
 		ballBody->activate(true);
-		ballBody->applyCentralForce(velocity*100);
+		ballBody->applyCentralForce(velocity*100*(60.0/fps));
 	}
 	if (keys['s']) {
 		dir = camera->geteyeV()-camera->getLookAt();
@@ -96,7 +96,7 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps) {
 		dir.normalize();
 		btVector3 velocity(dir[0],0,dir[2]);
 		ballBody->activate(true);
-		ballBody->applyCentralForce(velocity*100);
+		ballBody->applyCentralForce(velocity*100*(60.0/fps));
 	}
 	if (keys['d']) {
 		dir = camera->getRight();
@@ -104,7 +104,7 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps) {
 		dir.normalize();
 		btVector3 velocity(dir[0],0,dir[2]);
 		ballBody->activate(true);
-		ballBody->applyCentralForce(velocity*100);
+		ballBody->applyCentralForce(velocity*100*(60.0/fps));
 	}
 	if (keys['a']) {
 		dir = camera->getRight() * -1.0f;
@@ -112,7 +112,7 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps) {
 		dir.normalize();
 		btVector3 velocity(dir[0],0,dir[2]);
 		ballBody->activate(true);
-		ballBody->applyCentralForce(velocity*100);
+		ballBody->applyCentralForce(velocity*100*(60.0/fps));
 	}
 	if (keys[32] && ballCallback.canJump) {
 		btVector3 velocity(0,1,0);
