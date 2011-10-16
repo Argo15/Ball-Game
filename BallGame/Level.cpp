@@ -155,3 +155,34 @@ void Level::drawNoShaders() {
 		glPopMatrix();
 	}
 }
+
+void Level::draw(GLSLProgram *program) {
+	btTransform trans;
+	ballBody->getMotionState()->getWorldTransform(trans);
+	glPushMatrix();
+		materials->getMaterial("Default")->use(textures,program);
+		glActiveTextureARB(GL_TEXTURE0);
+		ballTex->use();
+		program->sendUniform("tex",0);
+		ballTex->use();
+		float mat[16];
+		trans.getOpenGLMatrix(mat);
+		glMultMatrixf(mat);
+		glScalef(0.25,0.25,0.25);
+		glMatrixMode(GL_TEXTURE);
+		glActiveTextureARB(GL_TEXTURE7);
+		glLoadIdentity();
+		glMultMatrixf(mat);
+		glMatrixMode(GL_MODELVIEW);
+		myBall->draw();
+	glPopMatrix();
+
+	map<string,Object *>::iterator i;
+	for (i = objects.begin(); i != objects.end(); i++) {
+		glPushMatrix();
+			i->second->transform();
+			materials->getMaterial(i->second->getMaterial())->use(textures,program);
+			models->getModel(i->second->getModel())->draw();
+		glPopMatrix();
+	}
+}

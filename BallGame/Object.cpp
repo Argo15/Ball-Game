@@ -14,4 +14,11 @@ void Object::transform()
 	glMultMatrixf(mat);
 	rotation.getMatrix().multiplyToCurrent();
 	glScalef(scale[0],scale[1],scale[2]);
+
+	glMatrixMode(GL_TEXTURE);
+		glActiveTextureARB(GL_TEXTURE7);
+		glLoadIdentity();
+		glMultMatrixf(mat);
+		rotation.getMatrix().multiplyToCurrent();
+	glMatrixMode(GL_MODELVIEW);
 }

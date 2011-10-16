@@ -3,6 +3,7 @@
 
 #include <string>
 #include "TextureRegistry.h"
+#include "GLSLProgram.h"
 using namespace std;
 
 class Material {
@@ -36,7 +37,7 @@ public:
 	void setNormalEnabled(bool enabled) {normalEnabled=enabled;}
 	bool normalsEnabled() {return normalEnabled;}
 
-	void use();
+	void use(TextureRegistry *textures, GLSLProgram *program);
 	void useNoShaders(TextureRegistry *textures);
 };
 

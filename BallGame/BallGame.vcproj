@@ -168,7 +168,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\GBuffer.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\GLee.c"
+				>
+			</File>
+			<File
+				RelativePath=".\Globals.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\GLSLProgram.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\GLSLShader.cpp"
 				>
 			</File>
 			<File
@@ -177,6 +193,10 @@
 			</File>
 			<File
 				RelativePath=".\LevelFile.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LinearDepthBuffer.cpp"
 				>
 			</File>
 			<File
@@ -199,6 +219,10 @@
 				RelativePath=".\Texture.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\View.cpp"
+				>
+			</File>
 			<Filter
 				Name="GameStates"
 				>
@@ -215,6 +239,10 @@
 					</File>
 					<File
 						RelativePath=".\TestLevelOne.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\TestLevelTwo.cpp"
 						>
 					</File>
 				</Filter>
@@ -254,10 +282,6 @@
 					RelativePath=".\ArgoVector4.cpp"
 					>
 				</File>
-				<File
-					RelativePath=".\Globals.cpp"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -274,7 +298,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\GBuffer.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Globals.h"
+				>
+			</File>
+			<File
+				RelativePath=".\GLSLProgram.h"
+				>
+			</File>
+			<File
+				RelativePath=".\GLSLShader.h"
 				>
 			</File>
 			<File
@@ -283,6 +319,10 @@
 			</File>
 			<File
 				RelativePath=".\LevelFile.h"
+				>
+			</File>
+			<File
+				RelativePath=".\LinearDepthBuffer.h"
 				>
 			</File>
 			<File
@@ -320,6 +360,10 @@
 					RelativePath=".\GameState.h"
 					>
 				</File>
+				<File
+					RelativePath=".\View.h"
+					>
+				</File>
 				<Filter
 					Name="LevelStates"
 					>
@@ -329,6 +373,10 @@
 					</File>
 					<File
 						RelativePath=".\TestLevelOne.h"
+						>
+					</File>
+					<File
+						RelativePath=".\TestLevelTwo.h"
 						>
 					</File>
 				</Filter>
@@ -355,6 +403,22 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath=".\Data\Shaders\f_depth.glsl"
+				>
+			</File>
+			<File
+				RelativePath=".\Data\Shaders\f_GBuffer.glsl"
+				>
+			</File>
+			<File
+				RelativePath=".\Data\Shaders\v_GBuffer.glsl"
+				>
+			</File>
+			<File
+				RelativePath=".\Data\Shaders\v_light.glsl"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

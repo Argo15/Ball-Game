@@ -1,4 +1,5 @@
 #include "GameState.h"
+#include "Globals.h"
 #include <stdlib.h>
 #include <GL/glut.h>
 
@@ -10,6 +11,8 @@ void GameState::resize(int w, int h) {
 void GameState::keyDown(unsigned char key, int xx, int yy)
 {
 	keys[key]=true;
+	if (key >= '0' && key <= '9') 
+		Globals::RENDERSTATE = (RenderState)((int)key-(int)'0');
 }
 
 

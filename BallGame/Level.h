@@ -7,6 +7,7 @@
 #include "Object.h"
 #include "btBulletDynamicsCommon.h"
 #include "Camera.h"
+#include "GLSLProgram.h"
 using namespace std;
 
 class Level {
@@ -44,9 +45,12 @@ public:
 	void setStart(float *entrance) {start = btVector3(entrance[0],entrance[1],entrance[2]);}
 	void setEnd(float *end) {this->end = btVector3(end[0],end[1],end[2]);}
 
+	btRigidBody *getBallBody() {return ballBody;}
+
 	float distanceFromEnd();
 
 	void drawNoShaders();
+	void draw(GLSLProgram *program);
 };
 
 #endif

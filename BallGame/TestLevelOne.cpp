@@ -1,4 +1,6 @@
 #include "TestLevelOne.h"
+#include "TestLevelTwo.h"
+#include "Globals.h"
 
 TestLevelOne::TestLevelOne() : LevelState(){
 	levelFile = new LevelFile();
@@ -9,6 +11,7 @@ TestLevelOne::TestLevelOne() : LevelState(){
 	position = -5.0;
 	level->getObject("Cube Actor(4)")->getRigidBody()->setFriction(btScalar(20.0f));
 	level->getObject("Cube Actor(5)")->getRigidBody()->setFriction(btScalar(20.0f));
+	endDistance = 1.0;
 }
 
 void TestLevelOne::update(int fps) {
@@ -44,4 +47,9 @@ void TestLevelOne::update(int fps) {
 	}
 
 	LevelState::update(fps);
+}
+
+void TestLevelOne::onFinish() {
+	Globals::GAMESTATE = new TestLevelTwo();
+	Globals::GAMESTATE->resize(width,height);
 }

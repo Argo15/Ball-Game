@@ -15,6 +15,7 @@ public:
 	TestLevelOne();
 
 	void update(int fps);
+	void onFinish();
 };
 
 #endif
