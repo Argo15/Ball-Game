@@ -1,4 +1,5 @@
 #include "LevelFile.h"
+#include "DirectLight.h"
 
 void LevelFile::loadFile(const char *filename)
 {
@@ -123,6 +124,16 @@ void LevelFile::initializeLevel(Level *level) {
 		level->getObject(bodies[i].objectName)->setRigidBody(newBody);
 		level->setStart(entrance.object.translation);
 		level->setEnd(exit.object.translation);
+
+		DirectLight *directLight = new DirectLight();
+		directLight->setRotate(ArgoQuaternion(dLight.rotation[0],dLight.rotation[1],dLight.rotation[2],dLight.rotation[3]));
+		directLight->setColor(dLight.color[0],dLight.color[1],dLight.color[2]);
+		directLight->setAmbient(dLight.ambient);
+		directLight->setDiffuse(dLight.diffuse);
+		directLight->setSpecular(dLight.specular);
+		directLight->setEnabled(dLight.enabled);
+		level->setDirectLight(directLight);
+
 	}
 
 	level->buildDynamicsWorld();

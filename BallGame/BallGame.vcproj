@@ -168,6 +168,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DirectLight.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FinalBuffer.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\GBuffer.cpp"
 				>
 			</File>
@@ -193,6 +201,10 @@
 			</File>
 			<File
 				RelativePath=".\LevelFile.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LightBuffer.cpp"
 				>
 			</File>
 			<File
@@ -298,6 +310,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DirectLight.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FinalBuffer.h"
+				>
+			</File>
+			<File
 				RelativePath=".\GBuffer.h"
 				>
 			</File>
@@ -319,6 +339,10 @@
 			</File>
 			<File
 				RelativePath=".\LevelFile.h"
+				>
+			</File>
+			<File
+				RelativePath=".\LightBuffer.h"
 				>
 			</File>
 			<File
@@ -405,6 +429,14 @@
 			>
 			<File
 				RelativePath=".\Data\Shaders\f_depth.glsl"
+				>
+			</File>
+			<File
+				RelativePath=".\Data\Shaders\f_dlight.glsl"
+				>
+			</File>
+			<File
+				RelativePath=".\Data\Shaders\f_final.glsl"
 				>
 			</File>
 			<File

@@ -46,6 +46,28 @@ LevelState::LevelState() {
 		depthProg->fragment_->getShaderLog(log);
 	}
 	printf(log.c_str());
+
+	log="";
+	lightBuffer = new LightBuffer(1280,720);
+	dLightProg = new GLSLProgram("Data/Shaders/v_light.glsl","Data/Shaders/f_dlight.glsl");
+	if (!dLightProg->vertex_->isCompiled()){
+		dLightProg->vertex_->getShaderLog(log);
+	}
+	if (!dLightProg->fragment_->isCompiled()){	
+		dLightProg->fragment_->getShaderLog(log);
+	}
+	printf(log.c_str());
+
+	log="";
+	finalBuffer = new FinalBuffer(1280,720);
+	finalProg = new GLSLProgram("Data/Shaders/v_light.glsl","Data/Shaders/f_final.glsl");
+	if (!finalProg->vertex_->isCompiled()){
+		finalProg->vertex_->getShaderLog(log);
+	}
+	if (!finalProg->fragment_->isCompiled()){	
+		finalProg->fragment_->getShaderLog(log);
+	}
+	printf(log.c_str());
 }
 
 void LevelState::resize(int w, int h) {
@@ -123,12 +145,68 @@ void LevelState::render() {
 			depthProg->disable();
 		depthBuffer->unbind();
 
+		lightBuffer->bind();
+			dLightProg->use();
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				glPushAttrib( GL_VIEWPORT_BIT );
+				GLenum mrtLight[] = { GL_COLOR_ATTACHMENT0_EXT, GL_COLOR_ATTACHMENT1_EXT };
+				glDrawBuffers(2, mrtLight);
+				glViewport( 0, 0, lightBuffer->getWidth(), lightBuffer->getHeight());
+				view->use3D(false);	
+				glActiveTexture(GL_TEXTURE0); 
+				gBuffer->bindDepthTex();
+				glActiveTexture(GL_TEXTURE1); 
+				gBuffer->bindNormalTex();
+				glActiveTexture(GL_TEXTURE2); 
+				gBuffer->bindColorTex();
+				glActiveTexture(GL_TEXTURE3);
+				gBuffer->bindGlowTex();
+				dLightProg->sendUniform("depthTex",0);
+				dLightProg->sendUniform("normalTex",1);
+				dLightProg->sendUniform("colorTex",2);
+				dLightProg->sendUniform("glowTex",3);
+				dLightProg->sendUniform("cameraPos",camera->geteyeX(),camera->geteyeY(),camera->geteyeZ());
+				dLightProg->sendUniform("near",view->getNear());
+				dLightProg->sendUniform("far",view->getFar());
+				dLightProg->sendUniform("lightenabled",true);
+				float dir[4] = {-1.0,-2.0,-3.0,0.0};
+				glLightfv(GL_LIGHT0,GL_POSITION,dir);
+				level->getDirectLight()->sendToShader(dLightProg);
+				//cascadedShadowMap->sendToShader(lightBuffer->getDLightProgram(),view);
+				drawScreen(0.0,0.0,1.0,1.0);
+				glPopAttrib();
+			dLightProg->disable();
+		lightBuffer->unbind();
+
+		finalBuffer->bind();
+			finalProg->use();
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				glPushAttrib( GL_VIEWPORT_BIT );
+				glViewport( 0, 0, finalBuffer->getWidth(), finalBuffer->getHeight());
+				view->use3D(false);
+				glActiveTexture(GL_TEXTURE0); 
+				gBuffer->bindColorTex();
+				glActiveTexture(GL_TEXTURE1); 
+				lightBuffer->bindLightTex();
+				glActiveTexture(GL_TEXTURE2); 
+				lightBuffer->bindSpecTex();
+				finalProg->sendUniform("colorTex",0);
+				finalProg->sendUniform("lightTex",1);
+				finalProg->sendUniform("specTex",2);
+				drawScreen(0.0,0.0,1.0,1.0);
+				glPopAttrib();
+			finalProg->disable();
+		finalBuffer->unbind();
+
 		glDisable(GL_LIGHTING);
 		glActiveTextureARB(GL_TEXTURE0);
 		level->getMaterials()->getMaterial("Default")->useNoShaders(level->getTextures());
+		if (Globals::RENDERSTATE == FINAL) finalBuffer->bindFinalTex();
 		if (Globals::RENDERSTATE == DEPTH) depthBuffer->bindLinearDepthTex();
 		if (Globals::RENDERSTATE == NORMAL) gBuffer->bindNormalTex();
 		if (Globals::RENDERSTATE == COLOR) gBuffer->bindColorTex();
+		if (Globals::RENDERSTATE == LIGHTING) lightBuffer->bindLightTex();
+		if (Globals::RENDERSTATE == SPECULAR) lightBuffer->bindSpecTex();
 		view->use3D(false);
 		glLoadIdentity();
 		drawScreen(0.0,0.0,1.0,1.0);

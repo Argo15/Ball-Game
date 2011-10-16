@@ -8,6 +8,7 @@
 #include "btBulletDynamicsCommon.h"
 #include "Camera.h"
 #include "GLSLProgram.h"
+#include "DirectLight.h"
 using namespace std;
 
 class Level {
@@ -17,6 +18,8 @@ private:
 	ModelRegistry *models;
 	int numObjects;
 	map<string,Object *> objects;
+
+	DirectLight *dLight;
 
 	Model *myBall;
 	Texture *ballTex;
@@ -37,6 +40,9 @@ public:
 	map<string,Object *> getObjects() {return objects;}
 	Object *getObject(string name) {return objects[name];}
 	void setObject(string name, Object *newObject) {objects[name]=newObject;}
+
+	void setDirectLight(DirectLight *light) {dLight=light;}
+	DirectLight *getDirectLight() {return dLight;}
 
 	void setNumObjects(int count) {numObjects = count;}
 	void buildDynamicsWorld();

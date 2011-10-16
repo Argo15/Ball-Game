@@ -9,13 +9,19 @@
 #include "GLSLProgram.h"
 #include "GLSLShader.h"
 #include "LinearDepthBuffer.h"
+#include "LightBuffer.h"
+#include "FinalBuffer.h"
 
 class LevelState : public GameState {
 private:
 	GBuffer *gBuffer;
 	LinearDepthBuffer *depthBuffer;
+	LightBuffer *lightBuffer;
+	FinalBuffer *finalBuffer;
 	GLSLProgram *gBufferProg;
 	GLSLProgram *depthProg;
+	GLSLProgram *dLightProg;
+	GLSLProgram *finalProg;
 	View *view;
 
 protected:
