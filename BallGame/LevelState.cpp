@@ -95,12 +95,20 @@ void LevelState::render() {
 	camera->transform();
 
 	glEnable(GL_LIGHTING);
-	float direction[] = {1.0,2.0,3.0,0.0};
-	glLightfv(GL_LIGHT0,GL_POSITION,direction);
 
-	if (Globals::RENDERSTATE == NOSHADERS)
+	if (Globals::RENDERSTATE == NOSHADERS) {
+		glColor3f(1.0,1.0,1.0);
+		float direction[] = {1.0,2.0,3.0,0.0};
+		float amb[] = {0.5,0.5,0.5};
+		float dif[] = {0.5,0.5,0.5};
+		float spc[] = {1.0,1.0,1.0};
+		glLightfv(GL_LIGHT0,GL_POSITION,direction);
+		glLightfv(GL_LIGHT0,GL_AMBIENT,amb);
+		glLightfv(GL_LIGHT0,GL_DIFFUSE,dif);
+		glLightfv(GL_LIGHT0,GL_SPECULAR,spc);
+		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 		level->drawNoShaders();
-	else {
+	} else {
 		gBuffer->bind();
 			GLenum mrt[] = { GL_COLOR_ATTACHMENT0_EXT, GL_COLOR_ATTACHMENT1_EXT, GL_COLOR_ATTACHMENT2_EXT };
 			glDrawBuffers(3, mrt);
@@ -111,7 +119,7 @@ void LevelState::render() {
 			glPopAttrib();
 		gBuffer->unbind();
 
-		glActiveTexture(GL_TEXTURE1);
+		/*glActiveTexture(GL_TEXTURE1);
 		glEnable(GL_COLOR_MATERIAL);
 		glDisable(GL_LIGHTING);
 		glColor3f(1.0,1.0,1.0);
@@ -196,7 +204,7 @@ void LevelState::render() {
 				drawScreen(0.0,0.0,1.0,1.0);
 				glPopAttrib();
 			finalProg->disable();
-		finalBuffer->unbind();
+		finalBuffer->unbind();*/
 
 		glDisable(GL_LIGHTING);
 		glActiveTextureARB(GL_TEXTURE0);
