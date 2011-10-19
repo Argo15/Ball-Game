@@ -45,7 +45,7 @@ void Material::use(TextureRegistry *textures, GLSLProgram *program)
 void Material::useNoShaders(TextureRegistry *textures)
 {
 	glDisable(GL_COLOR_MATERIAL);
-
+	
 	float spec[] = {specular, specular, specular};
 	glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
 	glMaterialfv(GL_FRONT,GL_AMBIENT,color);

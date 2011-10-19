@@ -9,7 +9,11 @@
 #include "Camera.h"
 #include "GLSLProgram.h"
 #include "DirectLight.h"
+#include "PointLight.h"
+#include "Frustum.h"
 using namespace std;
+
+class PointLight;
 
 class Level {
 private: 
@@ -18,8 +22,8 @@ private:
 	ModelRegistry *models;
 	int numObjects;
 	map<string,Object *> objects;
-
 	DirectLight *dLight;
+	map<string, PointLight *> pLights;
 
 	Model *myBall;
 	Texture *ballTex;
@@ -37,12 +41,16 @@ public:
 	MaterialRegistry *getMaterials() {return materials;}
 	ModelRegistry *getModels() {return models;}
 
-	map<string,Object *> getObjects() {return objects;}
+	map<string,Object *> *getObjects() {return &objects;}
 	Object *getObject(string name) {return objects[name];}
 	void setObject(string name, Object *newObject) {objects[name]=newObject;}
 
 	void setDirectLight(DirectLight *light) {dLight=light;}
 	DirectLight *getDirectLight() {return dLight;}
+
+	map<string,PointLight *> *getPointLights() {return &pLights;}
+	PointLight *getPointLight(string name) {return pLights[name];}
+	void setPointLight(string name, PointLight *newpLight) {pLights[name]=newpLight;}
 
 	void setNumObjects(int count) {numObjects = count;}
 	void buildDynamicsWorld();
@@ -55,8 +63,9 @@ public:
 
 	float distanceFromEnd();
 
-	void drawNoShaders();
-	void draw(GLSLProgram *program);
+	void drawNoShaders(Frustum *frustum);
+	void draw(GLSLProgram *program, Frustum *frustum);
+	void drawPointShadows(Frustum *frustum);
 };
 
 #endif

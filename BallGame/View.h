@@ -7,8 +7,8 @@
 
 class View{
 private:
-	GLdouble fovy, aspect, zNear, zFar;
-	GLdouble left, right, top, bottom, front, back;
+	float fovy, aspect, zNear, zFar;
+	float left, right, top, bottom, front, back;
 public:
 	View(){}
 	~View(){}

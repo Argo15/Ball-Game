@@ -96,6 +96,28 @@ void LevelFile::initializeLevel(Level *level) {
 		level->setObject(objects[i].name, newObject);
 	}
 
+	DirectLight *directLight = new DirectLight();
+	directLight->setRotate(ArgoQuaternion(dLight.rotation[0],dLight.rotation[1],dLight.rotation[2],dLight.rotation[3]));
+	directLight->setColor(dLight.color[0],dLight.color[1],dLight.color[2]);
+	directLight->setAmbient(dLight.ambient);
+	directLight->setDiffuse(dLight.diffuse);
+	directLight->setSpecular(dLight.specular);
+	directLight->setEnabled(dLight.enabled);
+	level->setDirectLight(directLight);
+
+	for (int i=0; i<numPointLights; i++){
+		PointLight *newPLight = new PointLight();
+		newPLight->setPosition(pLights[i].translation[0],pLights[i].translation[1],pLights[i].translation[2]);
+		newPLight->setColor(pLights[i].color[0],pLights[i].color[1],pLights[i].color[2]);
+		newPLight->setAmbient(pLights[i].ambient);
+		newPLight->setDiffuse(pLights[i].diffuse);
+		newPLight->setSpecular(pLights[i].specular);
+		newPLight->setEnabled(pLights[i].enabled);
+		newPLight->setAttenuation(pLights[i].attenuation);
+		newPLight->setRadius(pLights[i].radius);
+		level->setPointLight(pLights[i].name, newPLight);
+	}
+
 	for (int i=0; i<numRigidBodies; i++) {
 		btTriangleMesh *mesh = new btTriangleMesh();
 		for (int j =0; j<bodies[i].numTriangles*9; j+=9) {
@@ -124,16 +146,6 @@ void LevelFile::initializeLevel(Level *level) {
 		level->getObject(bodies[i].objectName)->setRigidBody(newBody);
 		level->setStart(entrance.object.translation);
 		level->setEnd(exit.object.translation);
-
-		DirectLight *directLight = new DirectLight();
-		directLight->setRotate(ArgoQuaternion(dLight.rotation[0],dLight.rotation[1],dLight.rotation[2],dLight.rotation[3]));
-		directLight->setColor(dLight.color[0],dLight.color[1],dLight.color[2]);
-		directLight->setAmbient(dLight.ambient);
-		directLight->setDiffuse(dLight.diffuse);
-		directLight->setSpecular(dLight.specular);
-		directLight->setEnabled(dLight.enabled);
-		level->setDirectLight(directLight);
-
 	}
 
 	level->buildDynamicsWorld();

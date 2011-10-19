@@ -22,3 +22,14 @@ void Object::transform()
 		rotation.getMatrix().multiplyToCurrent();
 	glMatrixMode(GL_MODELVIEW);
 }
+
+void Object::transformToCurrentMatrix()
+{
+	btTransform trans;
+	body->getMotionState()->getWorldTransform(trans);
+	float mat[16];
+	trans.getOpenGLMatrix(mat);
+	glMultMatrixf(mat);
+	rotation.getMatrix().multiplyToCurrent();
+	glScalef(scale[0],scale[1],scale[2]);
+}

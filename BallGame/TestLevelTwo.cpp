@@ -46,10 +46,10 @@ void TestLevelTwo::update(int fps) {
 			position = 10.0f;
 		}
 	}
-
 }
 
 void TestLevelTwo::onFinish() {
+	LevelState::onFinish();
 	Globals::GAMESTATE = new MainMenuState();
 	Globals::GAMESTATE->resize(width,height);
 }

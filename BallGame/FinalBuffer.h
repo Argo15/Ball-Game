@@ -4,7 +4,9 @@
 #include <windows.h>
 #include <gl/glee.h>
 
-class FinalBuffer 
+#include "ColorBuffer.h"
+
+class FinalBuffer
 {
 private:
 	GLuint finalTex;
@@ -20,6 +22,7 @@ public:
 	void unbind() {glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);}
 
 	void bindFinalTex() {glBindTexture(GL_TEXTURE_2D, finalTex);}
+	GLuint getFinalTex() {return finalTex;}
 
 	int getWidth() {return width;}
 	int getHeight() {return height;}

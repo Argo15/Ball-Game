@@ -47,6 +47,7 @@ public:
 	void setRigidBody(btRigidBody* newBody) {body = newBody;}
 
 	void transform();
+	void transformToCurrentMatrix();
 };
 
 #endif

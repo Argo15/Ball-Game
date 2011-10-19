@@ -4,8 +4,8 @@ uniform sampler2D depthTex;
 uniform sampler2D colorTex;
 uniform sampler2D normalTex;
 uniform sampler2D glowTex;
-//uniform sampler2DShadow shadowMap[4];
-//uniform float slices[3];
+uniform sampler2DShadow shadowMap[4];
+uniform float slices[3];
 uniform vec3 cameraPos;
 uniform bool lightenabled;
 uniform float near;
@@ -21,7 +21,7 @@ void main() {
 	vec4 worldPos = gl_TextureMatrixInverse[2] * screenPos;
 	worldPos /= worldPos.w;
 	
-	/*float mapNum=0.0;
+	float mapNum=0.0;
 	float sfilter=4.0;
 	mat4 shadowMat = gl_TextureMatrix[3];
 	if (depth<slices[1] && depth>=slices[0]){
@@ -50,18 +50,16 @@ void main() {
 			xOff=i/pixelOff;
 			yOff=j/pixelOff;
 			if ( mapNum < 0.5 )
-				shadow += shadow2DProj(shadowMap[0], shadowCoord + vec4(xOff, yOff, -0.0015, 0.0)).w;
+				shadow += shadow2DProj(shadowMap[0], shadowCoord + vec4(xOff, yOff, -0.0005, 0.0)).w;
 			else if(mapNum<1.5)
-				shadow += shadow2DProj(shadowMap[1], shadowCoord + vec4(xOff, yOff, -0.003, 0.0)).w;
+				shadow += shadow2DProj(shadowMap[1], shadowCoord + vec4(xOff, yOff, -0.001, 0.0)).w;
 			else if(mapNum<2.5)
-				shadow += shadow2DProj(shadowMap[2], shadowCoord + vec4(xOff, yOff, -0.0045, 0.0)).w;
+				shadow += shadow2DProj(shadowMap[2], shadowCoord + vec4(xOff, yOff, -0.0015, 0.0)).w;
 			else
-				shadow += shadow2DProj(shadowMap[3], shadowCoord + vec4(xOff, yOff, -0.006, 0.0)).w;
+				shadow += shadow2DProj(shadowMap[3], shadowCoord + vec4(xOff, yOff, -0.002, 0.0)).w;
 		}
 	}
-	shadow /= sfilter*sfilter;*/
-	
-	float shadow = 1.0;
+	shadow /= sfilter*sfilter;
 		
 	vec4 direction = -normalize(gl_LightSource[0].position);
 	vec3 look = normalize(worldPos.xyz-cameraPos);

@@ -26,7 +26,7 @@ public:
 	~Material() {}
 
 	void setColor(float r, float g, float b) {color[0]=r; color[1]=g; color[2]=b;}
-	void setEmission(float r, float g, float b) {emission[0]=r; emission[0]=g; emission[0]=b;}
+	void setEmission(float r, float g, float b) {emission[0]=r; emission[1]=g; emission[2]=b;}
 	void setSpecular(float i) {specular=i;}
 	void setShine(int shine) {shininess=shine;}
 	void setTexOffset(float u, float v) {texOffset[0]=u; texOffset[1]=v;}

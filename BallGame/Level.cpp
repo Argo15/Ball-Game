@@ -59,6 +59,8 @@ void Level::buildDynamicsWorld() {
 }
 
 void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps) {
+	dynamicsWorld->stepSimulation(1.f/60.f,10);
+
 	BallCallback ballCallback;
 	ballCallback.canJump = false;
 	dynamicsWorld->contactTest(ballBody,ballCallback);
@@ -119,7 +121,6 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps) {
 		ballBody->activate(true);
 		ballBody->applyCentralForce(velocity*3000);
 	}
-	dynamicsWorld->stepSimulation(1.f/60.f,10);
 
 	btTransform trans;
 	ballBody->getMotionState()->getWorldTransform(trans);
@@ -133,7 +134,7 @@ float Level::distanceFromEnd() {
 	return trans.getOrigin().distance(end);
 }
 
-void Level::drawNoShaders() {
+void Level::drawNoShaders(Frustum *frustum) {
 	btTransform trans;
 	ballBody->getMotionState()->getWorldTransform(trans);
 	glPushMatrix();
@@ -149,14 +150,17 @@ void Level::drawNoShaders() {
 	map<string,Object *>::iterator i;
 	for (i = objects.begin(); i != objects.end(); i++) {
 		glPushMatrix();
+		btVector3 pos = i->second->getRigidBody()->getCenterOfMassPosition();
+		if (frustum->isInFrustum(ArgoVector3(pos.getX(), pos.getY(), pos.getZ()),i->second->getScaledRadius(models))) {
 			i->second->transform();
 			materials->getMaterial(i->second->getMaterial())->useNoShaders(textures);
 			models->getModel(i->second->getModel())->drawNoShaders();
+		}
 		glPopMatrix();
 	}
 }
 
-void Level::draw(GLSLProgram *program) {
+void Level::draw(GLSLProgram *program, Frustum *frustum) {
 	btTransform trans;
 	ballBody->getMotionState()->getWorldTransform(trans);
 	glPushMatrix();
@@ -180,9 +184,47 @@ void Level::draw(GLSLProgram *program) {
 	map<string,Object *>::iterator i;
 	for (i = objects.begin(); i != objects.end(); i++) {
 		glPushMatrix();
+		btVector3 pos = i->second->getRigidBody()->getCenterOfMassPosition();
+		if (frustum->isInFrustum(ArgoVector3(pos.getX(), pos.getY(), pos.getZ()),i->second->getScaledRadius(models))) {
 			i->second->transform();
 			materials->getMaterial(i->second->getMaterial())->use(textures,program);
 			models->getModel(i->second->getModel())->draw();
+		}
 		glPopMatrix();
+	}
+}
+
+void Level::drawPointShadows(Frustum *frustum) {
+	btTransform trans;
+	ballBody->getMotionState()->getWorldTransform(trans);
+	float mat[16];
+	trans.getOpenGLMatrix(mat);
+	glMatrixMode(GL_TEXTURE);
+			glActiveTextureARB(GL_TEXTURE5);
+			glLoadIdentity();
+			glMultMatrixf(mat);
+			glScalef(0.25,0.25,0.25);
+			glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+		glMultMatrixf(mat);
+		glScalef(0.25,0.25,0.25);
+		myBall->drawNoShaders();
+	glPopMatrix();
+
+	map<string,Object *>::iterator i;
+	for (i = objects.begin(); i != objects.end(); i++) {
+		Object *object = i->second;
+		btVector3 pos = object->getRigidBody()->getCenterOfMassPosition();
+		if (frustum->isInFrustum(ArgoVector3(pos.getX(), pos.getY(), pos.getZ()),object->getScaledRadius(models))) {
+			glMatrixMode(GL_TEXTURE);
+			glActiveTextureARB(GL_TEXTURE5);
+			glLoadIdentity();
+			object->transformToCurrentMatrix();
+			glMatrixMode(GL_MODELVIEW);
+			glPushMatrix();
+				object->transform();
+				models->getModel(object->getModel())->drawNoShaders();
+			glPopMatrix();
+		}
 	}
 }

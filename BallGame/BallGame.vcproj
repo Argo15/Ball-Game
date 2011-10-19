@@ -168,11 +168,31 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CascadedShadowMap.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ColorBuffer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CubeShadowBuffer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DepthBuffer.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DirectLight.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\FinalBuffer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Frustum.cpp"
 				>
 			</File>
 			<File
@@ -225,6 +245,14 @@
 			</File>
 			<File
 				RelativePath=".\Object.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PointLight.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PointShadowMap.cpp"
 				>
 			</File>
 			<File
@@ -310,11 +338,31 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CascadedShadowMap.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ColorBuffer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CubeShadowBuffer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DepthBuffer.h"
+				>
+			</File>
+			<File
 				RelativePath=".\DirectLight.h"
 				>
 			</File>
 			<File
 				RelativePath=".\FinalBuffer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Frustum.h"
 				>
 			</File>
 			<File
@@ -367,6 +415,14 @@
 			</File>
 			<File
 				RelativePath=".\Object.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PointLight.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PointShadowMap.h"
 				>
 			</File>
 			<File
@@ -428,6 +484,10 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath=".\Data\Shaders\f_cubeshadow.glsl"
+				>
+			</File>
+			<File
 				RelativePath=".\Data\Shaders\f_depth.glsl"
 				>
 			</File>
@@ -440,7 +500,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Data\Shaders\f_gBlurHor.glsl"
+				>
+			</File>
+			<File
+				RelativePath=".\Data\Shaders\f_gBlurVert.glsl"
+				>
+			</File>
+			<File
 				RelativePath=".\Data\Shaders\f_GBuffer.glsl"
+				>
+			</File>
+			<File
+				RelativePath=".\Data\Shaders\f_plight.glsl"
+				>
+			</File>
+			<File
+				RelativePath=".\Data\Shaders\v_cubeshadow.glsl"
+				>
+			</File>
+			<File
+				RelativePath=".\Data\Shaders\v_gBlur.glsl"
 				>
 			</File>
 			<File
