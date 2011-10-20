@@ -8,7 +8,7 @@ float Object::getScaledRadius(ModelRegistry *models)
 void Object::transform()
 {
 	btTransform trans;
-	body->getMotionState()->getWorldTransform(trans);
+	trans = body->getWorldTransform();
 	float mat[16];
 	trans.getOpenGLMatrix(mat);
 	glMultMatrixf(mat);
@@ -20,6 +20,14 @@ void Object::transform()
 		glLoadIdentity();
 		glMultMatrixf(mat);
 		rotation.getMatrix().multiplyToCurrent();
+		glScalef(scale[0],scale[1],scale[2]);
+
+		glActiveTextureARB(GL_TEXTURE2);
+		glLoadIdentity();
+		glMultMatrixf(lastMat);
+		rotation.getMatrix().multiplyToCurrent();
+		glScalef(scale[0],scale[1],scale[2]);
+		trans.getOpenGLMatrix(lastMat);
 	glMatrixMode(GL_MODELVIEW);
 }
 

@@ -16,9 +16,13 @@ protected:
 	ArgoQuaternion rotation;
 	float scale[3];
 
+	ArgoQuaternion lastRot;
+
 	btRigidBody* body;
 
 public:
+	float lastMat[16];
+
 	Object() {}
 	~Object(){}
 

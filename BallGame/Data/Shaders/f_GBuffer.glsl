@@ -7,6 +7,7 @@ varying vec4 color;
 varying vec3 normal;
 varying vec3 tangent;
 varying vec3 bitangent;
+varying vec2 velocity;
 
 void main() {
 	mat3 tangmat;
@@ -26,4 +27,5 @@ void main() {
 	gl_FragData[0] = vec4(normalv,gl_FrontMaterial.specular.x);
 	gl_FragData[1] = vec4(finalcolor.xyz,gl_FrontMaterial.shininess/128.0);
 	gl_FragData[2] = vec4(gl_FrontMaterial.emission.xyz,1.0);
+	gl_FragData[3] = vec4(velocity.x*20.5+0.5,velocity.y*20.5+0.5,0.0,1.0);
 } 

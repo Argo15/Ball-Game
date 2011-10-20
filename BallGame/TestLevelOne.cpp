@@ -24,7 +24,7 @@ void TestLevelOne::update(int fps) {
 	rot.setRotation(btVector3(0.0,1.0,0.0),btScalar(angle));
 	trans.setRotation(rot);
 	rotatingBody->getMotionState()->setWorldTransform(trans);
-	angle += 0.5f/(fps+0.01f);
+	angle += 20.5f/(fps+0.01f);
 
 	// Move Body
 	btRigidBody *movingBody = level->getObject("Cube Actor(4)")->getRigidBody();
@@ -34,13 +34,13 @@ void TestLevelOne::update(int fps) {
 	trans.setOrigin(org);
 	movingBody->getMotionState()->setWorldTransform(trans);
 	if (direction) {
-		position-= 1.0f/fps;
+		position-= 100.0f/fps;
 		if (position < -9.0f) {
 			position = -9.0f;
 			direction = false;
 		}
 	} else {
-		position+= 2.0f/fps;
+		position+= 100.0f/fps;
 		if (position > -5.0f) {
 			position = -5.0f;
 			direction = true;

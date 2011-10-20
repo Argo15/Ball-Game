@@ -177,6 +177,12 @@ void Level::draw(GLSLProgram *program, Frustum *frustum) {
 		glActiveTextureARB(GL_TEXTURE7);
 		glLoadIdentity();
 		glMultMatrixf(mat);
+		glScalef(0.25,0.25,0.25);
+		glActiveTextureARB(GL_TEXTURE2);
+		glLoadIdentity();
+		glMultMatrixf(lastMat);
+		glScalef(0.25,0.25,0.25);
+		for (int i=0; i<16; i++) lastMat[i] = mat[i];
 		glMatrixMode(GL_MODELVIEW);
 		myBall->draw();
 	glPopMatrix();

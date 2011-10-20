@@ -33,6 +33,8 @@ private:
 	btVector3 start, end;
 	bool canJump;
 
+	float lastMat[16];
+
 public:
 	Level();
 	~Level() {}

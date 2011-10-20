@@ -2,7 +2,7 @@
 #define GLOBALS_H
 #include "GameState.h"
 
-enum RenderState {NOSHADERS, FINAL, DEPTH, NORMAL, COLOR, LIGHTING, SPECULAR};
+enum RenderState {NOSHADERS, FINAL, DEPTH, NORMAL, COLOR, LIGHTING, SPECULAR, MOTION};
 
 class Globals {
 public:

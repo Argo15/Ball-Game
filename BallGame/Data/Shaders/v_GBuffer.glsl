@@ -10,6 +10,7 @@ varying vec4 color;
 varying vec3 normal;
 varying vec3 tangent;
 varying vec3 bitangent;
+varying vec2 velocity;
 
 void main() {
 	gl_TexCoord[0] = gl_TextureMatrix[0]*vec4(v_texture,0.0,0.0);
@@ -18,4 +19,9 @@ void main() {
 	tangent = vec4(gl_TextureMatrix[7]*vec4(v_tangent,0.0)).xyz;
 	bitangent = vec4(gl_TextureMatrix[7]*vec4(v_bitangent,0.0)).xyz;
 	color = vec4(v_color,1.0);
+	vec4 oldPosition = gl_ProjectionMatrix * gl_TextureMatrix[1] * gl_TextureMatrix[2] * vec4(v_vertex,1.0);
+	vec4 newPosition = gl_ProjectionMatrix * gl_ModelViewMatrix * vec4(v_vertex,1.0);
+	velocity.x = newPosition.x/newPosition.w - oldPosition.x/oldPosition.w;
+	velocity.y = newPosition.y/newPosition.w - oldPosition.y/oldPosition.w;
+	gl_Position = newPosition;
 }

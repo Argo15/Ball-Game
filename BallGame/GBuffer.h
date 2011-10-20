@@ -14,6 +14,7 @@ private:
 	GLuint normalTex;
 	GLuint colorTex;
 	GLuint glowTex;
+	GLuint motionTex;
 	GLuint buffer;
 
 	int width,height;
@@ -29,6 +30,7 @@ public:
 	void bindNormalTex() {glBindTexture(GL_TEXTURE_2D, normalTex);}
 	void bindColorTex() {glBindTexture(GL_TEXTURE_2D, colorTex);}
 	void bindGlowTex() {glBindTexture(GL_TEXTURE_2D, glowTex);}
+	void bindMotionTex() {glBindTexture(GL_TEXTURE_2D, motionTex);}
 
 	GLuint getGlowTex() {return glowTex;}
 

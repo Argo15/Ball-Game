@@ -24,6 +24,7 @@ LevelState::LevelState() {
 	camera = new Camera();
 	camera->setRotSpeed(2.0);
 	camera->updateFromDistance();
+	lastCamera = new Camera();
 
 	cascadedShadowMap = new CascadedShadowMap(1024);
 
@@ -159,9 +160,22 @@ void LevelState::render() {
 		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 		level->drawNoShaders(frustum);
 	} else {
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+			glLoadIdentity();
+			lastCamera->transform();
+			glMatrixMode(GL_TEXTURE);
+			glActiveTextureARB(GL_TEXTURE1);
+			glLoadIdentity();
+			ArgoMatrix4 MV;
+			MV.setAsModelViewMatrix();
+			MV.multiplyToCurrent();
+		glMatrixMode(GL_MODELVIEW);
+		glPopMatrix();
+
 		gBuffer->bind();
-			GLenum mrt[] = { GL_COLOR_ATTACHMENT0_EXT, GL_COLOR_ATTACHMENT1_EXT, GL_COLOR_ATTACHMENT2_EXT };
-			glDrawBuffers(3, mrt);
+			GLenum mrt[] = { GL_COLOR_ATTACHMENT0_EXT, GL_COLOR_ATTACHMENT1_EXT, GL_COLOR_ATTACHMENT2_EXT, GL_COLOR_ATTACHMENT3_EXT };
+			glDrawBuffers(4, mrt);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			glPushAttrib( GL_VIEWPORT_BIT );
 			glViewport( 0, 0, gBuffer->getWidth(), gBuffer->getHeight());
@@ -326,12 +340,14 @@ void LevelState::render() {
 		if (Globals::RENDERSTATE == COLOR) gBuffer->bindColorTex();
 		if (Globals::RENDERSTATE == LIGHTING) lightBuffer->bindLightTex();
 		if (Globals::RENDERSTATE == SPECULAR) lightBuffer->bindSpecTex();
+		if (Globals::RENDERSTATE == MOTION) gBuffer->bindMotionTex();
 		view->use3D(false);
 		glLoadIdentity();
 		drawScreen(0.0,0.0,1.0,1.0);
 	}
 
 	glutSwapBuffers();
+	*lastCamera = *camera;
 }
 
 void LevelState::renderGBuffer() {

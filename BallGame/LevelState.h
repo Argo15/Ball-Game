@@ -37,7 +37,7 @@ private:
 	CascadedShadowMap *cascadedShadowMap;
 
 protected:
-	Camera *camera;
+	Camera *camera, *lastCamera;
 	LevelFile *levelFile;
 	Level *level;
 
