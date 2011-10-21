@@ -68,6 +68,8 @@ public:
 	void drawNoShaders(Frustum *frustum);
 	void draw(GLSLProgram *program, Frustum *frustum);
 	void drawPointShadows(Frustum *frustum);
+
+	void getLastTransforms();
 };
 
 #endif

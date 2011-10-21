@@ -97,7 +97,6 @@ LevelState::LevelState() {
 
 	log="";
 	glowBlurBuffer = new ColorBuffer(1280,720);
-	glowBlurBuffer2 = new ColorBuffer(1280,720);
 	vBlurProg = new GLSLProgram("Data/Shaders/v_GBlur.glsl","Data/Shaders/f_gBlurVert.glsl");
 	if (!vBlurProg->vertex_->isCompiled()){
 		vBlurProg->vertex_->getShaderLog(log);
@@ -107,6 +106,17 @@ LevelState::LevelState() {
 	}
 	printf(log.c_str());
 	glowEnabled = false;
+
+	log="";
+	motionBlurBuffer = new ColorBuffer(1280,720);
+	mBlurProg = new GLSLProgram("Data/Shaders/v_GBlur.glsl","Data/Shaders/f_motionBlur.glsl");
+	if (!mBlurProg->vertex_->isCompiled()){
+		mBlurProg->vertex_->getShaderLog(log);
+	}
+	if (!mBlurProg->fragment_->isCompiled()){	
+		mBlurProg->fragment_->getShaderLog(log);
+	}
+	printf(log.c_str());
 }
 
 void LevelState::resize(int w, int h) {
@@ -121,6 +131,7 @@ void LevelState::resize(int w, int h) {
 
 void LevelState::update(int fps) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	level->getLastTransforms();
 	level->updateDynamicsWorld(keys,camera,fps);
 	frustum->getFrustum(camera,view);
 	cascadedShadowMap->buildShadowMaps(camera, view, frustum, level);
@@ -149,14 +160,7 @@ void LevelState::render() {
 
 	if (Globals::RENDERSTATE == NOSHADERS) {
 		glColor3f(1.0,1.0,1.0);
-		float direction[] = {1.0,2.0,3.0,0.0};
-		float amb[] = {0.5,0.5,0.5};
-		float dif[] = {0.5,0.5,0.5};
-		float spc[] = {1.0,1.0,1.0};
-		glLightfv(GL_LIGHT0,GL_POSITION,direction);
-		glLightfv(GL_LIGHT0,GL_AMBIENT,amb);
-		glLightfv(GL_LIGHT0,GL_DIFFUSE,dif);
-		glLightfv(GL_LIGHT0,GL_SPECULAR,spc);
+		level->getDirectLight()->sendToShader(0);
 		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 		level->drawNoShaders(frustum);
 	} else {
@@ -182,6 +186,7 @@ void LevelState::render() {
 			glEnable(GL_COLOR_MATERIAL);
 			glDisable(GL_LIGHTING);
 			glColor3f(0.0,0.0,0.0);
+			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
 			glTranslatef(0.0,0.0,-29.9);
 			drawScreen(-100.0,-100.0,100.0,100.0);
@@ -207,9 +212,7 @@ void LevelState::render() {
 		invMVP.multiplyToCurrent();
 
 		if (glowEnabled != keys['g']) {
-			blurTexture(glowBlurBuffer,gBuffer->getGlowTex(),5.0);
-			blurTexture(glowBlurBuffer,glowBlurBuffer->getTexture(),3.0);
-			blurTexture(glowBlurBuffer,glowBlurBuffer->getTexture(),1.0);
+			blurTexture(glowBlurBuffer,gBuffer->getGlowTex(),4.0);
 		}
 
 		depthBuffer->bind();
@@ -331,10 +334,32 @@ void LevelState::render() {
 			finalProg->disable();
 		finalBuffer->unbind();
 
+		motionBlurBuffer->bind();
+			mBlurProg->use();
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				glPushAttrib( GL_VIEWPORT_BIT );
+				glViewport( 0, 0, finalBuffer->getWidth(), finalBuffer->getHeight());
+				view->use3D(false);
+				glActiveTexture(GL_TEXTURE0); 
+				finalBuffer->bindFinalTex();
+				glActiveTexture(GL_TEXTURE1); 
+				gBuffer->bindMotionTex();
+				mBlurProg->sendUniform("tex",0);
+				mBlurProg->sendUniform("velTex",1);
+				mBlurProg->sendUniform("numSamples",7.0f);
+				drawScreen(0.0,0.0,1.0,1.0);
+				glPopAttrib();
+			mBlurProg->disable();
+		motionBlurBuffer->unbind();
+
 		glDisable(GL_LIGHTING);
 		glActiveTextureARB(GL_TEXTURE0);
 		level->getMaterials()->getMaterial("Default")->useNoShaders(level->getTextures());
-		if (Globals::RENDERSTATE == FINAL) finalBuffer->bindFinalTex();
+		if (keys['m']) {
+			if (Globals::RENDERSTATE == FINAL) finalBuffer->bindFinalTex();
+		} else {
+			if (Globals::RENDERSTATE == FINAL) motionBlurBuffer->bindTexture();
+		}
 		if (Globals::RENDERSTATE == DEPTH) depthBuffer->bindLinearDepthTex();
 		if (Globals::RENDERSTATE == NORMAL) gBuffer->bindNormalTex();
 		if (Globals::RENDERSTATE == COLOR) gBuffer->bindColorTex();

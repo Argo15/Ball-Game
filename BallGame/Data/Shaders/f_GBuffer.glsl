@@ -24,8 +24,12 @@ void main() {
 	normalv = (normalv+vec3(1.0))/vec3(2.0);
 	vec4 texcolor = texture2D(tex,gl_TexCoord[0].st);
 	vec4 finalcolor=texcolor*color*gl_FrontMaterial.diffuse;
+	vec2 vel = velocity;
+	if (length(velocity) > 0.15) {
+		vel = normalize(velocity)*0.15;
+	}
 	gl_FragData[0] = vec4(normalv,gl_FrontMaterial.specular.x);
 	gl_FragData[1] = vec4(finalcolor.xyz,gl_FrontMaterial.shininess/128.0);
 	gl_FragData[2] = vec4(gl_FrontMaterial.emission.xyz,1.0);
-	gl_FragData[3] = vec4(velocity.x*20.5+0.5,velocity.y*20.5+0.5,0.0,1.0);
+	gl_FragData[3] = vec4((vel*0.5*1.5+vec2(0.5)),0.0,1.0);
 } 

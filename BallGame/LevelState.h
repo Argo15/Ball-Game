@@ -24,7 +24,7 @@ private:
 	FinalBuffer *finalBuffer;
 	ColorBuffer *hBlurBuffer;
 	ColorBuffer *glowBlurBuffer;
-	ColorBuffer *glowBlurBuffer2;
+	ColorBuffer *motionBlurBuffer;
 	GLSLProgram *gBufferProg;
 	GLSLProgram *depthProg;
 	GLSLProgram *dLightProg;
@@ -32,6 +32,7 @@ private:
 	GLSLProgram *finalProg;
 	GLSLProgram *hBlurProg;
 	GLSLProgram *vBlurProg;
+	GLSLProgram *mBlurProg;
 	View *view;
 	Frustum *frustum;
 	CascadedShadowMap *cascadedShadowMap;

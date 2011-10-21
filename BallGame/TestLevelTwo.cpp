@@ -23,7 +23,6 @@ void TestLevelTwo::update(int fps) {
 	trans.setRotation(rot);
 	rotatingBody->getMotionState()->setWorldTransform(trans);
 	angle += 0.5f/(fps+0.01f);
-	LevelState::update(fps);
 
 	btTransform ballTrans;
 	level->getBallBody()->getMotionState()->getWorldTransform(ballTrans);
@@ -46,6 +45,7 @@ void TestLevelTwo::update(int fps) {
 			position = 10.0f;
 		}
 	}
+	LevelState::update(fps);
 }
 
 void TestLevelTwo::onFinish() {

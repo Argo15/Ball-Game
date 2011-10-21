@@ -512,6 +512,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Data\Shaders\f_motionBlur.glsl"
+				>
+			</File>
+			<File
 				RelativePath=".\Data\Shaders\f_plight.glsl"
 				>
 			</File>

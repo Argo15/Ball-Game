@@ -24,10 +24,7 @@ void Object::transform()
 
 		glActiveTextureARB(GL_TEXTURE2);
 		glLoadIdentity();
-		glMultMatrixf(lastMat);
-		rotation.getMatrix().multiplyToCurrent();
-		glScalef(scale[0],scale[1],scale[2]);
-		trans.getOpenGLMatrix(lastMat);
+		lastTransform.multiplyToCurrent();
 	glMatrixMode(GL_MODELVIEW);
 }
 
@@ -40,4 +37,19 @@ void Object::transformToCurrentMatrix()
 	glMultMatrixf(mat);
 	rotation.getMatrix().multiplyToCurrent();
 	glScalef(scale[0],scale[1],scale[2]);
+}
+
+void Object::setLastTransform(){
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+		glLoadIdentity();
+		btTransform trans;
+		body->getMotionState()->getWorldTransform(trans);
+		float mat[16];
+		trans.getOpenGLMatrix(mat);
+		glMultMatrixf(mat);
+		rotation.getMatrix().multiplyToCurrent();
+		glScalef(scale[0],scale[1],scale[2]);
+		lastTransform.setAsModelViewMatrix();
+	glPopMatrix();
 }

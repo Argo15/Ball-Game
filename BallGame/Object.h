@@ -16,13 +16,11 @@ protected:
 	ArgoQuaternion rotation;
 	float scale[3];
 
-	ArgoQuaternion lastRot;
+	ArgoMatrix4 lastTransform;
 
 	btRigidBody* body;
 
 public:
-	float lastMat[16];
-
 	Object() {}
 	~Object(){}
 
@@ -52,6 +50,7 @@ public:
 
 	void transform();
 	void transformToCurrentMatrix();
+	void setLastTransform();
 };
 
 #endif

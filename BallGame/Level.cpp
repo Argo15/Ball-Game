@@ -165,6 +165,9 @@ void Level::draw(GLSLProgram *program, Frustum *frustum) {
 	ballBody->getMotionState()->getWorldTransform(trans);
 	glPushMatrix();
 		materials->getMaterial("Default")->use(textures,program);
+		float spec[] = {1.0, 1.0, 1.0};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,spec);
+		glMaterialf(GL_FRONT,GL_SHININESS,128);
 		glActiveTextureARB(GL_TEXTURE0);
 		ballTex->use();
 		program->sendUniform("tex",0);
@@ -232,5 +235,13 @@ void Level::drawPointShadows(Frustum *frustum) {
 				models->getModel(object->getModel())->drawNoShaders();
 			glPopMatrix();
 		}
+	}
+}
+
+void Level::getLastTransforms() {
+	map<string,Object *>::iterator i;
+	for (i = objects.begin(); i != objects.end(); i++) {
+		Object *object = i->second;
+		object->setLastTransform();
 	}
 }
