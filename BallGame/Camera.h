@@ -38,6 +38,8 @@ public:
 	float geteyeZ() {return eyePos[2];}
 	float *getEye() {float *peye = eyePos; return peye;}
 
+	float getDistance() {return distance;}
+
 	ArgoVector3 geteyeV() {return ArgoVector3(eyePos[0],eyePos[1],eyePos[2]);}
 	ArgoVector3 getLookAt() {return ArgoVector3(lookAt[0],lookAt[1],lookAt[2]);}
 	ArgoVector3 getUp() {return ArgoVector3(up[0],up[1],up[2]);}

@@ -43,7 +43,7 @@ void main() {
 	for (int i=0; i<numSamples; i++) {
 		vec3 newLightDir = lightDir-off*samples[i];
 		closestDist = textureCube(shadowCubeTex,newLightDir).x;
-		if (distance > closestDist*radius*1.05){
+		if (distance > closestDist*radius*1.02){
 			shadow -= 1.0/numSamples;
 		}
 	}

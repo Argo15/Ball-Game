@@ -3,6 +3,7 @@
 #include <GL/freeglut.h>
 #include "MenuState.h"
 #include "TestLevelOne.h"
+#include "FunHouse.h"
 #include "Globals.h"
 #include <string>
 using namespace std;

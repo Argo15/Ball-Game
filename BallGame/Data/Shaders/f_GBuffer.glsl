@@ -7,7 +7,8 @@ varying vec4 color;
 varying vec3 normal;
 varying vec3 tangent;
 varying vec3 bitangent;
-varying vec2 velocity;
+varying vec4 oldPosition;
+varying vec4 newPosition;
 
 void main() {
 	mat3 tangmat;
@@ -24,6 +25,7 @@ void main() {
 	normalv = (normalv+vec3(1.0))/vec3(2.0);
 	vec4 texcolor = texture2D(tex,gl_TexCoord[0].st);
 	vec4 finalcolor=texcolor*color*gl_FrontMaterial.diffuse;
+	vec2 velocity = newPosition.xy/newPosition.w - oldPosition.xy/oldPosition.w;
 	vec2 vel = velocity;
 	if (length(velocity) > 0.15) {
 		vel = normalize(velocity)*0.15;

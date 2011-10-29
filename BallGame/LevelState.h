@@ -33,7 +33,6 @@ private:
 	GLSLProgram *hBlurProg;
 	GLSLProgram *vBlurProg;
 	GLSLProgram *mBlurProg;
-	View *view;
 	Frustum *frustum;
 	CascadedShadowMap *cascadedShadowMap;
 
@@ -41,6 +40,7 @@ protected:
 	Camera *camera, *lastCamera;
 	LevelFile *levelFile;
 	Level *level;
+	View *view;
 
 	float endDistance;
 	bool glowEnabled;

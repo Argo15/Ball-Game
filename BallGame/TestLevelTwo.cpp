@@ -1,6 +1,7 @@
 #include "TestLevelTwo.h"
 #include "MainMenuState.h"
 #include "Globals.h"
+#include "Funhouse.h"
 
 TestLevelTwo::TestLevelTwo() : LevelState(){
 	levelFile = new LevelFile();
@@ -50,6 +51,6 @@ void TestLevelTwo::update(int fps) {
 
 void TestLevelTwo::onFinish() {
 	LevelState::onFinish();
-	Globals::GAMESTATE = new MainMenuState();
+	Globals::GAMESTATE = new FunHouse();
 	Globals::GAMESTATE->resize(width,height);
 }

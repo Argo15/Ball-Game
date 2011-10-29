@@ -10,7 +10,7 @@ struct BallCallback : public btCollisionWorld::ContactResultCallback
 			cp.m_normalWorldOnB.mVec128.m128_f32[0],
 			cp.m_normalWorldOnB.mVec128.m128_f32[1],
 			cp.m_normalWorldOnB.mVec128.m128_f32[2]
-		).dot(btVector3(0,1,0)) > 0.5) {
+		).dot(btVector3(0,1,0)) > 0.7) {
 			canJump = true;
 		}
 
@@ -124,8 +124,22 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps) {
 
 	btTransform trans;
 	ballBody->getMotionState()->getWorldTransform(trans);
-	camera->setLookAt(trans.getOrigin().getX(),trans.getOrigin().getY(),trans.getOrigin().getZ());
+	btVector3 ballPos(trans.getOrigin().getX(),trans.getOrigin().getY(),trans.getOrigin().getZ());
+	camera->setDistance(5.0);
+	camera->setLookAt(ballPos.getX(),ballPos.getY(),ballPos.getZ());
 	camera->updateFromDistance();
+
+	btVector3 from(camera->getLookAt()[0],camera->getLookAt()[1],camera->getLookAt()[2]);
+	btVector3 to(camera->geteyeX(),camera->geteyeY(),camera->geteyeZ());
+	btCollisionWorld::ClosestRayResultCallback rayCallBack(from,to);
+	dynamicsWorld->getCollisionWorld()->rayTest(from,to,rayCallBack);
+	float distance = 5.0;
+	if (rayCallBack.hasHit()) {
+		distance = (rayCallBack.m_hitPointWorld-from).length()-0.1;
+	}
+	camera->setDistance(distance);
+	camera->updateFromDistance();
+
 }
 
 float Level::distanceFromEnd() {
@@ -151,7 +165,8 @@ void Level::drawNoShaders(Frustum *frustum) {
 	for (i = objects.begin(); i != objects.end(); i++) {
 		glPushMatrix();
 		btVector3 pos = i->second->getRigidBody()->getCenterOfMassPosition();
-		if (frustum->isInFrustum(ArgoVector3(pos.getX(), pos.getY(), pos.getZ()),i->second->getScaledRadius(models))) {
+		float radius = i->second->getScaledRadius(models);
+		if (frustum->isInFrustum(ArgoVector3(pos.getX(), pos.getY(), pos.getZ()),radius)) {
 			i->second->transform();
 			materials->getMaterial(i->second->getMaterial())->useNoShaders(textures);
 			models->getModel(i->second->getModel())->drawNoShaders();

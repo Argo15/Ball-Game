@@ -30,7 +30,7 @@ LevelState::LevelState() {
 
 	endDistance = 0.5;
 
-	gBuffer = new GBuffer(1280,720);
+	 gBuffer = new GBuffer(1280,720);
 	gBufferProg = new GLSLProgram("Data/Shaders/v_GBuffer.glsl","Data/Shaders/f_GBuffer.glsl");
 	std::string log;
 	if (!gBufferProg->vertex_->isCompiled()){
@@ -346,7 +346,7 @@ void LevelState::render() {
 				gBuffer->bindMotionTex();
 				mBlurProg->sendUniform("tex",0);
 				mBlurProg->sendUniform("velTex",1);
-				mBlurProg->sendUniform("numSamples",7.0f);
+				mBlurProg->sendUniform("numSamples",11.0f);
 				drawScreen(0.0,0.0,1.0,1.0);
 				glPopAttrib();
 			mBlurProg->disable();
