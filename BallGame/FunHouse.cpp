@@ -8,6 +8,11 @@ FunHouse::FunHouse() : LevelState(){
 	level = new Level();
 	levelFile->initializeLevel(level);
 	endDistance = 1.0;
+	/*level->getObject("IrishSpinner Actor")->getRigidBody()->setFriction(btScalar(20.0f));
+	level->getObject("IrishSpinner Actor(1)")->getRigidBody()->setFriction(btScalar(20.0f));
+	level->getObject("IrishSpinner Actor(2)")->getRigidBody()->setFriction(btScalar(20.0f));
+	level->getObject("IrishSpinner Actor(3)")->getRigidBody()->setFriction(btScalar(20.0f));*/
+	irishSpinAngle = 0;
 }
 
 void FunHouse::resize(int w, int h) {
@@ -21,7 +26,47 @@ void FunHouse::resize(int w, int h) {
 }
 
 void FunHouse::update(int fps) {
+	btRigidBody *rotatingBody;
+	btTransform trans;
+	btQuaternion rot;
+
+	rotatingBody = level->getObject("IrishSpinner Actor")->getRigidBody();
+	rotatingBody->getMotionState()->getWorldTransform(trans);
+	rot = trans.getRotation();
+	rot.setRotation(btVector3(0.0,1.0,0.0),btScalar(irishSpinAngle));
+	trans.setRotation(rot);
+	rotatingBody->getMotionState()->setWorldTransform(trans);
+
+	rotatingBody = level->getObject("IrishSpinner Actor(1)")->getRigidBody();
+	rotatingBody->getMotionState()->getWorldTransform(trans);
+	rot = trans.getRotation();
+	rot.setRotation(btVector3(0.0,1.0,0.0),btScalar(irishSpinAngle*3.0));
+	trans.setRotation(rot);
+	rotatingBody->getMotionState()->setWorldTransform(trans);
+
+	rotatingBody = level->getObject("IrishSpinner Actor(2)")->getRigidBody();
+	rotatingBody->getMotionState()->getWorldTransform(trans);
+	rot = trans.getRotation();
+	rot.setRotation(btVector3(0.0,1.0,0.0),btScalar(-irishSpinAngle*2.0));
+	trans.setRotation(rot);
+	rotatingBody->getMotionState()->setWorldTransform(trans);
+
+	rotatingBody = level->getObject("IrishSpinner Actor(3)")->getRigidBody();
+	rotatingBody->getMotionState()->getWorldTransform(trans);
+	rot = trans.getRotation();
+	rot.setRotation(btVector3(0.0,1.0,0.0),btScalar(-irishSpinAngle*4.0));
+	trans.setRotation(rot);
+	rotatingBody->getMotionState()->setWorldTransform(trans);
+
+	rotatingBody = level->getObject("spinHole Actor")->getRigidBody();
+	rotatingBody->getMotionState()->getWorldTransform(trans);
+	rot = trans.getRotation();
+	rot.setRotation(btVector3(0.0,0.0,1.0),btScalar(irishSpinAngle/2));
+	trans.setRotation(rot);
+	rotatingBody->getMotionState()->setWorldTransform(trans);
+
 	LevelState::update(fps);
+	irishSpinAngle += 2/(fps+0.01f);
 }
 
 void FunHouse::onFinish() {

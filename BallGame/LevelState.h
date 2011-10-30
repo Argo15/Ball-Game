@@ -36,6 +36,8 @@ private:
 	Frustum *frustum;
 	CascadedShadowMap *cascadedShadowMap;
 
+	bool calcShadows;
+
 protected:
 	Camera *camera, *lastCamera;
 	LevelFile *levelFile;

@@ -6,7 +6,7 @@
 class FunHouse : public LevelState
 {
 private:
-
+	float irishSpinAngle;
 public:
 	FunHouse();
 

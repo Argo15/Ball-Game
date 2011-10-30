@@ -10,7 +10,7 @@ PointLight::PointLight()
 	radius=5.0;
 	translations[0]=0.0;translations[1]=1.0;translations[2]=0.0;
 	enabled=true;
-	shadowMap = new PointShadowMap(512);
+	shadowMap = new PointShadowMap(256);
 }
 
 void PointLight::setPosition(float x, float y, float z)

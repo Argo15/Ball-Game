@@ -260,3 +260,44 @@ void Level::getLastTransforms() {
 		object->setLastTransform();
 	}
 }
+
+int Level::getBestPointLights(PointLight **bestLights, Frustum *frustum, Camera *camera, int count) 
+{
+	PointLight **lights = new PointLight*[100];
+	btTransform trans;
+	ballBody->getMotionState()->getWorldTransform(trans);
+	ArgoVector3 ballPos(trans.getOrigin().getX(),trans.getOrigin().getY(),trans.getOrigin().getZ());
+	int numLights = 0;
+	map<string,PointLight *>::iterator it;
+	for (it = pLights.begin(); it != pLights.end(); ++it){
+		PointLight *pLight = it->second;
+		if (pLight->isenabled()){
+			if (frustum->isInFrustum(pLight->getPosition(),pLight->getRadius())) {
+				lights[numLights++] = pLight;
+			}
+		}
+	}
+	int lightCount = min(numLights,count);
+	for (int i = numLights-1; i>0; i--) {
+		for (int j=0; j<i; j++) {
+			ArgoVector3 first(lights[j]->getPosition()-ballPos);
+			ArgoVector3 second(lights[j+1]->getPosition()-ballPos);
+			if (first.length()>second.length()) {
+				swap(lights[j],lights[j+1]);
+			}
+		}
+	}
+	for (int i = 0; i < lightCount; i++) {
+		bestLights[i]=lights[i];
+	}
+	return lightCount;
+}
+
+int Level::getAllPointLights(PointLight **lights) {
+	int numLights = 0;
+	map<string,PointLight *>::iterator it;
+	for (it = pLights.begin(); it != pLights.end(); ++it){
+		lights[numLights++] = it->second;
+	}
+	return numLights;
+}

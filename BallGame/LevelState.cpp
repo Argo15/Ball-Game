@@ -117,6 +117,8 @@ LevelState::LevelState() {
 		mBlurProg->fragment_->getShaderLog(log);
 	}
 	printf(log.c_str());
+
+	calcShadows = true;
 }
 
 void LevelState::resize(int w, int h) {
@@ -135,16 +137,19 @@ void LevelState::update(int fps) {
 	level->updateDynamicsWorld(keys,camera,fps);
 	frustum->getFrustum(camera,view);
 	cascadedShadowMap->buildShadowMaps(camera, view, frustum, level);
-	map<string,PointLight *> *lightMap = level->getPointLights();
-	map<string,PointLight *>::iterator it;
-	for (it = lightMap->begin(); it != lightMap->end(); ++it){
-		PointLight *pLight = it->second;
-		if (pLight->isenabled()){
-			if (frustum->isInFrustum(pLight->getPosition(),pLight->getRadius())) {
-				pLight->buildShadowMaps(frustum,level);
-			}
-		}
+	PointLight **lights;
+	int lightCount;
+	if (calcShadows){
+		lights = new PointLight*[100];
+		lightCount = level->getAllPointLights(lights);
+	} else {
+		lights = new PointLight*[3];
+		lightCount = level->getBestPointLights(lights,frustum,camera,2);
 	}
+	for (int i=0; i< lightCount; i++) {
+		lights[i]->buildShadowMaps(frustum,level);
+	}
+
 	if (level->distanceFromEnd() < endDistance) {
 		onFinish();
 	}
@@ -272,44 +277,39 @@ void LevelState::render() {
 			dLightProg->disable();
 		lightBuffer->unbind();
 
-		map<string,PointLight *> *lightMap = level->getPointLights();
-		map<string,PointLight *>::iterator it;
-		for (it = lightMap->begin(); it != lightMap->end(); ++it){
-			PointLight *pLight = it->second;
-			if (pLight->isenabled()){
-				if (frustum->isInFrustum(pLight->getPosition(),pLight->getRadius())) {
-					lightBuffer->bind();
-					pLightProg->use();
-						glClear(GL_DEPTH_BUFFER_BIT);
-						glPushAttrib( GL_VIEWPORT_BIT );
-						GLenum mrtLight[] = { GL_COLOR_ATTACHMENT0_EXT, GL_COLOR_ATTACHMENT1_EXT };
-						glDrawBuffers(2, mrtLight);
-						glViewport( 0, 0, lightBuffer->getWidth(), lightBuffer->getHeight());
-						view->use3D(false);	
-						glActiveTexture(GL_TEXTURE0); 
-						gBuffer->bindDepthTex();
-						glActiveTexture(GL_TEXTURE1); 
-						gBuffer->bindNormalTex();
-						glActiveTexture(GL_TEXTURE2); 
-						gBuffer->bindColorTex();
-						glActiveTexture(GL_TEXTURE3);
-						lightBuffer->bindSpecTex();
-						glActiveTexture(GL_TEXTURE4);
-						lightBuffer->bindLightTex();
-						pLightProg->sendUniform("depthTex",0);
-						pLightProg->sendUniform("normalTex",1);
-						pLightProg->sendUniform("colorTex",2);
-						pLightProg->sendUniform("glowTex",3);
-						pLightProg->sendUniform("lightTex",4);
-						pLightProg->sendUniform("cameraPos",camera->geteyeX(),camera->geteyeY(),camera->geteyeZ());
-						pLight->sendToShader(pLightProg);
-						pLight->sendShadowsToShader(pLightProg);
-						drawScreen(0.0,0.0,1.0,1.0);
-						glPopAttrib();
-					pLightProg->disable();
-					lightBuffer->unbind();
-				}
-			}
+		PointLight **lights = new PointLight*[4];
+		int lightCount = level->getBestPointLights(lights,frustum,camera,4);
+		for (int i=0; i< lightCount; i++) {
+			lightBuffer->bind();
+			pLightProg->use();
+				glClear(GL_DEPTH_BUFFER_BIT);
+				glPushAttrib( GL_VIEWPORT_BIT );
+				GLenum mrtLight[] = { GL_COLOR_ATTACHMENT0_EXT, GL_COLOR_ATTACHMENT1_EXT };
+				glDrawBuffers(2, mrtLight);
+				glViewport( 0, 0, lightBuffer->getWidth(), lightBuffer->getHeight());
+				view->use3D(false);	
+				glActiveTexture(GL_TEXTURE0); 
+				gBuffer->bindDepthTex();
+				glActiveTexture(GL_TEXTURE1); 
+				gBuffer->bindNormalTex();
+				glActiveTexture(GL_TEXTURE2); 
+				gBuffer->bindColorTex();
+				glActiveTexture(GL_TEXTURE3);
+				lightBuffer->bindSpecTex();
+				glActiveTexture(GL_TEXTURE4);
+				lightBuffer->bindLightTex();
+				pLightProg->sendUniform("depthTex",0);
+				pLightProg->sendUniform("normalTex",1);
+				pLightProg->sendUniform("colorTex",2);
+				pLightProg->sendUniform("glowTex",3);
+				pLightProg->sendUniform("lightTex",4);
+				pLightProg->sendUniform("cameraPos",camera->geteyeX(),camera->geteyeY(),camera->geteyeZ());
+				lights[i]->sendToShader(pLightProg);
+				lights[i]->sendShadowsToShader(pLightProg);
+				drawScreen(0.0,0.0,1.0,1.0);
+				glPopAttrib();
+			pLightProg->disable();
+			lightBuffer->unbind();
 		}
 
 		glDisable(GL_BLEND);
@@ -346,7 +346,7 @@ void LevelState::render() {
 				gBuffer->bindMotionTex();
 				mBlurProg->sendUniform("tex",0);
 				mBlurProg->sendUniform("velTex",1);
-				mBlurProg->sendUniform("numSamples",11.0f);
+				mBlurProg->sendUniform("numSamples",8.0f);
 				drawScreen(0.0,0.0,1.0,1.0);
 				glPopAttrib();
 			mBlurProg->disable();

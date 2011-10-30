@@ -52,6 +52,8 @@ public:
 
 	map<string,PointLight *> *getPointLights() {return &pLights;}
 	PointLight *getPointLight(string name) {return pLights[name];}
+	int getBestPointLights(PointLight **bestLights, Frustum *frustum, Camera *camera, int count);
+	int getAllPointLights(PointLight **lights);
 	void setPointLight(string name, PointLight *newpLight) {pLights[name]=newpLight;}
 
 	void setNumObjects(int count) {numObjects = count;}

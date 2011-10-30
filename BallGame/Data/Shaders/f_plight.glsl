@@ -11,16 +11,17 @@ uniform float attenuation;
 uniform float radius;
 
 void main() {
-	float numSamples = 6;
-	vec3 samples[6] = vec3[](
-		vec3(-0.71044, 0.562853, -0.00570696),
-		vec3(0.90997, 0.0195624, -0.0483108),
-		vec3(-0.434736, -0.173864, 0.186316),
-		vec3(-0.451766, 0.449019, 0.175878),
-		vec3(-0.143468, -0.559313, 0.0737022),
-		vec3(0.839778, -0.279763, -0.435591)
+	float numSamples = 8;
+	vec3 samples[8] = vec3[](
+		vec3(-0.805657, 0.481396, -0.345216),
+		vec3(0.261264, 0.594279, 0.760641),
+		vec3(0.163222, 0.777362, 0.607508),
+		vec3(-0.692771, -0.61305, 0.379786),
+		vec3(0.826524, -0.493182, 0.271347),
+		vec3(0.422852, -0.0354977, -0.905503),
+		vec3(-0.886277, -0.123242, -0.446457),
+		vec3(0.741311, -0.616371, -0.265603)
 	);
-	
 
 	if(radius < 1.0 || attenuation < 0.05)
 	  discard;
@@ -38,12 +39,12 @@ void main() {
 	lightDir = normalize(lightDir);
 	float closestDist;
 	float shadow = 1.0;
-	float off = 0.004;
+	float off = 0.003;
 	
 	for (int i=0; i<numSamples; i++) {
 		vec3 newLightDir = lightDir-off*samples[i];
 		closestDist = textureCube(shadowCubeTex,newLightDir).x;
-		if (distance > closestDist*radius*1.02){
+		if (distance > closestDist*radius*1.03){
 			shadow -= 1.0/numSamples;
 		}
 	}
