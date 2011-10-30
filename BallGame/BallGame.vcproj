@@ -294,7 +294,15 @@
 					Name="MenuStates"
 					>
 					<File
+						RelativePath=".\Background.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\MainMenuState.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\MenuItem.cpp"
 						>
 					</File>
 					<File
@@ -477,6 +485,10 @@
 					</File>
 					<File
 						RelativePath=".\MainMenuState.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MenuItem.h"
 						>
 					</File>
 					<File
