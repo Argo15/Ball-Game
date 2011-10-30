@@ -17,8 +17,9 @@ class Background
 {
 public:
 	Background();
+	~Background();
 	Background(int w, int h);
-	Bullet* bullets[3];
+	Bullet* bullets[5];
 	void drawBackground();
 	void update();
 	int width;
