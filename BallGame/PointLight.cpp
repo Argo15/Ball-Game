@@ -41,9 +41,9 @@ void PointLight::sendToShader(GLSLProgram *glslProgram)
 	glslProgram->sendUniform("radius",radius);
 }
 
-void PointLight::buildShadowMaps(Frustum *frustum, Level *level)
+void PointLight::buildShadowMaps(Frustum *frustum, Level *level, bool drawAll)
 {
-	shadowMap->generateShadowMap(ArgoVector3(translations[0],translations[1],translations[2]),radius,frustum,level);
+	shadowMap->generateShadowMap(ArgoVector3(translations[0],translations[1],translations[2]),radius,frustum,level,drawAll);
 }
 
 void PointLight::sendShadowsToShader(GLSLProgram *program)

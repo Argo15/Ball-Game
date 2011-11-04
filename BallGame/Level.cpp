@@ -125,19 +125,20 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps) {
 	btTransform trans;
 	ballBody->getMotionState()->getWorldTransform(trans);
 	btVector3 ballPos(trans.getOrigin().getX(),trans.getOrigin().getY(),trans.getOrigin().getZ());
-	camera->setDistance(5.0);
 	camera->setLookAt(ballPos.getX(),ballPos.getY(),ballPos.getZ());
+	float distance = 5;
 	camera->updateFromDistance();
 
 	btVector3 from(camera->getLookAt()[0],camera->getLookAt()[1],camera->getLookAt()[2]);
 	btVector3 to(camera->geteyeX(),camera->geteyeY(),camera->geteyeZ());
-	btCollisionWorld::ClosestRayResultCallback rayCallBack(from,to);
-	dynamicsWorld->getCollisionWorld()->rayTest(from,to,rayCallBack);
-	float distance = 5.0;
+	btCollisionWorld::ClosestRayResultCallback rayCallBack(from,to+(to-from).normalize()*0.2);
+	dynamicsWorld->getCollisionWorld()->rayTest(from,to+(to-from).normalize()*0.2,rayCallBack);
 	if (rayCallBack.hasHit()) {
 		distance = (rayCallBack.m_hitPointWorld-from).length()-0.1;
+		camera->setDistance(distance);
+	} else {
+		camera->update(fps);
 	}
-	camera->setDistance(distance);
 	camera->updateFromDistance();
 
 }

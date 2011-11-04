@@ -13,6 +13,7 @@ private:
 	float up[3];
 	float right[3];
 	float distance;
+	float expectedDistance;
 	float hAngle;
 	float vAngle;
 
@@ -56,6 +57,8 @@ public:
 	void moveRight(float speed);
 	void moveUp(float speed);
 	void moveDown(float speed);
+
+	void update(float fps);
 
 	void updateFromDistance();
 };

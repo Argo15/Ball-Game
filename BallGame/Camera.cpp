@@ -9,6 +9,7 @@ Camera::Camera()
 	hAngle=-PI/4.0;
     vAngle=PI/4.0;
 	distance=5.0f;
+	expectedDistance=5.0f;
     lookAt[0]=0.0f;lookAt[1]=0.0f;lookAt[2]=0.0f;
 	updateFromDistance();
 	oldX=-1;oldY=-1;
@@ -116,4 +117,11 @@ void Camera::moveDown(float speed)
 {
 	eyePos[1]-=1/speed;
 	lookAt[1]-=1/speed;
+}
+
+void Camera::update(float fps) 
+{
+	if (distance < expectedDistance) {
+		distance += 5.0/fps;
+	}
 }

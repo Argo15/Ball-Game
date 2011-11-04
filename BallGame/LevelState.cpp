@@ -26,11 +26,11 @@ LevelState::LevelState() {
 	camera->updateFromDistance();
 	lastCamera = new Camera();
 
-	cascadedShadowMap = new CascadedShadowMap(1024);
+	cascadedShadowMap = new CascadedShadowMap(512);
 
 	endDistance = 0.5;
 
-	 gBuffer = new GBuffer(1280,720);
+	gBuffer = new GBuffer(1280,720);
 	gBufferProg = new GLSLProgram("Data/Shaders/v_GBuffer.glsl","Data/Shaders/f_GBuffer.glsl");
 	std::string log;
 	if (!gBufferProg->vertex_->isCompiled()){
@@ -132,23 +132,30 @@ void LevelState::resize(int w, int h) {
 }
 
 void LevelState::update(int fps) {
+	profiler.init();
+	profiler.update(fps);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	level->getLastTransforms();
 	level->updateDynamicsWorld(keys,camera,fps);
+	profiler.profile("Update Dynamics World");
 	frustum->getFrustum(camera,view);
 	cascadedShadowMap->buildShadowMaps(camera, view, frustum, level);
+	profiler.profile("Build Cascaded Shadow Maps");
 	PointLight **lights;
 	int lightCount;
 	if (calcShadows){
 		lights = new PointLight*[100];
 		lightCount = level->getAllPointLights(lights);
 	} else {
-		lights = new PointLight*[3];
-		lightCount = level->getBestPointLights(lights,frustum,camera,2);
+		lights = new PointLight*[4];
+		lightCount = level->getBestPointLights(lights,frustum,camera,4);
 	}
 	for (int i=0; i< lightCount; i++) {
-		lights[i]->buildShadowMaps(frustum,level);
+		lights[i]->buildShadowMaps(frustum,level,calcShadows);
 	}
+	calcShadows = false;
+
+	profiler.profile("Build Point Light Shadow Maps");
 
 	if (level->distanceFromEnd() < endDistance) {
 		onFinish();
@@ -156,6 +163,7 @@ void LevelState::update(int fps) {
 }
 
 void LevelState::render() {
+	profiler.profile("Start Render");
 	view->use3D(true);
 	glLoadIdentity();
 
@@ -202,6 +210,8 @@ void LevelState::render() {
 			glPopAttrib();
 		gBuffer->unbind();
 
+		profiler.profile("Gbuffer Render");
+
 		glActiveTexture(GL_TEXTURE1);
 		glEnable(GL_COLOR_MATERIAL);
 		glDisable(GL_LIGHTING);
@@ -218,7 +228,11 @@ void LevelState::render() {
 
 		if (glowEnabled != keys['g']) {
 			blurTexture(glowBlurBuffer,gBuffer->getGlowTex(),4.0);
+			blurTexture(glowBlurBuffer,gBuffer->getGlowTex(),3.0);
+			blurTexture(glowBlurBuffer,gBuffer->getGlowTex(),2.0);
 		}
+
+		profiler.profile("Glow Blur");
 
 		depthBuffer->bind();
 			depthProg->use();
@@ -238,6 +252,8 @@ void LevelState::render() {
 			glPopAttrib();
 			depthProg->disable();
 		depthBuffer->unbind();
+
+		profiler.profile("Linear Depth Buffer");
 
 		glEnable(GL_BLEND);
 		glBlendEquationSeparate(GL_FUNC_ADD,GL_FUNC_ADD);
@@ -277,7 +293,9 @@ void LevelState::render() {
 			dLightProg->disable();
 		lightBuffer->unbind();
 
-		PointLight **lights = new PointLight*[4];
+		profiler.profile("Direct Light Shading");
+
+		PointLight **lights = new PointLight*[5];
 		int lightCount = level->getBestPointLights(lights,frustum,camera,4);
 		for (int i=0; i< lightCount; i++) {
 			lightBuffer->bind();
@@ -312,6 +330,8 @@ void LevelState::render() {
 			lightBuffer->unbind();
 		}
 
+		profiler.profile("Point Light Shading");
+
 		glDisable(GL_BLEND);
 
 		finalBuffer->bind();
@@ -334,6 +354,8 @@ void LevelState::render() {
 			finalProg->disable();
 		finalBuffer->unbind();
 
+		profiler.profile("Final Buffer Generation");
+
 		motionBlurBuffer->bind();
 			mBlurProg->use();
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -346,11 +368,13 @@ void LevelState::render() {
 				gBuffer->bindMotionTex();
 				mBlurProg->sendUniform("tex",0);
 				mBlurProg->sendUniform("velTex",1);
-				mBlurProg->sendUniform("numSamples",8.0f);
+				mBlurProg->sendUniform("numSamples",16.0f);
 				drawScreen(0.0,0.0,1.0,1.0);
 				glPopAttrib();
 			mBlurProg->disable();
 		motionBlurBuffer->unbind();
+
+		profiler.profile("Motion Blur");
 
 		glDisable(GL_LIGHTING);
 		glActiveTextureARB(GL_TEXTURE0);
@@ -369,10 +393,12 @@ void LevelState::render() {
 		view->use3D(false);
 		glLoadIdentity();
 		drawScreen(0.0,0.0,1.0,1.0);
+		profiler.profile("Finish Shader Render");
 	}
 
 	glutSwapBuffers();
 	*lastCamera = *camera;
+	profiler.profile("Finish Render");
 }
 
 void LevelState::renderGBuffer() {
@@ -410,7 +436,9 @@ void LevelState::drawScreen(float x1, float y1, float x2, float y2)
 void LevelState::onFinish() {
 	glActiveTextureARB(GL_TEXTURE0);
 	glEnable(GL_TEXTURE_2D);
+	glDisable(GL_CULL_FACE);
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+	profiler.saveProfile("Data/Profiler.txt");
 }
 
 void LevelState::blurTexture(ColorBuffer *resultBuffer, GLuint texture, float scale) {

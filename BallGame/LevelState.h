@@ -15,6 +15,7 @@
 #include "ColorBuffer.h"
 #include "Frustum.h"
 #include "CascadedShadowMap.h"
+#include "Profiler.h"
 
 class LevelState : public GameState {
 private:
@@ -35,6 +36,8 @@ private:
 	GLSLProgram *mBlurProg;
 	Frustum *frustum;
 	CascadedShadowMap *cascadedShadowMap;
+
+	Profiler profiler;
 
 	bool calcShadows;
 

@@ -22,7 +22,7 @@ public:
 	PointShadowMap(int resolution);
 	~PointShadowMap() {}
 
-	void generateShadowMap(ArgoVector3 center, float radius, Frustum *mainFrustum, Level *level);
+	void generateShadowMap(ArgoVector3 center, float radius, Frustum *mainFrustum, Level *level, bool drawAll);
 	GLuint getShadowMap() {return cubeShadowMap->getCubeMap();}
 };
 

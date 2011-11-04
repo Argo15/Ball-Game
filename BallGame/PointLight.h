@@ -54,7 +54,7 @@ public:
 	void setRadius(float rad) {radius=rad;}
 	float getRadius() {return radius;}
 
-	void buildShadowMaps(Frustum *frustum, Level *level);
+	void buildShadowMaps(Frustum *frustum, Level *level, bool drawAll);
 	void sendShadowsToShader(GLSLProgram *program);
 };
 

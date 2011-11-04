@@ -256,6 +256,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Profiler.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Texture.cpp"
 				>
 			</File>
@@ -435,6 +439,10 @@
 			</File>
 			<File
 				RelativePath=".\PointShadowMap.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Profiler.h"
 				>
 			</File>
 			<File

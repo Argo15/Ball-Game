@@ -6,7 +6,7 @@ PointShadowMap::PointShadowMap(int resolution)
 	cubeShadowMap = new CubeShadowBuffer(resolution);
 }
 
-void PointShadowMap::generateShadowMap(ArgoVector3 center, float radius, Frustum *mainFrustum, Level *level)
+void PointShadowMap::generateShadowMap(ArgoVector3 center, float radius, Frustum *mainFrustum, Level *level, bool drawAll)
 {
 	View *view = new View();
 	Camera *camera = new Camera();
@@ -45,30 +45,33 @@ void PointShadowMap::generateShadowMap(ArgoVector3 center, float radius, Frustum
 		camera->setRight(cameraRight[i][0],cameraRight[i][1],cameraRight[i][2]);
 		frustum->getFrustum(camera,view);
 
-		glMatrixMode(GL_MODELVIEW);
-		glPushMatrix();
-		glLoadIdentity();
-		glMatrixMode(GL_PROJECTION);
-		glPushMatrix();
-		glLoadIdentity();
-			glDrawBuffer(GL_COLOR_ATTACHMENT0_EXT+i);
-			glClearDepth(1.0f);
-			glClearColor(1.0,1.0,1.0,1.0);
-			glEnable(GL_DEPTH_TEST);
-			glDepthFunc(GL_LEQUAL);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			glPushAttrib( GL_VIEWPORT_BIT );
-			glViewport( 0, 0, resolution, resolution);
-			view->use3D(true);
-			camera->transform();
-			cubeShadowMap->getCubeProgram()->sendUniform("lightPos",center[0],center[1],center[2]);
-			cubeShadowMap->getCubeProgram()->sendUniform("radius",radius);
-			drawObjects(frustum,mainFrustum,level);
-			glPopAttrib();
-		glMatrixMode(GL_MODELVIEW);
-		glPopMatrix();
-		glMatrixMode(GL_PROJECTION);
-		glPopMatrix();
+		btVector3 ballPos = level->getBallBody()->getWorldTransform().getOrigin();
+		if (frustum->isInFrustum(ArgoVector3(ballPos.getX(),ballPos.getY(),ballPos.getZ()),0.35) || drawAll) {
+			glMatrixMode(GL_MODELVIEW);
+			glPushMatrix();
+			glLoadIdentity();
+			glMatrixMode(GL_PROJECTION);
+			glPushMatrix();
+			glLoadIdentity();
+				glDrawBuffer(GL_COLOR_ATTACHMENT0_EXT+i);
+				glClearDepth(1.0f);
+				glClearColor(1.0,1.0,1.0,1.0);
+				glEnable(GL_DEPTH_TEST);
+				glDepthFunc(GL_LEQUAL);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				glPushAttrib( GL_VIEWPORT_BIT );
+				glViewport( 0, 0, resolution, resolution);
+				view->use3D(true);
+				camera->transform();
+				cubeShadowMap->getCubeProgram()->sendUniform("lightPos",center[0],center[1],center[2]);
+				cubeShadowMap->getCubeProgram()->sendUniform("radius",radius);
+				drawObjects(frustum,mainFrustum,level);
+				glPopAttrib();
+			glMatrixMode(GL_MODELVIEW);
+			glPopMatrix();
+			glMatrixMode(GL_PROJECTION);
+			glPopMatrix();
+		}
 		cubeShadowMap->unbind();
 	}
 	glClearColor(0.0,0.0,0.0,1.0);
