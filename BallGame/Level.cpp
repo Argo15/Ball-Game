@@ -187,7 +187,7 @@ void Level::draw(GLSLProgram *program, Frustum *frustum) {
 		glActiveTextureARB(GL_TEXTURE0);
 		ballTex->use();
 		program->sendUniform("tex",0);
-		ballTex->use();
+		//ballTex->use();
 		float mat[16];
 		trans.getOpenGLMatrix(mat);
 		glMultMatrixf(mat);

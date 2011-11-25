@@ -1,67 +1,27 @@
 init
-48%
-Average Time: 10.48
-Minimum Time: 0
-Maximum Time: 68
-Update Dynamics World
-12.3%
-Average Time: 2.69122
+6.1%
+Average Time: 1.02165
 Minimum Time: 1
-Maximum Time: 11
+Maximum Time: 3
+Update Dynamics World
+27.4%
+Average Time: 4.57861
+Minimum Time: 2
+Maximum Time: 381
 Build Cascaded Shadow Maps
-9.5%
-Average Time: 2.08117
+29%
+Average Time: 4.84474
 Minimum Time: 0
-Maximum Time: 30
+Maximum Time: 64
 Build Point Light Shadow Maps
-0%
-Average Time: 0.0160615
+0.2%
+Average Time: 0.0359541
 Minimum Time: 0
 Maximum Time: 1
 Start Render
-4.1%
-Average Time: 0.90852
-Minimum Time: 0
-Maximum Time: 38
-Gbuffer Render
-0.6%
-Average Time: 0.142109
-Minimum Time: 0
-Maximum Time: 2
-Glow Blur
-0%
-Average Time: 0.0185056
-Minimum Time: 0
-Maximum Time: 1
-Linear Depth Buffer
-0.3%
-Average Time: 0.0705307
-Minimum Time: 0
-Maximum Time: 2
-Direct Light Shading
-0.8%
-Average Time: 0.18104
-Minimum Time: 0
-Maximum Time: 2
-Point Light Shading
-0.1%
-Average Time: 0.0251397
-Minimum Time: 0
-Maximum Time: 1
-Final Buffer Generation
-0%
-Average Time: 0.0209497
-Minimum Time: 0
-Maximum Time: 1
-Motion Blur
-0%
-Average Time: 0.0199022
-Minimum Time: 0
-Maximum Time: 1
-Finish Shader Render
-0.2%
-Average Time: 0.052898
-Minimum Time: 0
-Maximum Time: 1
+12%
+Average Time: 2.01581
+Minimum Time: 1
+Maximum Time: 10
 Finish Render
-Average Fps: 45.8497
+Average Fps: 59.9489

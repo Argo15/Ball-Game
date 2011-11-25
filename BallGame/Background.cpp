@@ -15,28 +15,33 @@ Initializes everything needed in background
 **/
 Background::Background(int w, int h)
 {
+	/*
 	//create every new bullet
 	for(int x=0;x<sizeof(bullets)/sizeof(int);x++)
 	{
    		bullets[x]=new Bullet((rand()/double(RAND_MAX))*1280,(rand()/double(RAND_MAX))*900,(rand()/double(RAND_MAX))*6,(rand()/double(RAND_MAX))*6);
 	}
+	*/
 }
 /**
 destructor, deletes pointers used
 **/
 Background::~Background()
 {
+	/*
 	for(list<ArgoVector4*>::iterator it = lineList.begin();it!=lineList.end();it++)
 	{
 		delete(*it);
 	}
 	delete(*bullets);
+	*/
 }
 /**
 updates all of the bullets positions
 **/
 void Background::update()
 {
+	/*
 for(int r=0;r<sizeof(bullets)/sizeof(int);r++)
 	{
 		bullets[r]->position += bullets[r]->velocity;
@@ -74,12 +79,14 @@ for(int r=0;r<sizeof(bullets)/sizeof(int);r++)
 			
 		}
 	}
+	*/
 }
 /**
 renders lines between the bullets to the screen
 **/
 void Background::drawBackground()
 {
+	/*
 	glColor4f(1.0, 1.0, 1.0,0.05);
 
 	for(list<ArgoVector4*>::iterator it = lineList.begin();it!=lineList.end();it++)
@@ -94,12 +101,15 @@ void Background::drawBackground()
 			glVertex3f(xj,yj,-5);
 			glEnd();
 	}
+	*/
 }
 /**
 creates a bullet object
 **/
 Bullet::Bullet(int x,int y, int velx, int vely)
 {
+	/*
 	position.set(x,y,0);
 	velocity.set(velx,vely,0.0f);
+	*/
 }

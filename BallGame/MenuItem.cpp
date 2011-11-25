@@ -15,30 +15,62 @@ drawItem draws the menuItem to the screen
 void MenuItem::drawItem()
 {
     texture->use();
-	glBegin(GL_QUADS);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	
+	
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	
 	//if this is the current Item color it green, else color it black
-	if(current==true)
-	{
-		glColor4f(0.0,0.5,0.0,0.9);
-	}
-	else
-	{
-		glColor4f(0.0,0.5,0.0,0.4);
-	}
+//	if(current==true)
+//	{
+//		glColor4f(1,1,1,1);
+//	}
+//	else
+//	{
+//		glColor4f(0.0,0.5,0.0,0.4);
+//	}
 	//draw the GL_Quads
-		glTexCoord2f(bottomRightX,topLeftY);glVertex3f(bottomRightX, topLeftY, -1.0);
-		glTexCoord2f(bottomRightX,bottomRightY);glVertex3f(bottomRightX,  bottomRightY, -1.0);
-		glTexCoord2f(topLeftX,bottomRightY);glVertex3f( topLeftX, bottomRightY, -1.0);
-		glTexCoord2f(topLeftX,topLeftY);glVertex3f(topLeftX,topLeftY,-1.0);
-	glEnd();
+		
+		
+	
+		glBegin(GL_QUADS);
+
+
+		
+
+		
+
+
+		//top left
+		glTexCoord2f(0,1);
+		glVertex3f(topLeftX,topLeftY,-1.0);
+
+		//top right
+		glTexCoord2f(1,1);
+		glVertex3f(bottomRightX, topLeftY, -1.0);
+
+		//bottom right
+		glTexCoord2f(1,0);
+		glVertex3f(bottomRightX,  bottomRightY, -1.0);
+
+		//bottom left
+		glTexCoord2f(0,0);
+		glVertex3f( topLeftX, bottomRightY, -1.0);
+
+
+		
+	
+
+
+		glEnd();
+
 	
 	//set the text color to white
-	glColor3f(1.0f, 1.0f, 1.0f);
+	//glColor3f(1.0f, 1.0f, 1.0f);
 	//set the texts location
-	glRasterPos2f((bottomRightX+topLeftX)/2,(topLeftY+bottomRightY)/2);
+	//glRasterPos2f((bottomRightX+topLeftX)/2,(topLeftY+bottomRightY)/2);
 	//draw the text to the screen
-	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*)description.c_str());
+	//glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*)description.c_str());
 }
 
 /**

@@ -4,7 +4,6 @@
 #include "MainMenuState.h"
 #include "LevelState.h"
 #include <iostream>
-#include "Background.h"
 #include "ArgoMatrix.h"
 #include "Globals.h"
 #include "MenuItem.h"
@@ -22,25 +21,25 @@ MainMenuState::MainMenuState() : MenuState() {
 	items[0] = new MenuItem();
 	items[0]->setDescription("Select A Level");
 	items[0]->texture = new Texture();
-	//items[0]->texture->load("Data/Textures/TGA/select.tga");
+	items[0]->texture->load("Data/Textures/BallGraphics/BallGameLevels.tga");
 	items[0]->current=true;
 
 	items[1] = new MenuItem();
 	items[1]->setDescription("Change Graphics Options");
 	items[1]->texture = new Texture();
-	//items[1]->texture->load("Data/Textures/TGA/select.tga");
+	items[1]->texture->load("Data/Textures/BallGraphics/BallGameGraphics.tga");
 	items[1]->current=false;
 
 	items[2] = new MenuItem();
 	items[2]->setDescription("View Achievements");
 	items[2]->texture = new Texture();
-	//items[2]->texture->load("Data/Textures/TGA/select.tga");
+	items[2]->texture->load("Data/Textures/BallGraphics/BallGameTrophies.tga");
 	items[2]->current=false;
 
 	items[3] = new MenuItem();
 	items[3]->setDescription("Game Credits");
 	items[3]->texture = new Texture();
-	//items[3]->texture->load("Data/Textures/TGA/select.tga");
+	items[3]->texture->load("Data/Textures/BallGraphics/BallGameCredits.tga");
 	items[3]->current=false;
 	//create our background object
 	background = new Background(width,height);
@@ -107,6 +106,8 @@ void MainMenuState::update(int fps) {
 	keyDown[13]=false;
 	}
 	//Set the location of the menu items
+
+	/*
 	items[0]->setTopLeft(25,25);
 	items[0]->setBottomRight(width/2-25,height/2-25);
 	
@@ -119,6 +120,11 @@ void MainMenuState::update(int fps) {
 	items[3]->setTopLeft(width/2,height/2);
 	items[3]->setBottomRight(width-25,height-25);
 
+	*/
+
+	items[0]->setTopLeft(0,0);
+	items[0]->setBottomRight(559,91);
+
 	background->update();
 
 }
@@ -126,7 +132,7 @@ void MainMenuState::update(int fps) {
 void MainMenuState::render() {
 	glLoadIdentity();
 	
-	background->drawBackground();
+	//background->drawBackground();
 
 	items[0]->drawItem();
 	items[1]->drawItem();
