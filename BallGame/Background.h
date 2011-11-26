@@ -2,16 +2,7 @@
 #define BACKGROUND_H
 
 #include "ArgoMatrix.h"
-#include <list>
-#include "ArgoMatrix.h"
-class Bullet
-{
-public:
-	ArgoVector3 position;
-	ArgoVector3 velocity;
-	Bullet(int x, int y, int velx, int vely);
-	Bullet(){}
-};
+#include "Texture.h"
 
 class Background
 {
@@ -19,12 +10,14 @@ public:
 	Background();
 	~Background();
 	Background(int w, int h);
-	Bullet* bullets[5];
 	void drawBackground();
 	void update();
 	int width;
 	int height;
-	list<ArgoVector4*> lineList;
+	float angle;
+	float angleadd;
+	Texture* logo;
+	Texture* backgroundColor;
 private:
 
 

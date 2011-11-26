@@ -12,33 +12,59 @@ using namespace std;
 /**
 drawItem draws the menuItem to the screen
 **/
+
+MenuItem::MenuItem()
+{
+bobamount =0;
+bobadd = 1;
+}
 void MenuItem::drawItem()
 {
     texture->use();
-	glBegin(GL_QUADS);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//if this is the current Item color it green, else color it black
-	if(current==true)
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST_MIPMAP_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	//draw the GL_Quads
+	int bob =0;
+	if(current)
 	{
-		glColor4f(0.0,0.5,0.0,0.9);
+	//updateBob();
+	bob = bobamount;
 	}
 	else
 	{
-		glColor4f(0.0,0.5,0.0,0.4);
+	bob = 0;
 	}
-	//draw the GL_Quads
-		glTexCoord2f(bottomRightX,topLeftY);glVertex3f(bottomRightX, topLeftY, -1.0);
-		glTexCoord2f(bottomRightX,bottomRightY);glVertex3f(bottomRightX,  bottomRightY, -1.0);
-		glTexCoord2f(topLeftX,bottomRightY);glVertex3f( topLeftX, bottomRightY, -1.0);
-		glTexCoord2f(topLeftX,topLeftY);glVertex3f(topLeftX,topLeftY,-1.0);
-	glEnd();
+	//cout<<bob<<endl;
+		
+	
+		glBegin(GL_QUADS);
+
+		//bottom left
+		glTexCoord2f(0,0);
+		glVertex3f( topLeftX, bottomRightY+bob, -1.0);
+
+		//bottom right
+		glTexCoord2f(1,0);
+		glVertex3f(bottomRightX,  bottomRightY+bob, -1.0);
+		
+		//top right
+		glTexCoord2f(1,1);
+		glVertex3f(bottomRightX, topLeftY+bob, -1.0);
+
+		//top left
+		glTexCoord2f(0,1);
+		glVertex3f(topLeftX,topLeftY+bob,-1.0);
+
+
+		glEnd();
+
 	
 	//set the text color to white
-	glColor3f(1.0f, 1.0f, 1.0f);
+	//glColor3f(1.0f, 1.0f, 1.0f);
 	//set the texts location
-	glRasterPos2f((bottomRightX+topLeftX)/2,(topLeftY+bottomRightY)/2);
+	//glRasterPos2f((bottomRightX+topLeftX)/2,(topLeftY+bottomRightY)/2);
 	//draw the text to the screen
-	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*)description.c_str());
+	//glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*)description.c_str());
 }
 
 /**
@@ -77,4 +103,18 @@ switches the state to the linked state
 void MenuItem::switchState()
 {
 	Globals::GAMESTATE = new TestLevelOne();
+}
+
+void MenuItem::updateBob()
+{
+	bobamount += bobadd;
+if(bobamount>=-10)
+{
+bobadd*=-1;
+}
+if(bobamount<=10)
+{
+bobadd*=-1;
+}
+
 }

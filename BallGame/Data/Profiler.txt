@@ -1,4 +1,5 @@
 init
+<<<<<<< HEAD
 0.1%
 Average Time: 0.0371491
 Minimum Time: 0
@@ -90,3 +91,31 @@ Minimum Time: 0
 Maximum Time: 113
 Finish Render
 Average Fps: 40.5511
+=======
+6%
+Average Time: 1.01454
+Minimum Time: 1
+Maximum Time: 3
+Update Dynamics World
+30.4%
+Average Time: 5.06969
+Minimum Time: 4
+Maximum Time: 358
+Build Cascaded Shadow Maps
+31.7%
+Average Time: 5.28974
+Minimum Time: 0
+Maximum Time: 65
+Build Point Light Shadow Maps
+0.1%
+Average Time: 0.0244872
+Minimum Time: 0
+Maximum Time: 1
+Start Render
+9.7%
+Average Time: 1.63123
+Minimum Time: 1
+Maximum Time: 11
+Finish Render
+Average Fps: 59.9781
+>>>>>>> 936dc529f3755d6c7d199a01be9552e64a3f813c
