@@ -107,32 +107,34 @@ void MainMenuState::update(int fps) {
 	}
 	//Set the location of the menu items
 
-	/*
-	items[0]->setTopLeft(25,25);
-	items[0]->setBottomRight(width/2-25,height/2-25);
+	//first column
+	items[0]->setTopLeft(25,height/2);
+	items[0]->setBottomRight(width/2-25,height/2 + height/4-25);
 	
-	items[1]->setTopLeft(25,height/2);
+	items[1]->setTopLeft(25,height/2+height/4);
 	items[1]->setBottomRight(width/2-25,height-25);
+	
+	//second column
+	items[2]->setTopLeft(width/2+25,height/2);
+	items[2]->setBottomRight(width-25,height/2+height/4-25);
 
-	items[2]->setTopLeft(width/2,25);
-	items[2]->setBottomRight(width-25,height/2-25);
-
-	items[3]->setTopLeft(width/2,height/2);
+	items[3]->setTopLeft(width/2+25,height/2+height/4);
 	items[3]->setBottomRight(width-25,height-25);
 
-	*/
 
-	items[0]->setTopLeft(0,0);
-	items[0]->setBottomRight(559,91);
 
 	background->update();
+	items[0]->updateBob();
+	items[1]->updateBob();
+	items[2]->updateBob();
+	items[3]->updateBob();
 
 }
 
 void MainMenuState::render() {
 	glLoadIdentity();
 	
-	//background->drawBackground();
+	background->drawBackground();
 
 	items[0]->drawItem();
 	items[1]->drawItem();

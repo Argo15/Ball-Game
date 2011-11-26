@@ -13,103 +13,88 @@ using namespace std;
 /**
 Initializes everything needed in background
 **/
+
 Background::Background(int w, int h)
 {
-	/*
-	//create every new bullet
-	for(int x=0;x<sizeof(bullets)/sizeof(int);x++)
-	{
-   		bullets[x]=new Bullet((rand()/double(RAND_MAX))*1280,(rand()/double(RAND_MAX))*900,(rand()/double(RAND_MAX))*6,(rand()/double(RAND_MAX))*6);
-	}
-	*/
+	angle = 0;
+	angleadd = 0.3f;
+	logo = new Texture();
+	logo->load("Data/Textures/BallGraphics/BallGameLogo.tga");
+
+	backgroundColor = new Texture();
+	backgroundColor->load("Data/Textures/BallGraphics/BallGameBackgroundColor.tga");
 }
 /**
 destructor, deletes pointers used
 **/
 Background::~Background()
 {
-	/*
-	for(list<ArgoVector4*>::iterator it = lineList.begin();it!=lineList.end();it++)
-	{
-		delete(*it);
-	}
-	delete(*bullets);
-	*/
+	
 }
 /**
 updates all of the bullets positions
 **/
 void Background::update()
 {
-	/*
-for(int r=0;r<sizeof(bullets)/sizeof(int);r++)
+	angle+=angleadd;
+	if(angle<10)
 	{
-		bullets[r]->position += bullets[r]->velocity;
-		if(bullets[r]->position[0]<=0)
-		{
-			bullets[r]->position[0]=1;
-			bullets[r]->velocity[0]*=-1;
-		}
-		if(bullets[r]->position[0]>=width)
-		{
-			bullets[r]->position[0]=width-1;
-			bullets[r]->velocity[0]*=-1;
-		}
-		if(bullets[r]->position[1]<=0)
-		{
-			bullets[r]->position[1]=1;
-			bullets[r]->velocity[1]*=-1;
-		}
-		if(bullets[r]->position[1]>=height)
-		{
-			bullets[r]->position[1]=height-1;
-			bullets[r]->velocity[1]*=-1;
-		}
+		angleadd*=-1;
 	}
-	for(int i = 0;i<sizeof(bullets)/sizeof(int);i++)
+	if(angle>-10)
 	{
-		for(int j=0;j<sizeof(bullets)/sizeof(int);j++)
-		{
-			int xi = bullets[i]->position[0];
-			int yi = bullets[i]->position[1];
-			int xj = bullets[j]->position[0];
-			int yj = bullets[j]->position[1];
-
-			lineList.push_back(new ArgoVector4((float)xi,(float)yi,(float)xj,(float)yj));
-			
-		}
+		angleadd*=-1;
 	}
-	*/
 }
 /**
 renders lines between the bullets to the screen
 **/
 void Background::drawBackground()
 {
-	/*
-	glColor4f(1.0, 1.0, 1.0,0.05);
+	backgroundColor->use();
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST_MIPMAP_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+glBegin(GL_QUADS);
+		//bottom left
+		glTexCoord2f(0,0);
+		glVertex3f( 0,width, -1.0);
 
-	for(list<ArgoVector4*>::iterator it = lineList.begin();it!=lineList.end();it++)
-	{
+		//bottom right
+		glTexCoord2f(1,0);
+		glVertex3f(width,height, -1.0);
+		
+		//top right
+		glTexCoord2f(1,1);
+		glVertex3f(width,0, -1.0);
 
-			int xi = (*it)[0][0];
-			int yi = (*it)[0][1];
-			int xj = (*it)[0][2];
-			int yj = (*it)[0][3];
-			glBegin(GL_LINES);
-			glVertex3f(xi,yi,-5);
-			glVertex3f(xj,yj,-5);
-			glEnd();
-	}
-	*/
-}
-/**
-creates a bullet object
-**/
-Bullet::Bullet(int x,int y, int velx, int vely)
-{
-	/*
-	position.set(x,y,0);
-	velocity.set(velx,vely,0.0f);
-	*/
+		//top left
+		glTexCoord2f(0,1);
+		glVertex3f(0,0,-1.0);
+glEnd();
+
+
+	logo->use();
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST_MIPMAP_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	
+	glPushMatrix();
+	glRotatef(angle,0,0,1);
+	glBegin(GL_QUADS);
+		//bottom left
+		glTexCoord2f(0,0);
+		glVertex3f( 25,height/2-25, -1.0);
+
+		//bottom right
+		glTexCoord2f(1,0);
+		glVertex3f(width-25,height/2-25, -1.0);
+		
+		//top right
+		glTexCoord2f(1,1);
+		glVertex3f(width-25,25, -1.0);
+
+		//top left
+		glTexCoord2f(0,1);
+		glVertex3f(25,25,-1.0);
+	glEnd();
+	glPopMatrix();
 }

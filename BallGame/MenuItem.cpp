@@ -12,54 +12,48 @@ using namespace std;
 /**
 drawItem draws the menuItem to the screen
 **/
+
+MenuItem::MenuItem()
+{
+bobamount =0;
+bobadd = 1;
+}
 void MenuItem::drawItem()
 {
     texture->use();
-	
-	
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	
-	//if this is the current Item color it green, else color it black
-//	if(current==true)
-//	{
-//		glColor4f(1,1,1,1);
-//	}
-//	else
-//	{
-//		glColor4f(0.0,0.5,0.0,0.4);
-//	}
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST_MIPMAP_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
 	//draw the GL_Quads
-		
+	int bob =0;
+	if(current)
+	{
+	//updateBob();
+	bob = bobamount;
+	}
+	else
+	{
+	bob = 0;
+	}
+	//cout<<bob<<endl;
 		
 	
 		glBegin(GL_QUADS);
 
-
-		
-
-		
-
-
-		//top left
-		glTexCoord2f(0,1);
-		glVertex3f(topLeftX,topLeftY,-1.0);
-
-		//top right
-		glTexCoord2f(1,1);
-		glVertex3f(bottomRightX, topLeftY, -1.0);
+		//bottom left
+		glTexCoord2f(0,0);
+		glVertex3f( topLeftX, bottomRightY+bob, -1.0);
 
 		//bottom right
 		glTexCoord2f(1,0);
-		glVertex3f(bottomRightX,  bottomRightY, -1.0);
-
-		//bottom left
-		glTexCoord2f(0,0);
-		glVertex3f( topLeftX, bottomRightY, -1.0);
-
-
+		glVertex3f(bottomRightX,  bottomRightY+bob, -1.0);
 		
-	
+		//top right
+		glTexCoord2f(1,1);
+		glVertex3f(bottomRightX, topLeftY+bob, -1.0);
+
+		//top left
+		glTexCoord2f(0,1);
+		glVertex3f(topLeftX,topLeftY+bob,-1.0);
 
 
 		glEnd();
@@ -109,4 +103,18 @@ switches the state to the linked state
 void MenuItem::switchState()
 {
 	Globals::GAMESTATE = new TestLevelOne();
+}
+
+void MenuItem::updateBob()
+{
+	bobamount += bobadd;
+if(bobamount>=-10)
+{
+bobadd*=-1;
+}
+if(bobamount<=10)
+{
+bobadd*=-1;
+}
+
 }
