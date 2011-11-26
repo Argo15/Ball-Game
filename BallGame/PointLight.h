@@ -30,7 +30,7 @@ public:
 	PointLight();
 	~PointLight(){}
 
-	void sendToShader(GLSLProgram *glslProgram);
+	void sendToShader(GLSLProgram *glslProgram, GLenum lightNum = GL_LIGHT0);
 
 	void setAmbient(float amt) {ambient=amt;}
 	void setDiffuse(float amt) {diffuse=amt;}

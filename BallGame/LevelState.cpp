@@ -205,7 +205,12 @@ void LevelState::render() {
 	if (Globals::RENDERSTATE == NOSHADERS) {
 		glColor3f(1.0,1.0,1.0);
 		level->getDirectLight()->sendToShader(0);
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+		PointLight **lights = new PointLight*[4];
+		int lightCount = level->getBestPointLights(lights,frustum,camera,4);
+		for (int i=0; i<lightCount; i++) {
+			glEnable(GL_LIGHT1+i);
+			lights[i]->sendToShader(0,GL_LIGHT1+i);
+		}
 		level->drawNoShaders(frustum);
 	} else {
 		glMatrixMode(GL_MODELVIEW);
@@ -505,9 +510,17 @@ void LevelState::drawScreen(float x1, float y1, float x2, float y2)
 }
 
 void LevelState::onFinish() {
+	glMatrixMode(GL_TEXTURE);
 	glActiveTextureARB(GL_TEXTURE0);
+	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
 	glEnable(GL_TEXTURE_2D);
 	glDisable(GL_CULL_FACE);
+	glDisable(GL_LIGHT1);
+	glDisable(GL_LIGHT2);
+	glDisable(GL_LIGHT3);
+	glDisable(GL_LIGHT4);
+
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 	profiler.saveProfile("Data/Profiler.txt");
 }

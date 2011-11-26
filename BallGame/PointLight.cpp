@@ -27,18 +27,20 @@ void PointLight::setColor(float r, float g, float b)
 	color[2]=b;
 }
 
-void PointLight::sendToShader(GLSLProgram *glslProgram)
+void PointLight::sendToShader(GLSLProgram *glslProgram, GLenum lightNum)
 {
 	float position[] = {translations[0],translations[1],translations[2],1.0};
 	float amb[] = {ambient*color[0],ambient*color[1],ambient*color[2]};
 	float dif[] = {diffuse*color[0],diffuse*color[1],diffuse*color[2]};
 	float spc[] = {specular*color[0],specular*color[1],specular*color[2]};
-	glLightfv(GL_LIGHT0,GL_POSITION,position);
-	glLightfv(GL_LIGHT0,GL_AMBIENT,amb);
-	glLightfv(GL_LIGHT0,GL_DIFFUSE,dif);
-	glLightfv(GL_LIGHT0,GL_SPECULAR,spc);
-	glslProgram->sendUniform("attenuation",attenuation);
-	glslProgram->sendUniform("radius",radius);
+	glLightfv(lightNum,GL_POSITION,position);
+	glLightfv(lightNum,GL_AMBIENT,amb);
+	glLightfv(lightNum,GL_DIFFUSE,dif);
+	glLightfv(lightNum,GL_SPECULAR,spc);
+	if (glslProgram != 0) {
+		glslProgram->sendUniform("attenuation",attenuation);
+		glslProgram->sendUniform("radius",radius);
+	}
 }
 
 void PointLight::buildShadowMaps(Frustum *frustum, Level *level, bool drawAll)

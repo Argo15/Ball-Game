@@ -158,6 +158,9 @@ void Level::drawNoShaders(Frustum *frustum) {
 	glPushMatrix();
 		materials->getMaterial("Default")->useNoShaders(textures);
 		ballTex->use();
+		float spec[] = {1.0, 1.0, 1.0};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,spec);
+		glMaterialf(GL_FRONT,GL_SHININESS,128);
 		float mat[16];
 		trans.getOpenGLMatrix(mat);
 		glMultMatrixf(mat);

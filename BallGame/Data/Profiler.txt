@@ -1,121 +1,47 @@
 init
-<<<<<<< HEAD
-0.1%
-Average Time: 0.0371491
+0%
+Average Time: 0.000746547
 Minimum Time: 0
 Maximum Time: 1
 Clear Buffers
-4.4%
-Average Time: 1.09047
+7.2%
+Average Time: 1.22098
 Minimum Time: 0
-Maximum Time: 5
+Maximum Time: 28
 Step Simulation
-0.4%
-Average Time: 0.122926
+0.2%
+Average Time: 0.0429265
 Minimum Time: 0
-Maximum Time: 2
+Maximum Time: 1
 Ball test
-0.7%
-Average Time: 0.18418
+0.2%
+Average Time: 0.0500187
 Minimum Time: 0
 Maximum Time: 1
 Camera test
-0.1%
-Average Time: 0.0255661
+0%
+Average Time: 0.00821202
 Minimum Time: 0
 Maximum Time: 1
 Update Dynamics World
-23.3%
-Average Time: 5.75759
+17.2%
+Average Time: 2.89623
 Minimum Time: 1
-Maximum Time: 18
+Maximum Time: 26
 Build Cascaded Shadow Maps
-24.5%
-Average Time: 6.06334
+11.8%
+Average Time: 1.98656
 Minimum Time: 0
-Maximum Time: 33
+Maximum Time: 31
 Build Point Light Shadow Maps
-0.1%
-Average Time: 0.0300564
+0%
+Average Time: 0.012696
 Minimum Time: 0
 Maximum Time: 1
 Start Render
-6.4%
-Average Time: 1.58057
-Minimum Time: 0
-Maximum Time: 6
-Gbuffer Render
-0.1%
-Average Time: 0.0375704
-Minimum Time: 0
-Maximum Time: 1
-Glow Blur
-0.6%
-Average Time: 0.159779
-Minimum Time: 0
-Maximum Time: 1
-Linear Depth Buffer
-1.1%
-Average Time: 0.280004
-Minimum Time: 0
-Maximum Time: 2
-Direct Light Shading
 2.8%
-Average Time: 0.710708
+Average Time: 0.469007
 Minimum Time: 0
-Maximum Time: 4
-Point Light Shading
-0.3%
-Average Time: 0.0810895
-Minimum Time: 0
-Maximum Time: 1
-SSAO
-0.5%
-Average Time: 0.123669
-Minimum Time: 0
-Maximum Time: 1
-Final Buffer Generation
-0.4%
-Average Time: 0.122834
-Minimum Time: 0
-Maximum Time: 1
-Motion Blur
-0.2%
-Average Time: 0.0584429
-Minimum Time: 0
-Maximum Time: 1
-Finish Shader Render
-33.7%
-Average Time: 8.32436
-Minimum Time: 0
-Maximum Time: 113
-Finish Render
-Average Fps: 40.5511
-=======
-6%
-Average Time: 1.01454
-Minimum Time: 1
 Maximum Time: 3
-Update Dynamics World
-30.4%
-Average Time: 5.06969
-Minimum Time: 4
-Maximum Time: 358
-Build Cascaded Shadow Maps
-31.7%
-Average Time: 5.28974
-Minimum Time: 0
-Maximum Time: 65
-Build Point Light Shadow Maps
-0.1%
-Average Time: 0.0244872
-Minimum Time: 0
-Maximum Time: 1
-Start Render
-9.7%
-Average Time: 1.63123
-Minimum Time: 1
-Maximum Time: 11
 Finish Render
-Average Fps: 59.9781
->>>>>>> 936dc529f3755d6c7d199a01be9552e64a3f813c
+Average Fps: 59.7144
