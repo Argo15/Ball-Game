@@ -9,6 +9,7 @@ FunHouse::FunHouse() : LevelState(){
 	levelFile->initializeLevel(level);
 	endDistance = 1.0;
 	irishSpinAngle = 0;
+	Globals::glowEnabled = false;
 }
 
 void FunHouse::resize(int w, int h) {

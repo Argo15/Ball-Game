@@ -13,6 +13,7 @@ TestLevelTwo::TestLevelTwo() : LevelState(){
 	position = 0;
 	direction=false;
 	level->getObject("SpinningThing Actor")->getRigidBody()->setFriction(btScalar(20.0f));
+	Globals::glowEnabled = false;
 }
 
 void TestLevelTwo::update(int fps) {

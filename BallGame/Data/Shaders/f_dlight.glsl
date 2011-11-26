@@ -22,16 +22,16 @@ void main() {
 	worldPos /= worldPos.w;
 	
 	float mapNum=0.0;
-	float sfilter=3.0;
+	float sfilter=4.0;
 	mat4 shadowMat = gl_TextureMatrix[3];
 	if (depth<slices[1] && depth>=slices[0]){
 		shadowMat = gl_TextureMatrix[4];
 		mapNum=1.0;
-		sfilter=3.0;
+		sfilter=4.0;
 	} else if (depth<slices[2] && depth>=slices[1]){
 		shadowMat = gl_TextureMatrix[5];
 		mapNum=2.0;
-		sfilter=2.0;
+		sfilter=3.0;
 	} else if (depth>=slices[2]) {
 		shadowMat = gl_TextureMatrix[6];
 		mapNum=3.0;

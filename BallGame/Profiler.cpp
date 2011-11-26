@@ -15,7 +15,7 @@ void Profiler::init()
 		points["init"].next = "";
 		points["init"].numSamples = 0;
 		points["init"].totalTime = 0;
-		points["init"].minTimeChange = 100;
+		points["init"].minTimeChange = 0;
 		points["init"].maxTimeChange = 0;
 	}
 	points["init"].addTimeChange(0);

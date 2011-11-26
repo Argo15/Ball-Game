@@ -524,6 +524,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Data\Shaders\f_dlightlow.glsl"
+				>
+			</File>
+			<File
 				RelativePath=".\Data\Shaders\f_final.glsl"
 				>
 			</File>
@@ -545,6 +549,14 @@
 			</File>
 			<File
 				RelativePath=".\Data\Shaders\f_plight.glsl"
+				>
+			</File>
+			<File
+				RelativePath=".\Data\Shaders\f_plightlow.glsl"
+				>
+			</File>
+			<File
+				RelativePath=".\Data\Shaders\f_ssao.glsl"
 				>
 			</File>
 			<File

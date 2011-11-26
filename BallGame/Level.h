@@ -11,6 +11,7 @@
 #include "DirectLight.h"
 #include "PointLight.h"
 #include "Frustum.h"
+#include "Profiler.h"
 using namespace std;
 
 class PointLight;
@@ -58,7 +59,7 @@ public:
 
 	void setNumObjects(int count) {numObjects = count;}
 	void buildDynamicsWorld();
-	void updateDynamicsWorld(bool *keys, Camera *camera, int fps);
+	void updateDynamicsWorld(bool *keys, Camera *camera, int fps, Profiler *profiler);
 
 	void setStart(float *entrance) {start = btVector3(entrance[0],entrance[1],entrance[2]);}
 	void setEnd(float *end) {this->end = btVector3(end[0],end[1],end[2]);}

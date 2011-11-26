@@ -13,6 +13,10 @@ void GameState::keyDown(unsigned char key, int xx, int yy)
 	keys[key]=true;
 	if (key >= '0' && key <= '9') 
 		Globals::RENDERSTATE = (RenderState)((int)key-(int)'0');
+	if (key == 'o') Globals::ambientOcclusion = !Globals::ambientOcclusion;
+	if (key == 'm') Globals::motionblur = !Globals::motionblur;
+	if (key == 'g') Globals::glowEnabled = !Globals::glowEnabled;
+	if (key == 'l') Globals::highQualityShadows = !Globals::highQualityShadows;
 }
 
 

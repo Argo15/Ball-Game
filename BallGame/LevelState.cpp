@@ -64,12 +64,32 @@ LevelState::LevelState() {
 	printf(log.c_str());
 
 	log="";
+	dLightLowProg = new GLSLProgram("Data/Shaders/v_light.glsl","Data/Shaders/f_dlightlow.glsl");
+	if (!dLightLowProg->vertex_->isCompiled()){
+		dLightLowProg->vertex_->getShaderLog(log);
+	}
+	if (!dLightLowProg->fragment_->isCompiled()){	
+		dLightLowProg->fragment_->getShaderLog(log);
+	}
+	printf(log.c_str());
+
+	log="";
 	pLightProg = new GLSLProgram("Data/Shaders/v_light.glsl","Data/Shaders/f_plight.glsl");
 	if (!pLightProg->vertex_->isCompiled()){
 		pLightProg->vertex_->getShaderLog(log);
 	}
 	if (!pLightProg->fragment_->isCompiled()){	
 		pLightProg->fragment_->getShaderLog(log);
+	}
+	printf(log.c_str());
+
+	log="";
+	pLightLowProg = new GLSLProgram("Data/Shaders/v_light.glsl","Data/Shaders/f_plightlow.glsl");
+	if (!pLightLowProg->vertex_->isCompiled()){
+		pLightLowProg->vertex_->getShaderLog(log);
+	}
+	if (!pLightLowProg->fragment_->isCompiled()){	
+		pLightLowProg->fragment_->getShaderLog(log);
 	}
 	printf(log.c_str());
 
@@ -105,7 +125,6 @@ LevelState::LevelState() {
 		vBlurProg->fragment_->getShaderLog(log);
 	}
 	printf(log.c_str());
-	glowEnabled = false;
 
 	log="";
 	motionBlurBuffer = new ColorBuffer(1280,720);
@@ -115,6 +134,17 @@ LevelState::LevelState() {
 	}
 	if (!mBlurProg->fragment_->isCompiled()){	
 		mBlurProg->fragment_->getShaderLog(log);
+	}
+	printf(log.c_str());
+
+	log="";
+	SSAOBuffer = new ColorBuffer(1280,720);
+	mSSAOProg = new GLSLProgram("Data/Shaders/v_light.glsl","Data/Shaders/f_ssao.glsl");
+	if (!mSSAOProg->vertex_->isCompiled()){
+		mSSAOProg->vertex_->getShaderLog(log);
+	}
+	if (!mSSAOProg->fragment_->isCompiled()){	
+		mSSAOProg->fragment_->getShaderLog(log);
 	}
 	printf(log.c_str());
 
@@ -135,8 +165,9 @@ void LevelState::update(int fps) {
 	profiler.init();
 	profiler.update(fps);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	profiler.profile("Clear Buffers");
 	level->getLastTransforms();
-	level->updateDynamicsWorld(keys,camera,fps);
+	level->updateDynamicsWorld(keys,camera,fps,&profiler);
 	profiler.profile("Update Dynamics World");
 	frustum->getFrustum(camera,view);
 	cascadedShadowMap->buildShadowMaps(camera, view, frustum, level);
@@ -201,9 +232,6 @@ void LevelState::render() {
 			glColor3f(0.0,0.0,0.0);
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
-			glTranslatef(0.0,0.0,-29.9);
-			drawScreen(-100.0,-100.0,100.0,100.0);
-			glLoadIdentity();
 			camera->transform();
 			glEnable(GL_LIGHTING);
 			renderGBuffer();
@@ -226,10 +254,10 @@ void LevelState::render() {
 		invMVP.setAsModelViewProjection();
 		invMVP.multiplyToCurrent();
 
-		if (glowEnabled != keys['g']) {
+		if (Globals::glowEnabled) {
 			blurTexture(glowBlurBuffer,gBuffer->getGlowTex(),4.0);
-			blurTexture(glowBlurBuffer,gBuffer->getGlowTex(),3.0);
-			blurTexture(glowBlurBuffer,gBuffer->getGlowTex(),2.0);
+			blurTexture(glowBlurBuffer,glowBlurBuffer->getTexture(),3.0);
+			blurTexture(glowBlurBuffer,glowBlurBuffer->getTexture(),2.0);
 		}
 
 		profiler.profile("Glow Blur");
@@ -259,7 +287,12 @@ void LevelState::render() {
 		glBlendEquationSeparate(GL_FUNC_ADD,GL_FUNC_ADD);
 
 		lightBuffer->bind();
-			dLightProg->use();
+			GLSLProgram *dlightProgram;
+			if (Globals::highQualityShadows)
+				dlightProgram = dLightProg;
+			else
+				dlightProgram = dLightLowProg;
+			dlightProgram->use();
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 				glPushAttrib( GL_VIEWPORT_BIT );
 				GLenum mrtLight[] = { GL_COLOR_ATTACHMENT0_EXT, GL_COLOR_ATTACHMENT1_EXT };
@@ -273,33 +306,36 @@ void LevelState::render() {
 				glActiveTexture(GL_TEXTURE2); 
 				gBuffer->bindColorTex();
 				glActiveTexture(GL_TEXTURE3);
-				if (glowEnabled != keys['g'])
+				if (Globals::glowEnabled)
 					glowBlurBuffer->bindTexture();
 				else
 					gBuffer->bindGlowTex();
-				dLightProg->sendUniform("depthTex",0);
-				dLightProg->sendUniform("normalTex",1);
-				dLightProg->sendUniform("colorTex",2);
-				dLightProg->sendUniform("glowTex",3);
-				dLightProg->sendUniform("cameraPos",camera->geteyeX(),camera->geteyeY(),camera->geteyeZ());
-				dLightProg->sendUniform("near",view->getNear());
-				dLightProg->sendUniform("far",view->getFar());
+				dlightProgram->sendUniform("depthTex",0);
+				dlightProgram->sendUniform("normalTex",1);
+				dlightProgram->sendUniform("colorTex",2);
+				dlightProgram->sendUniform("glowTex",3);
+				dlightProgram->sendUniform("cameraPos",camera->geteyeX(),camera->geteyeY(),camera->geteyeZ());
+				dlightProgram->sendUniform("near",view->getNear());
+				dlightProgram->sendUniform("far",view->getFar());
 				float dir[4] = {-1.0,-2.0,-3.0,0.0};
 				glLightfv(GL_LIGHT0,GL_POSITION,dir);
-				level->getDirectLight()->sendToShader(dLightProg);
-				cascadedShadowMap->sendToShader(dLightProg,view);
+				level->getDirectLight()->sendToShader(dlightProgram);
+				cascadedShadowMap->sendToShader(dlightProgram,view);
 				drawScreen(0.0,0.0,1.0,1.0);
 				glPopAttrib();
-			dLightProg->disable();
+				dlightProgram->disable();
 		lightBuffer->unbind();
 
 		profiler.profile("Direct Light Shading");
 
 		PointLight **lights = new PointLight*[5];
 		int lightCount = level->getBestPointLights(lights,frustum,camera,4);
+		GLSLProgram *pointLightProg = pLightLowProg;
+		if (Globals::highQualityShadows)
+			pointLightProg = pLightProg;
 		for (int i=0; i< lightCount; i++) {
 			lightBuffer->bind();
-			pLightProg->use();
+			pointLightProg->use();
 				glClear(GL_DEPTH_BUFFER_BIT);
 				glPushAttrib( GL_VIEWPORT_BIT );
 				GLenum mrtLight[] = { GL_COLOR_ATTACHMENT0_EXT, GL_COLOR_ATTACHMENT1_EXT };
@@ -316,23 +352,52 @@ void LevelState::render() {
 				lightBuffer->bindSpecTex();
 				glActiveTexture(GL_TEXTURE4);
 				lightBuffer->bindLightTex();
-				pLightProg->sendUniform("depthTex",0);
-				pLightProg->sendUniform("normalTex",1);
-				pLightProg->sendUniform("colorTex",2);
-				pLightProg->sendUniform("glowTex",3);
-				pLightProg->sendUniform("lightTex",4);
-				pLightProg->sendUniform("cameraPos",camera->geteyeX(),camera->geteyeY(),camera->geteyeZ());
-				lights[i]->sendToShader(pLightProg);
-				lights[i]->sendShadowsToShader(pLightProg);
+				pointLightProg->sendUniform("depthTex",0);
+				pointLightProg->sendUniform("normalTex",1);
+				pointLightProg->sendUniform("colorTex",2);
+				pointLightProg->sendUniform("glowTex",3);
+				pointLightProg->sendUniform("lightTex",4);
+				pointLightProg->sendUniform("cameraPos",camera->geteyeX(),camera->geteyeY(),camera->geteyeZ());
+				lights[i]->sendToShader(pointLightProg);
+				lights[i]->sendShadowsToShader(pointLightProg);
 				drawScreen(0.0,0.0,1.0,1.0);
 				glPopAttrib();
-			pLightProg->disable();
+			pointLightProg->disable();
 			lightBuffer->unbind();
 		}
 
+		glDisable(GL_BLEND);
 		profiler.profile("Point Light Shading");
 
-		glDisable(GL_BLEND);
+		if (!Globals::ambientOcclusion) {
+			SSAOBuffer->bind();
+			glClearColor(1.0,1.0,1.0,1.0);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glClearColor(0.0,0.0,0.0,1.0);
+			SSAOBuffer->unbind();
+		} else {
+			SSAOBuffer->bind();
+				mSSAOProg->use();
+					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+					glPushAttrib( GL_VIEWPORT_BIT );
+					glDrawBuffer(GL_COLOR_ATTACHMENT0_EXT);
+					glViewport( 0, 0, lightBuffer->getWidth(), lightBuffer->getHeight());
+					view->use3D(false);	
+					glActiveTexture(GL_TEXTURE0); 
+					gBuffer->bindDepthTex();
+					mSSAOProg->sendUniform("depthTex",0);
+					mSSAOProg->sendUniform("near",view->getNear());
+					mSSAOProg->sendUniform("far",view->getFar());
+					drawScreen(0.0,0.0,1.0,1.0);
+					glPopAttrib();
+				mSSAOProg->disable();
+			SSAOBuffer->unbind();
+
+			blurTexture(SSAOBuffer,SSAOBuffer->getTexture(),5.0);
+			blurTexture(SSAOBuffer,SSAOBuffer->getTexture(),3.0);
+		}
+
+		profiler.profile("SSAO");
 
 		finalBuffer->bind();
 			finalProg->use();
@@ -346,9 +411,12 @@ void LevelState::render() {
 				lightBuffer->bindLightTex();
 				glActiveTexture(GL_TEXTURE2); 
 				lightBuffer->bindSpecTex();
+				glActiveTexture(GL_TEXTURE3); 
+				SSAOBuffer->bindTexture();
 				finalProg->sendUniform("colorTex",0);
 				finalProg->sendUniform("lightTex",1);
 				finalProg->sendUniform("specTex",2);
+				finalProg->sendUniform("ssaoTex",3);
 				drawScreen(0.0,0.0,1.0,1.0);
 				glPopAttrib();
 			finalProg->disable();
@@ -356,30 +424,32 @@ void LevelState::render() {
 
 		profiler.profile("Final Buffer Generation");
 
-		motionBlurBuffer->bind();
-			mBlurProg->use();
-				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-				glPushAttrib( GL_VIEWPORT_BIT );
-				glViewport( 0, 0, finalBuffer->getWidth(), finalBuffer->getHeight());
-				view->use3D(false);
-				glActiveTexture(GL_TEXTURE0); 
-				finalBuffer->bindFinalTex();
-				glActiveTexture(GL_TEXTURE1); 
-				gBuffer->bindMotionTex();
-				mBlurProg->sendUniform("tex",0);
-				mBlurProg->sendUniform("velTex",1);
-				mBlurProg->sendUniform("numSamples",16.0f);
-				drawScreen(0.0,0.0,1.0,1.0);
-				glPopAttrib();
-			mBlurProg->disable();
-		motionBlurBuffer->unbind();
+		if (Globals::motionblur) {
+			motionBlurBuffer->bind();
+				mBlurProg->use();
+					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+					glPushAttrib( GL_VIEWPORT_BIT );
+					glViewport( 0, 0, finalBuffer->getWidth(), finalBuffer->getHeight());
+					view->use3D(false);
+					glActiveTexture(GL_TEXTURE0); 
+					finalBuffer->bindFinalTex();
+					glActiveTexture(GL_TEXTURE1); 
+					gBuffer->bindMotionTex();
+					mBlurProg->sendUniform("tex",0);
+					mBlurProg->sendUniform("velTex",1);
+					mBlurProg->sendUniform("numSamples",16.0f);
+					drawScreen(0.0,0.0,1.0,1.0);
+					glPopAttrib();
+				mBlurProg->disable();
+			motionBlurBuffer->unbind();
+		}
 
 		profiler.profile("Motion Blur");
 
 		glDisable(GL_LIGHTING);
 		glActiveTextureARB(GL_TEXTURE0);
 		level->getMaterials()->getMaterial("Default")->useNoShaders(level->getTextures());
-		if (keys['m']) {
+		if (!Globals::motionblur) {
 			if (Globals::RENDERSTATE == FINAL) finalBuffer->bindFinalTex();
 		} else {
 			if (Globals::RENDERSTATE == FINAL) motionBlurBuffer->bindTexture();
@@ -388,6 +458,7 @@ void LevelState::render() {
 		if (Globals::RENDERSTATE == NORMAL) gBuffer->bindNormalTex();
 		if (Globals::RENDERSTATE == COLOR) gBuffer->bindColorTex();
 		if (Globals::RENDERSTATE == LIGHTING) lightBuffer->bindLightTex();
+		if (Globals::RENDERSTATE == SSAO) SSAOBuffer->bindTexture();
 		if (Globals::RENDERSTATE == SPECULAR) lightBuffer->bindSpecTex();
 		if (Globals::RENDERSTATE == MOTION) gBuffer->bindMotionTex();
 		view->use3D(false);

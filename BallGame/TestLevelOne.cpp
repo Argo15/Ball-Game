@@ -12,7 +12,7 @@ TestLevelOne::TestLevelOne() : LevelState(){
 	level->getObject("Cube Actor(4)")->getRigidBody()->setFriction(btScalar(20.0f));
 	level->getObject("Cube Actor(5)")->getRigidBody()->setFriction(btScalar(20.0f));
 	endDistance = 1.0;
-	glowEnabled = true;
+	Globals::glowEnabled = true;
 }
 
 void TestLevelOne::update(int fps) {

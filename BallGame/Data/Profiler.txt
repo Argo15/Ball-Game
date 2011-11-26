@@ -1,67 +1,92 @@
 init
-48%
-Average Time: 10.48
+0.1%
+Average Time: 0.0371491
 Minimum Time: 0
-Maximum Time: 68
+Maximum Time: 1
+Clear Buffers
+4.4%
+Average Time: 1.09047
+Minimum Time: 0
+Maximum Time: 5
+Step Simulation
+0.4%
+Average Time: 0.122926
+Minimum Time: 0
+Maximum Time: 2
+Ball test
+0.7%
+Average Time: 0.18418
+Minimum Time: 0
+Maximum Time: 1
+Camera test
+0.1%
+Average Time: 0.0255661
+Minimum Time: 0
+Maximum Time: 1
 Update Dynamics World
-12.3%
-Average Time: 2.69122
+23.3%
+Average Time: 5.75759
 Minimum Time: 1
-Maximum Time: 11
+Maximum Time: 18
 Build Cascaded Shadow Maps
-9.5%
-Average Time: 2.08117
+24.5%
+Average Time: 6.06334
 Minimum Time: 0
-Maximum Time: 30
+Maximum Time: 33
 Build Point Light Shadow Maps
-0%
-Average Time: 0.0160615
+0.1%
+Average Time: 0.0300564
 Minimum Time: 0
 Maximum Time: 1
 Start Render
-4.1%
-Average Time: 0.90852
+6.4%
+Average Time: 1.58057
 Minimum Time: 0
-Maximum Time: 38
+Maximum Time: 6
 Gbuffer Render
-0.6%
-Average Time: 0.142109
+0.1%
+Average Time: 0.0375704
 Minimum Time: 0
-Maximum Time: 2
+Maximum Time: 1
 Glow Blur
-0%
-Average Time: 0.0185056
+0.6%
+Average Time: 0.159779
 Minimum Time: 0
 Maximum Time: 1
 Linear Depth Buffer
-0.3%
-Average Time: 0.0705307
+1.1%
+Average Time: 0.280004
 Minimum Time: 0
 Maximum Time: 2
 Direct Light Shading
-0.8%
-Average Time: 0.18104
+2.8%
+Average Time: 0.710708
 Minimum Time: 0
-Maximum Time: 2
+Maximum Time: 4
 Point Light Shading
-0.1%
-Average Time: 0.0251397
+0.3%
+Average Time: 0.0810895
+Minimum Time: 0
+Maximum Time: 1
+SSAO
+0.5%
+Average Time: 0.123669
 Minimum Time: 0
 Maximum Time: 1
 Final Buffer Generation
-0%
-Average Time: 0.0209497
+0.4%
+Average Time: 0.122834
 Minimum Time: 0
 Maximum Time: 1
 Motion Blur
-0%
-Average Time: 0.0199022
+0.2%
+Average Time: 0.0584429
 Minimum Time: 0
 Maximum Time: 1
 Finish Shader Render
-0.2%
-Average Time: 0.052898
+33.7%
+Average Time: 8.32436
 Minimum Time: 0
-Maximum Time: 1
+Maximum Time: 113
 Finish Render
-Average Fps: 45.8497
+Average Fps: 40.5511

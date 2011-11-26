@@ -22,6 +22,7 @@ private:
 	GBuffer *gBuffer;
 	LinearDepthBuffer *depthBuffer;
 	LightBuffer *lightBuffer;
+	ColorBuffer *SSAOBuffer;
 	FinalBuffer *finalBuffer;
 	ColorBuffer *hBlurBuffer;
 	ColorBuffer *glowBlurBuffer;
@@ -29,11 +30,14 @@ private:
 	GLSLProgram *gBufferProg;
 	GLSLProgram *depthProg;
 	GLSLProgram *dLightProg;
+	GLSLProgram *dLightLowProg;
 	GLSLProgram *pLightProg;
+	GLSLProgram *pLightLowProg;
 	GLSLProgram *finalProg;
 	GLSLProgram *hBlurProg;
 	GLSLProgram *vBlurProg;
 	GLSLProgram *mBlurProg;
+	GLSLProgram *mSSAOProg;
 	Frustum *frustum;
 	CascadedShadowMap *cascadedShadowMap;
 
@@ -48,7 +52,6 @@ protected:
 	View *view;
 
 	float endDistance;
-	bool glowEnabled;
 
 public:
 	LevelState();

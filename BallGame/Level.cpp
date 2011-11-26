@@ -58,12 +58,14 @@ void Level::buildDynamicsWorld() {
 	dynamicsWorld->addRigidBody(ballBody);
 }
 
-void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps) {
+void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps, Profiler *profiler) {
 	dynamicsWorld->stepSimulation(1.f/60.f,10);
+	profiler->profile("Step Simulation");
 
 	BallCallback ballCallback;
 	ballCallback.canJump = false;
 	dynamicsWorld->contactTest(ballBody,ballCallback);
+	profiler->profile("Ball test");
 
 	btVector3 velocity = ballBody->getLinearVelocity();
 	float tempY = velocity.getY();
@@ -133,6 +135,7 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps) {
 	btVector3 to(camera->geteyeX(),camera->geteyeY(),camera->geteyeZ());
 	btCollisionWorld::ClosestRayResultCallback rayCallBack(from,to+(to-from).normalize()*0.2);
 	dynamicsWorld->getCollisionWorld()->rayTest(from,to+(to-from).normalize()*0.2,rayCallBack);
+	profiler->profile("Camera test");
 	if (rayCallBack.hasHit()) {
 		distance = (rayCallBack.m_hitPointWorld-from).length()-0.1;
 		camera->setDistance(distance);
