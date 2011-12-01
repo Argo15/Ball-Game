@@ -17,7 +17,7 @@ private:
 
 public:
 	LightBuffer(int width, int height);
-	~LightBuffer(){}
+	~LightBuffer(){glDeleteFramebuffers(1,&buffer);}
 
 	void bind() {glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, buffer);}
 	void unbind() { glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);}

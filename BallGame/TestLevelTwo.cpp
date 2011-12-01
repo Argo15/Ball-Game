@@ -54,4 +54,5 @@ void TestLevelTwo::onFinish() {
 	LevelState::onFinish();
 	Globals::GAMESTATE = new FunHouse();
 	Globals::GAMESTATE->resize(width,height);
+	delete this;
 }

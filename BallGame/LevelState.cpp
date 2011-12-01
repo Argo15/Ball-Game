@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <GL/glut.h>
+#include <GL/freeglut.h>
 #include "LevelState.h"
 #include "Globals.h"
 #include "MainMenuState.h"
@@ -442,7 +443,7 @@ void LevelState::render() {
 					gBuffer->bindMotionTex();
 					mBlurProg->sendUniform("tex",0);
 					mBlurProg->sendUniform("velTex",1);
-					mBlurProg->sendUniform("numSamples",16.0f);
+					mBlurProg->sendUniform("numSamples",10.0f);
 					drawScreen(0.0,0.0,1.0,1.0);
 					glPopAttrib();
 				mBlurProg->disable();
@@ -453,6 +454,7 @@ void LevelState::render() {
 
 		glDisable(GL_LIGHTING);
 		glActiveTextureARB(GL_TEXTURE0);
+		glEnable(GL_TEXTURE_2D);
 		level->getMaterials()->getMaterial("Default")->useNoShaders(level->getTextures());
 		if (!Globals::motionblur) {
 			if (Globals::RENDERSTATE == FINAL) finalBuffer->bindFinalTex();
@@ -469,6 +471,28 @@ void LevelState::render() {
 		view->use3D(false);
 		glLoadIdentity();
 		drawScreen(0.0,0.0,1.0,1.0);
+		glDepthFunc(GL_ALWAYS);
+			glDisable(GL_COLOR_MATERIAL);
+			glDisable(GL_LIGHTING);
+			glDisable(GL_TEXTURE_2D);
+			glActiveTexture(GL_TEXTURE0); 
+			glDisable(GL_TEXTURE_2D);
+			glColor3f(1.0f, 1.0f, 1.0f);
+			glRasterPos2f(0.0f,0.3f);
+			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"WASD to move");
+			glRasterPos2f(0.0f,0.26f);
+			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"G to toggle glow");
+			glRasterPos2f(0.0f,0.22f);
+			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"L to toggle lighting quality");
+			glRasterPos2f(0.0f,0.18f);
+			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"O to toggle ambient occlusion");
+			glRasterPos2f(0.0f,0.14f);
+			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"E to toggle environment mapping");
+			glRasterPos2f(0.0f,0.10f);
+			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"M to toggle motion blur");
+			glRasterPos2f(0.0f,0.06f);
+			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"H to toggle help");
+		glDepthFunc(GL_LEQUAL);
 		profiler.profile("Finish Shader Render");
 	}
 
@@ -520,7 +544,25 @@ void LevelState::onFinish() {
 	glDisable(GL_LIGHT2);
 	glDisable(GL_LIGHT3);
 	glDisable(GL_LIGHT4);
-
+	delete gBufferProg;
+	delete depthProg;
+	delete dLightProg;
+	delete dLightLowProg;
+	delete pLightProg;
+	delete pLightLowProg;
+	delete finalProg;
+	delete hBlurProg;
+	delete vBlurProg;
+	delete mBlurProg;
+	delete mSSAOProg;
+	delete gBuffer;
+	delete depthBuffer;
+	delete lightBuffer;
+	delete SSAOBuffer;
+	delete finalBuffer;
+	delete hBlurBuffer;
+	delete glowBlurBuffer;
+	delete motionBlurBuffer;
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 	profiler.saveProfile("Data/Profiler.txt");
 }

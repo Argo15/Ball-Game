@@ -77,4 +77,5 @@ void FunHouse::onFinish() {
 	LevelState::onFinish();
 	Globals::GAMESTATE = new MainMenuState();
 	Globals::GAMESTATE->resize(width,height);
+	delete this;
 }

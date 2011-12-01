@@ -21,7 +21,7 @@ private:
 
 public:
 	GBuffer(int width, int height);
-	~GBuffer(){}
+	~GBuffer(){glDeleteFramebuffers(1,&buffer);}
 
 	void bind() {glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, buffer);}
 	void unbind() {glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);}

@@ -38,7 +38,7 @@ private:
 
 public:
 	Level();
-	~Level() {}
+	~Level();
 
 	TextureRegistry *getTextures() {return textures;}
 	MaterialRegistry *getMaterials() {return materials;}

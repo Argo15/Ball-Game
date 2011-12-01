@@ -13,6 +13,7 @@ protected:
 
 public:
 	ColorBuffer(int width, int height);
+	~ColorBuffer() {glDeleteFramebuffers(1,&buffer);}
 	void bind() {glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, buffer);}
 	void unbind() {glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);}
 	GLuint getBuffer() {return buffer;}

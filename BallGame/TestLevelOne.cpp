@@ -54,4 +54,5 @@ void TestLevelOne::onFinish() {
 	LevelState::onFinish();
 	Globals::GAMESTATE = new TestLevelTwo();
 	Globals::GAMESTATE->resize(width,height);
+	delete this;
 }

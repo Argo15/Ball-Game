@@ -38,6 +38,13 @@ Level::Level() {
 	canJump=true;
 }
 
+Level::~Level() {
+	delete textures;
+	delete materials;
+	delete dynamicsWorld;
+	delete models;
+}
+
 void Level::buildDynamicsWorld() {
 	map<string,Object *>::iterator i;
 	for (i = objects.begin(); i != objects.end(); i++) {
