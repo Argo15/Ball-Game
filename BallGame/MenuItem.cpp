@@ -5,6 +5,9 @@
 #include "TestLevelOne.h"
 #include "TestLevelTwo.h"
 #include "LevelMenuState.h"
+#include "CreditsMenuState.h"
+#include "GraphicsMenuState.h"
+#include "TrophieMenuState.h"
 #include "MainMenuState.h"
 #include "FunHouse.h"
 #include "Globals.h"
@@ -111,15 +114,15 @@ void MenuItem::switchState()
 	}
 	else if(link=="GraphicsMenuState")
 	{
-		
+		Globals::GAMESTATE = new GraphicsMenuState();
 	}
 	else if(link =="TrophieMenuState")
 	{
-
+		Globals::GAMESTATE = new TrophieMenuState();
 	}
 	else if(link == "CreditsMenuState")
 	{
-
+		Globals::GAMESTATE = new CreditsMenuState();
 	}
 	else if(link == "MainMenuState")
 	{
@@ -141,6 +144,85 @@ void MenuItem::switchState()
 	{
 
 	}
+	else if(link == "GOglow")
+	{
+		if(Globals::glowEnabled==true)
+		{
+			Globals::glowEnabled = false;
+		}
+		else
+		{
+			Globals::glowEnabled = true;
+		}
+	}
+	else if(link == "GOmotionBlur")
+	{
+		if(Globals::motionblur==true)
+		{
+			Globals::motionblur = false;
+		}
+		else
+		{
+			Globals::motionblur = true;
+		}
+
+	}
+	else if(link == "GOambient")
+	{
+		if(Globals::ambientOcclusion==true)
+		{
+			Globals::ambientOcclusion = false;
+		}
+		else
+		{
+			Globals::ambientOcclusion = true;
+		}
+	}
+	else if(link == "GOshadows")
+	{
+		if(Globals::highQualityShadows==true)
+		{
+			Globals::highQualityShadows = false;
+		}
+		else
+		{
+			Globals::highQualityShadows = true;
+		}
+	}
+	else if(link == "TONE")
+	{
+		if(Globals::LevelOnePassed==true)
+		{
+			Globals::LevelOnePassed = false;
+		}
+		else
+		{
+			Globals::LevelOnePassed = true;
+		}
+	}
+	else if(link == "TTWO")
+	{
+		if(Globals::LevelTwoPassed==true)
+		{
+			Globals::LevelTwoPassed = false;
+		}
+		else
+		{
+			Globals::LevelTwoPassed = true;
+		}
+	}
+		else if(link == "TTHREE")
+	{
+		if(Globals::LevelThreePassed==true)
+		{
+			Globals::LevelThreePassed = false;
+		}
+		else
+		{
+			Globals::LevelThreePassed = true;
+		}
+	}
+
 }
 
 void MenuItem::updateBob()

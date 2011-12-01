@@ -52,6 +52,7 @@ void TestLevelTwo::update(int fps) {
 
 void TestLevelTwo::onFinish() {
 	LevelState::onFinish();
+	Globals::LevelTwoPassed = true;
 	Globals::GAMESTATE = new FunHouse();
 	Globals::GAMESTATE->resize(width,height);
 }

@@ -148,7 +148,7 @@ void LevelMenuState::render() {
 	//set the text color to white
 	glColor3f(1.0f, 1.0f, 1.0f);
 	//set the texts location
-	glRasterPos2f((items[currentItem]->bottomRightX+items[currentItem]->topLeftX)/2-60,(items[currentItem]->topLeftY+items[currentItem]->bottomRightY)/2);
+	glRasterPos2f((items[currentItem]->bottomRightX+items[currentItem]->topLeftX)/2-90,(items[currentItem]->topLeftY+items[currentItem]->bottomRightY)/2);
 	//draw the text to the screen
 	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*)items[currentItem]->description.c_str());
 	}

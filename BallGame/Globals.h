@@ -12,6 +12,11 @@ public:
 	static bool motionblur;
 	static bool ambientOcclusion;
 	static bool highQualityShadows;
+
+	static bool OpenedMenu;
+	static bool LevelOnePassed;
+	static bool LevelTwoPassed;
+	static bool LevelThreePassed;
 };
 
 #endif

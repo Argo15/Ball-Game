@@ -302,6 +302,14 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CreditsMenuState.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\GraphicsMenuState.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\LevelMenuState.cpp"
 						>
 					</File>
@@ -315,6 +323,10 @@
 					</File>
 					<File
 						RelativePath=".\MenuState.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\TrophieMenuState.cpp"
 						>
 					</File>
 				</Filter>
@@ -496,6 +508,14 @@
 						>
 					</File>
 					<File
+						RelativePath=".\CreditsMenuState.h"
+						>
+					</File>
+					<File
+						RelativePath=".\GraphicsMenuState.h"
+						>
+					</File>
+					<File
 						RelativePath=".\LevelMenuState.h"
 						>
 					</File>
@@ -509,6 +529,10 @@
 					</File>
 					<File
 						RelativePath=".\MenuState.h"
+						>
+					</File>
+					<File
+						RelativePath=".\TrophieMenuState.h"
 						>
 					</File>
 				</Filter>

@@ -52,6 +52,7 @@ void TestLevelOne::update(int fps) {
 
 void TestLevelOne::onFinish() {
 	LevelState::onFinish();
+	Globals::LevelOnePassed = true;
 	Globals::GAMESTATE = new TestLevelTwo();
 	Globals::GAMESTATE->resize(width,height);
 }

@@ -75,6 +75,7 @@ void FunHouse::update(int fps) {
 
 void FunHouse::onFinish() {
 	LevelState::onFinish();
+	Globals::LevelThreePassed = true;
 	Globals::GAMESTATE = new MainMenuState();
 	Globals::GAMESTATE->resize(width,height);
 }
