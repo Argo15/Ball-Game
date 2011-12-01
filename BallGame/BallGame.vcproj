@@ -302,6 +302,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\LevelMenuState.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\MainMenuState.cpp"
 						>
 					</File>
@@ -489,6 +493,10 @@
 					>
 					<File
 						RelativePath=".\Background.h"
+						>
+					</File>
+					<File
+						RelativePath=".\LevelMenuState.h"
 						>
 					</File>
 					<File

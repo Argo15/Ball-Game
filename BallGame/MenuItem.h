@@ -21,14 +21,16 @@ public:
 	bool current;
 	int bobamount;
 	int bobadd;
-private:
-	string description;
-	GameState* buttonLink;
-
+	string link;
 	float topLeftX;
 	float topLeftY;
 	float bottomRightX;
 	float bottomRightY;
+	string description;
+private:
+	GameState* buttonLink;
+
+
 };
 
 #endif

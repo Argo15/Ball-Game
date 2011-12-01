@@ -29,7 +29,7 @@ ENDIF(NOT CMAKE_INSTALL_COMPONENT)
 
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  INCLUDE("C:/Users/Bill/Desktop/CPP/My Projects/Ball-Game/BallGame/src/BulletMultiThreaded/GpuSoftBodySolvers/cmake_install.cmake")
+  INCLUDE("C:/Users/Michael DeRoy/Desktop/ARGO_GAMES/Ball-Game/BallGame/src/BulletMultiThreaded/GpuSoftBodySolvers/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 

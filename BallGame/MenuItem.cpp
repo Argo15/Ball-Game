@@ -3,6 +3,9 @@
 #include <GL/freeglut.h>
 #include "MenuState.h"
 #include "TestLevelOne.h"
+#include "TestLevelTwo.h"
+#include "LevelMenuState.h"
+#include "MainMenuState.h"
 #include "FunHouse.h"
 #include "Globals.h"
 #include "MenuItem.h"
@@ -102,7 +105,42 @@ switches the state to the linked state
 **/
 void MenuItem::switchState()
 {
-	Globals::GAMESTATE = new TestLevelOne();
+	if(link=="LevelMenuState")
+	{
+		Globals::GAMESTATE = new LevelMenuState();
+	}
+	else if(link=="GraphicsMenuState")
+	{
+		
+	}
+	else if(link =="TrophieMenuState")
+	{
+
+	}
+	else if(link == "CreditsMenuState")
+	{
+
+	}
+	else if(link == "MainMenuState")
+	{
+		Globals::GAMESTATE = new MainMenuState();
+	}
+	else if(link == "LevelOneState")
+	{
+		Globals::GAMESTATE = new TestLevelOne();
+	}
+	else if(link == "LevelTwoState")
+	{
+		Globals::GAMESTATE = new TestLevelTwo();
+	}
+	else if(link == "LevelThreeState")
+	{
+		Globals::GAMESTATE = new FunHouse();
+	}
+	else if(link == "LevelFourState")
+	{
+
+	}
 }
 
 void MenuItem::updateBob()
