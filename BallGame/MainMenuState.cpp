@@ -23,24 +23,28 @@ MainMenuState::MainMenuState() : MenuState() {
 	items[0]->texture = new Texture();
 	items[0]->texture->load("Data/Textures/BallGraphics/BallGameLevels.tga");
 	items[0]->current=true;
+	items[0]->link="LevelMenuState";
 
 	items[1] = new MenuItem();
 	items[1]->setDescription("Change Graphics Options");
 	items[1]->texture = new Texture();
 	items[1]->texture->load("Data/Textures/BallGraphics/BallGameGraphics.tga");
 	items[1]->current=false;
+	items[1]->link = "GraphicsMenuState";
 
 	items[2] = new MenuItem();
 	items[2]->setDescription("View Achievements");
 	items[2]->texture = new Texture();
 	items[2]->texture->load("Data/Textures/BallGraphics/BallGameTrophies.tga");
 	items[2]->current=false;
+	items[2]->link = "TrophieMenuState";
 
 	items[3] = new MenuItem();
 	items[3]->setDescription("Game Credits");
 	items[3]->texture = new Texture();
 	items[3]->texture->load("Data/Textures/BallGraphics/BallGameCredits.tga");
 	items[3]->current=false;
+	items[3]->link = "CreditsMenuState";
 	//create our background object
 	background = new Background(width,height);
 	currentItem = 0;
