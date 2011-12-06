@@ -146,26 +146,11 @@ void MenuItem::switchState()
 	}
 	else if(link == "GOglow")
 	{
-		if(Globals::glowEnabled==true)
-		{
-			Globals::glowEnabled = false;
-		}
-		else
-		{
-			Globals::glowEnabled = true;
-		}
+		Globals::glowEnabled = !Globals::glowEnabled;
 	}
 	else if(link == "GOmotionBlur")
 	{
-		if(Globals::motionblur==true)
-		{
-			Globals::motionblur = false;
-		}
-		else
-		{
-			Globals::motionblur = true;
-		}
-
+		Globals::motionblur = !Globals::motionblur;
 	}
 	else if(link == "GOambient")
 	{

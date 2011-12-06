@@ -42,6 +42,16 @@ LevelState::LevelState() {
 	}
 	printf(log.c_str());
 
+	ballProg = new GLSLProgram("Data/Shaders/v_environment.glsl","Data/Shaders/f_environment.glsl");
+	log="";
+	if (!ballProg->vertex_->isCompiled()){
+		ballProg->vertex_->getShaderLog(log);
+	}
+	if (!ballProg->fragment_->isCompiled()){	
+		ballProg->fragment_->getShaderLog(log);
+	}
+	printf(log.c_str());
+
 	log="";
 	depthBuffer = new LinearDepthBuffer(1280,720);
 	depthProg = new GLSLProgram("Data/Shaders/v_light.glsl","Data/Shaders/f_depth.glsl");
@@ -329,7 +339,7 @@ void LevelState::render() {
 				cascadedShadowMap->sendToShader(dlightProgram,view);
 				drawScreen(0.0,0.0,1.0,1.0);
 				glPopAttrib();
-				dlightProgram->disable();
+			dlightProgram->disable();
 		lightBuffer->unbind();
 
 		profiler.profile("Direct Light Shading");
@@ -478,6 +488,8 @@ void LevelState::render() {
 			glActiveTexture(GL_TEXTURE0); 
 			glDisable(GL_TEXTURE_2D);
 			glColor3f(1.0f, 1.0f, 1.0f);
+			glRasterPos2f(0.0f,0.34f);
+			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"Right Click to move camera");
 			glRasterPos2f(0.0f,0.3f);
 			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"WASD to move");
 			glRasterPos2f(0.0f,0.26f);
@@ -493,6 +505,7 @@ void LevelState::render() {
 			glRasterPos2f(0.0f,0.06f);
 			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"H to toggle help");
 		glDepthFunc(GL_LEQUAL);
+		glEnable(GL_TEXTURE_2D);
 		profiler.profile("Finish Shader Render");
 	}
 
@@ -502,6 +515,17 @@ void LevelState::render() {
 }
 
 void LevelState::renderGBuffer() {
+	ballProg->use();
+		glBindAttribLocation(ballProg->getHandle(), 0, "v_vertex");
+		glBindAttribLocation(ballProg->getHandle(), 1, "v_texture");
+		glBindAttribLocation(ballProg->getHandle(), 2, "v_normal");
+		glBindAttribLocation(ballProg->getHandle(), 3, "v_tangent");
+		glBindAttribLocation(ballProg->getHandle(), 4, "v_bitangent");
+		glBindAttribLocation(ballProg->getHandle(), 5, "v_color");
+		glVertexAttrib3f(5,1.0,1.0,1.0);
+		ballProg->sendUniform("cameraPos",camera->geteyeX(),camera->geteyeY(),camera->geteyeZ());
+		level->drawBall(ballProg,frustum);
+	ballProg->disable();
 	gBufferProg->use();
 		glBindAttribLocation(gBufferProg->getHandle(), 0, "v_vertex");
 		glBindAttribLocation(gBufferProg->getHandle(), 1, "v_texture");
@@ -565,6 +589,8 @@ void LevelState::onFinish() {
 	delete motionBlurBuffer;
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 	profiler.saveProfile("Data/Profiler.txt");
+	glColor3f(1.0,1.0,1.0);
+	glEnable(GL_COLOR_MATERIAL);
 }
 
 void LevelState::blurTexture(ColorBuffer *resultBuffer, GLuint texture, float scale) {

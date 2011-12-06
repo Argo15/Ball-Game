@@ -12,9 +12,11 @@
 #include "PointLight.h"
 #include "Frustum.h"
 #include "Profiler.h"
+#include "EnvironmentMap.h"
 using namespace std;
 
 class PointLight;
+class EnvironmentMap;
 
 class Level {
 private: 
@@ -28,11 +30,14 @@ private:
 
 	Model *myBall;
 	Texture *ballTex;
+	Texture *ballNormal;
 
 	btRigidBody* ballBody;
 	btDiscreteDynamicsWorld* dynamicsWorld;
 	btVector3 start, end;
 	bool canJump;
+
+	EnvironmentMap *ballReflection;
 
 	float lastMat[16];
 
@@ -69,8 +74,10 @@ public:
 	float distanceFromEnd();
 
 	void drawNoShaders(Frustum *frustum);
+	void drawNoBall(Frustum *frustum);
 	void draw(GLSLProgram *program, Frustum *frustum);
 	void drawPointShadows(Frustum *frustum);
+	void drawBall(GLSLProgram *program, Frustum *frustum);
 
 	void getLastTransforms();
 };

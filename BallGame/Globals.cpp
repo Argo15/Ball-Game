@@ -4,7 +4,7 @@ GameState *Globals::GAMESTATE = 0;
 RenderState Globals::RENDERSTATE = NOSHADERS;
 bool Globals::glowEnabled = false;
 bool Globals::motionblur = true;
-bool Globals::ambientOcclusion = true;
+bool Globals::ambientOcclusion = false;
 bool Globals::highQualityShadows = true;
 
 bool Globals::OpenedMenu = true;

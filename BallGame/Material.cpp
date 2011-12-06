@@ -49,6 +49,7 @@ void Material::useNoShaders(TextureRegistry *textures)
 	float spec[] = {specular, specular, specular};
 	glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
 	glMaterialfv(GL_FRONT,GL_AMBIENT,color);
+	glColor3f(color[0],color[1],color[2]);
 	glMaterialfv(GL_FRONT,GL_SPECULAR,spec);
 	glMaterialf(GL_FRONT,GL_SHININESS,shininess);
 	glMaterialfv(GL_FRONT,GL_EMISSION,emission);

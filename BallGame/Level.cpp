@@ -33,9 +33,14 @@ Level::Level() {
 	myBall = new Model();
 	myBall->load("Data/Models/AOBJ/Sphere.aobj");
 	ballTex = new Texture();
-	ballTex->load("Data/Textures/TGA/Beach Ball.tga");
+	ballTex->load("Data/Textures/TGA/White.tga");
+	ballNormal = new Texture();
+	//ballNormal->load("Data/Textures/TGA/Concrete Normal.tga");
+	ballNormal->load("Data/Textures/TGA/Test Normals.tga");
 
 	canJump=true;
+
+	ballReflection = new EnvironmentMap(256);
 }
 
 Level::~Level() {
@@ -151,12 +156,28 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps, Profiler *p
 	}
 	camera->updateFromDistance();
 
+	ballReflection->generateEnvironmentMap(ArgoVector3(ballPos.getX(),ballPos.getY(),ballPos.getZ()),15.0,this);
 }
 
 float Level::distanceFromEnd() {
 	btTransform trans;
 	ballBody->getMotionState()->getWorldTransform(trans);
 	return trans.getOrigin().distance(end);
+}
+
+void Level::drawNoBall(Frustum *frustum) {
+	map<string,Object *>::iterator i;
+	for (i = objects.begin(); i != objects.end(); i++) {
+		glPushMatrix();
+		btVector3 pos = i->second->getRigidBody()->getCenterOfMassPosition();
+		float radius = i->second->getScaledRadius(models);
+		if (frustum->isInFrustum(ArgoVector3(pos.getX(), pos.getY(), pos.getZ()),radius)) {
+			i->second->transform();
+			materials->getMaterial(i->second->getMaterial())->useNoShaders(textures);
+			models->getModel(i->second->getModel())->drawNoShaders();
+		}
+		glPopMatrix();
+	}
 }
 
 void Level::drawNoShaders(Frustum *frustum) {
@@ -190,8 +211,23 @@ void Level::drawNoShaders(Frustum *frustum) {
 }
 
 void Level::draw(GLSLProgram *program, Frustum *frustum) {
+	map<string,Object *>::iterator i;
+	for (i = objects.begin(); i != objects.end(); i++) {
+		glPushMatrix();
+		btVector3 pos = i->second->getRigidBody()->getCenterOfMassPosition();
+		if (frustum->isInFrustum(ArgoVector3(pos.getX(), pos.getY(), pos.getZ()),i->second->getScaledRadius(models))) {
+			i->second->transform();
+			materials->getMaterial(i->second->getMaterial())->use(textures,program);
+			models->getModel(i->second->getModel())->draw();
+		}
+		glPopMatrix();
+	}
+}
+
+void Level::drawBall(GLSLProgram *program, Frustum *frustum) {
 	btTransform trans;
 	ballBody->getMotionState()->getWorldTransform(trans);
+
 	glPushMatrix();
 		materials->getMaterial("Default")->use(textures,program);
 		float spec[] = {1.0, 1.0, 1.0};
@@ -200,7 +236,19 @@ void Level::draw(GLSLProgram *program, Frustum *frustum) {
 		glActiveTextureARB(GL_TEXTURE0);
 		ballTex->use();
 		program->sendUniform("tex",0);
-		//ballTex->use();
+		glActiveTextureARB(GL_TEXTURE1);
+		glEnable(GL_TEXTURE_2D);
+		ballNormal->use();
+		program->sendUniform("normalmap",1);
+		program->sendUniform("normalenabled",true);
+		glActiveTexture(GL_TEXTURE8);
+		glEnable(GL_TEXTURE_CUBE_MAP);
+		glBindTexture(GL_TEXTURE_CUBE_MAP,ballReflection->getEnvironmentMap());
+		program->sendUniform("environmentTex",8);
+		glEnable(GL_TEXTURE_2D);
+		glActiveTextureARB(GL_TEXTURE0);
+		program->sendUniform("matFactor",0.8f);
+		program->sendUniform("reflectFactor",0.6f);
 		float mat[16];
 		trans.getOpenGLMatrix(mat);
 		glMultMatrixf(mat);
@@ -216,20 +264,12 @@ void Level::draw(GLSLProgram *program, Frustum *frustum) {
 		glScalef(0.25,0.25,0.25);
 		for (int i=0; i<16; i++) lastMat[i] = mat[i];
 		glMatrixMode(GL_MODELVIEW);
+		glEnable(GL_COLOR_MATERIAL);
+		glColor3f(0.8,0.2,0.2);
 		myBall->draw();
 	glPopMatrix();
-
-	map<string,Object *>::iterator i;
-	for (i = objects.begin(); i != objects.end(); i++) {
-		glPushMatrix();
-		btVector3 pos = i->second->getRigidBody()->getCenterOfMassPosition();
-		if (frustum->isInFrustum(ArgoVector3(pos.getX(), pos.getY(), pos.getZ()),i->second->getScaledRadius(models))) {
-			i->second->transform();
-			materials->getMaterial(i->second->getMaterial())->use(textures,program);
-			models->getModel(i->second->getModel())->draw();
-		}
-		glPopMatrix();
-	}
+	glActiveTextureARB(GL_TEXTURE1);
+	glDisable(GL_TEXTURE_2D);
 }
 
 void Level::drawPointShadows(Frustum *frustum) {

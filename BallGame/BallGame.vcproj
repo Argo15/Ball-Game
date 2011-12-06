@@ -176,6 +176,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CubeMapBuffer.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CubeShadowBuffer.cpp"
 				>
 			</File>
@@ -185,6 +189,10 @@
 			</File>
 			<File
 				RelativePath=".\DirectLight.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\EnvironmentMap.cpp"
 				>
 			</File>
 			<File
@@ -378,6 +386,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CubeMapBuffer.h"
+				>
+			</File>
+			<File
 				RelativePath=".\CubeShadowBuffer.h"
 				>
 			</File>
@@ -387,6 +399,10 @@
 			</File>
 			<File
 				RelativePath=".\DirectLight.h"
+				>
+			</File>
+			<File
+				RelativePath=".\EnvironmentMap.h"
 				>
 			</File>
 			<File
@@ -560,6 +576,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Data\Shaders\f_environment.glsl"
+				>
+			</File>
+			<File
 				RelativePath=".\Data\Shaders\f_final.glsl"
 				>
 			</File>
@@ -593,6 +613,10 @@
 			</File>
 			<File
 				RelativePath=".\Data\Shaders\v_cubeshadow.glsl"
+				>
+			</File>
+			<File
+				RelativePath=".\Data\Shaders\v_environment.glsl"
 				>
 			</File>
 			<File
