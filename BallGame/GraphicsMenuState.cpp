@@ -100,7 +100,7 @@ void GraphicsMenuState::update(int fps) {
 			keyDown[13]=true;
 			cout<<"enter down"<<endl;
 			items[currentItem]->switchState();
-			delete(background);
+//			delete(background);
 			Globals::GAMESTATE->resize(width,height);
 			return;
 		}
