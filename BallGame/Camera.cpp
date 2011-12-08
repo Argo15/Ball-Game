@@ -8,8 +8,8 @@ Camera::Camera()
 {
 	hAngle=-PI/4.0;
     vAngle=PI/4.0;
-	distance=5.0f;
-	expectedDistance=5.0f;
+	distance=2.5f;
+	expectedDistance=2.5f;
     lookAt[0]=0.0f;lookAt[1]=0.0f;lookAt[2]=0.0f;
 	updateFromDistance();
 	oldX=-1;oldY=-1;

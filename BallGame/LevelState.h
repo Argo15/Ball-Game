@@ -27,6 +27,7 @@ private:
 	ColorBuffer *hBlurBuffer;
 	ColorBuffer *glowBlurBuffer;
 	ColorBuffer *motionBlurBuffer;
+	ColorBuffer *depthBlurBuffer;
 	GLSLProgram *gBufferProg;
 	GLSLProgram *ballProg;
 	GLSLProgram *depthProg;

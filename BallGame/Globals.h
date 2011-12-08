@@ -12,11 +12,16 @@ public:
 	static bool motionblur;
 	static bool ambientOcclusion;
 	static bool highQualityShadows;
+	static bool showHelp;
 
 	static bool OpenedMenu;
 	static bool LevelOnePassed;
 	static bool LevelTwoPassed;
 	static bool LevelThreePassed;
+
+	static int matNum;
+	static int bumpNum;
+	static float ballReflect;
 };
 
 #endif

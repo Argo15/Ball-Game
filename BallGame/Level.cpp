@@ -32,15 +32,38 @@ Level::Level() {
 
 	myBall = new Model();
 	myBall->load("Data/Models/AOBJ/Sphere.aobj");
-	ballTex = new Texture();
-	ballTex->load("Data/Textures/TGA/White.tga");
-	ballNormal = new Texture();
-	//ballNormal->load("Data/Textures/TGA/Concrete Normal.tga");
-	ballNormal->load("Data/Textures/TGA/Test Normals.tga");
+	ballTexs[0] = new Texture();
+	ballTexs[1] = new Texture();
+	ballTexs[2] = new Texture();
+	ballTexs[3] = new Texture();
+	ballTexs[4] = new Texture();
+	ballTexs[5] = new Texture();
+	ballTexs[0]->load("Data/Textures/TGA/White.tga");
+	ballTexs[1]->load("Data/Textures/TGA/White.tga");
+	ballTexs[2]->load("Data/Textures/TGA/White.tga");
+	ballTexs[3]->load("Data/Textures/TGA/White.tga");
+	ballTexs[4]->load("Data/Textures/TGA/Beach Ball.tga");
+	ballTexs[5]->load("Data/Textures/TGA/Earth.tga");
+	ballColors[0][0] = 0.8; ballColors[0][1] = 0.2; ballColors[0][2] = 0.2; 
+	ballColors[1][0] = 0.2; ballColors[1][1] = 0.8; ballColors[1][2] = 0.2; 
+	ballColors[2][0] = 0.2; ballColors[2][1] = 0.2; ballColors[2][2] = 0.8; 
+	ballColors[3][0] = 0.8; ballColors[3][1] = 0.8; ballColors[3][2] = 0.8; 
+	ballColors[4][0] = 1.0; ballColors[4][1] = 1.0; ballColors[4][2] = 1.0; 
+	ballColors[5][0] = 1.0; ballColors[5][1] = 1.0; ballColors[5][2] = 1.0; 
+	ballNormals[0] = new Texture();
+	ballNormals[1] = new Texture();
+	ballNormals[2] = new Texture();
+	ballNormals[3] = new Texture();
+	ballNormals[4] = new Texture();
+	ballNormals[0]->load("Data/Textures/TGA/Test Normals.tga");
+	ballNormals[1]->load("Data/Textures/TGA/Concrete Normal.tga");
+	ballNormals[2]->load("Data/Textures/TGA/Tiles Normals.tga");
+	ballNormals[3]->load("Data/Textures/TGA/pavement_bump.tga");
+	ballNormals[4]->load("Data/Textures/TGA/White.tga");
 
 	canJump=true;
 
-	ballReflection = new EnvironmentMap(256);
+	ballReflection = new EnvironmentMap(512);
 }
 
 Level::~Level() {
@@ -140,7 +163,7 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps, Profiler *p
 	ballBody->getMotionState()->getWorldTransform(trans);
 	btVector3 ballPos(trans.getOrigin().getX(),trans.getOrigin().getY(),trans.getOrigin().getZ());
 	camera->setLookAt(ballPos.getX(),ballPos.getY(),ballPos.getZ());
-	float distance = 5;
+	float distance = 2.5;
 	camera->updateFromDistance();
 
 	btVector3 from(camera->getLookAt()[0],camera->getLookAt()[1],camera->getLookAt()[2]);
@@ -156,7 +179,8 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps, Profiler *p
 	}
 	camera->updateFromDistance();
 
-	ballReflection->generateEnvironmentMap(ArgoVector3(ballPos.getX(),ballPos.getY(),ballPos.getZ()),15.0,this);
+	if (Globals::ballReflect > 0)
+		ballReflection->generateEnvironmentMap(ArgoVector3(ballPos.getX(),ballPos.getY(),ballPos.getZ()),15.0,this);
 }
 
 float Level::distanceFromEnd() {
@@ -185,7 +209,7 @@ void Level::drawNoShaders(Frustum *frustum) {
 	ballBody->getMotionState()->getWorldTransform(trans);
 	glPushMatrix();
 		materials->getMaterial("Default")->useNoShaders(textures);
-		ballTex->use();
+		ballTexs[4]->use();
 		float spec[] = {1.0, 1.0, 1.0};
 		glMaterialfv(GL_FRONT,GL_SPECULAR,spec);
 		glMaterialf(GL_FRONT,GL_SHININESS,128);
@@ -229,26 +253,15 @@ void Level::drawBall(GLSLProgram *program, Frustum *frustum) {
 	ballBody->getMotionState()->getWorldTransform(trans);
 
 	glPushMatrix();
-		materials->getMaterial("Default")->use(textures,program);
-		float spec[] = {1.0, 1.0, 1.0};
-		glMaterialfv(GL_FRONT,GL_SPECULAR,spec);
-		glMaterialf(GL_FRONT,GL_SHININESS,128);
-		glActiveTextureARB(GL_TEXTURE0);
-		ballTex->use();
-		program->sendUniform("tex",0);
-		glActiveTextureARB(GL_TEXTURE1);
-		glEnable(GL_TEXTURE_2D);
-		ballNormal->use();
-		program->sendUniform("normalmap",1);
-		program->sendUniform("normalenabled",true);
 		glActiveTexture(GL_TEXTURE8);
 		glEnable(GL_TEXTURE_CUBE_MAP);
 		glBindTexture(GL_TEXTURE_CUBE_MAP,ballReflection->getEnvironmentMap());
 		program->sendUniform("environmentTex",8);
 		glEnable(GL_TEXTURE_2D);
 		glActiveTextureARB(GL_TEXTURE0);
-		program->sendUniform("matFactor",0.8f);
-		program->sendUniform("reflectFactor",0.6f);
+		program->sendUniform("matFactor",1.0f - 0.5f*Globals::ballReflect);
+		program->sendUniform("reflectFactor",Globals::ballReflect);
+
 		float mat[16];
 		trans.getOpenGLMatrix(mat);
 		glMultMatrixf(mat);
@@ -264,9 +277,30 @@ void Level::drawBall(GLSLProgram *program, Frustum *frustum) {
 		glScalef(0.25,0.25,0.25);
 		for (int i=0; i<16; i++) lastMat[i] = mat[i];
 		glMatrixMode(GL_MODELVIEW);
+
+
+		materials->getMaterial("Default")->use(textures,program);
+		float spec[] = {1.0, 1.0, 1.0};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,spec);
+		glMaterialf(GL_FRONT,GL_SHININESS,128);
+
+		int i = Globals::matNum;
+
 		glEnable(GL_COLOR_MATERIAL);
-		glColor3f(0.8,0.2,0.2);
+		glColor3f(ballColors[i][0], ballColors[i][1], ballColors[i][2]);
+
+		glActiveTextureARB(GL_TEXTURE0);
+		ballTexs[i]->use();
+		program->sendUniform("tex",0);
+
+		glActiveTextureARB(GL_TEXTURE1);
+		glEnable(GL_TEXTURE_2D);
+		ballNormals[Globals::bumpNum]->use();
+		program->sendUniform("normalmap",1);
+		program->sendUniform("normalenabled",Globals::bumpNum < 4);
+
 		myBall->draw();
+
 	glPopMatrix();
 	glActiveTextureARB(GL_TEXTURE1);
 	glDisable(GL_TEXTURE_2D);

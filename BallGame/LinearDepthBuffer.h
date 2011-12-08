@@ -23,6 +23,7 @@ public:
 	void unbind() {glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);}
 
 	void bindLinearDepthTex() {glBindTexture(GL_TEXTURE_2D, linearDepthTex);}
+	int getDepthTex() {return linearDepthTex;}
 
 	int getWidth() {return width;}
 	int getHeight() {return height;}

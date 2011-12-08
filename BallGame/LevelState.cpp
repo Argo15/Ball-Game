@@ -54,6 +54,7 @@ LevelState::LevelState() {
 
 	log="";
 	depthBuffer = new LinearDepthBuffer(1280,720);
+	depthBlurBuffer = new ColorBuffer(1280,720);
 	depthProg = new GLSLProgram("Data/Shaders/v_light.glsl","Data/Shaders/f_depth.glsl");
 	if (!depthProg->vertex_->isCompiled()){
 		depthProg->vertex_->getShaderLog(log);
@@ -392,6 +393,10 @@ void LevelState::render() {
 			glClearColor(0.0,0.0,0.0,1.0);
 			SSAOBuffer->unbind();
 		} else {
+			//blurTexture(depthBlurBuffer,depthBuffer->getDepthTex(),8);
+			//blurTexture(depthBlurBuffer,depthBuffer->getDepthTex(),5);
+			blurTexture(depthBlurBuffer,depthBuffer->getDepthTex(),4);
+
 			SSAOBuffer->bind();
 				mSSAOProg->use();
 					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -400,10 +405,13 @@ void LevelState::render() {
 					glViewport( 0, 0, lightBuffer->getWidth(), lightBuffer->getHeight());
 					view->use3D(false);	
 					glActiveTexture(GL_TEXTURE0); 
-					gBuffer->bindDepthTex();
+					depthBuffer->bindLinearDepthTex();
+					glActiveTexture(GL_TEXTURE1); 
+					depthBlurBuffer->bindTexture();
 					mSSAOProg->sendUniform("depthTex",0);
-					mSSAOProg->sendUniform("near",view->getNear());
-					mSSAOProg->sendUniform("far",view->getFar());
+					mSSAOProg->sendUniform("depthBlurTex",1);
+					//mSSAOProg->sendUniform("near",view->getNear());
+					//mSSAOProg->sendUniform("far",view->getFar());
 					drawScreen(0.0,0.0,1.0,1.0);
 					glPopAttrib();
 				mSSAOProg->disable();
@@ -481,7 +489,8 @@ void LevelState::render() {
 		view->use3D(false);
 		glLoadIdentity();
 		drawScreen(0.0,0.0,1.0,1.0);
-		glDepthFunc(GL_ALWAYS);
+		if (Globals::showHelp) {
+			glDepthFunc(GL_ALWAYS);
 			glDisable(GL_COLOR_MATERIAL);
 			glDisable(GL_LIGHTING);
 			glDisable(GL_TEXTURE_2D);
@@ -490,21 +499,24 @@ void LevelState::render() {
 			glColor3f(1.0f, 1.0f, 1.0f);
 			glRasterPos2f(0.0f,0.34f);
 			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"Right Click to move camera");
-			glRasterPos2f(0.0f,0.3f);
+			glRasterPos2f(0.0f,0.31f);
 			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"WASD to move");
-			glRasterPos2f(0.0f,0.26f);
+			glRasterPos2f(0.0f,0.28f);
 			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"G to toggle glow");
-			glRasterPos2f(0.0f,0.22f);
+			glRasterPos2f(0.0f,0.25f);
 			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"L to toggle lighting quality");
-			glRasterPos2f(0.0f,0.18f);
+			glRasterPos2f(0.0f,0.22f);
 			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"O to toggle ambient occlusion");
-			glRasterPos2f(0.0f,0.14f);
-			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"E to toggle environment mapping");
-			glRasterPos2f(0.0f,0.10f);
+			glRasterPos2f(0.0f,0.19f);
+			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"+ and - to change reflection factor");
+			glRasterPos2f(0.0f,0.16f);
+			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"ZXCV to change ball material");
+			glRasterPos2f(0.0f,0.13f);
 			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"M to toggle motion blur");
-			glRasterPos2f(0.0f,0.06f);
+			glRasterPos2f(0.0f,0.10f);
 			glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char *)"H to toggle help");
-		glDepthFunc(GL_LEQUAL);
+			glDepthFunc(GL_LEQUAL);
+		}
 		glEnable(GL_TEXTURE_2D);
 		profiler.profile("Finish Shader Render");
 	}

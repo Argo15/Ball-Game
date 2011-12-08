@@ -33,6 +33,7 @@ public:
 	void bindMotionTex() {glBindTexture(GL_TEXTURE_2D, motionTex);}
 
 	GLuint getGlowTex() {return glowTex;}
+	GLuint getDepthTex() {return depthTex;}
 
 	int getWidth() {return width;}
 	int getHeight() {return height;}

@@ -374,6 +374,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BallMaterial.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Camera.h"
 				>
 			</File>

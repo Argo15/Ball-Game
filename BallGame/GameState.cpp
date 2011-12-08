@@ -1,6 +1,7 @@
 #include "GameState.h"
 #include "Globals.h"
 #include <stdlib.h>
+#include <math.h>
 #include <GL/glut.h>
 
 void GameState::resize(int w, int h) {
@@ -17,6 +18,17 @@ void GameState::keyDown(unsigned char key, int xx, int yy)
 	if (key == 'm') Globals::motionblur = !Globals::motionblur;
 	if (key == 'g') Globals::glowEnabled = !Globals::glowEnabled;
 	if (key == 'l') Globals::highQualityShadows = !Globals::highQualityShadows;
+	if (key == 'z') Globals::matNum = (Globals::matNum - 1)%6;
+	if (key == 'x')	Globals::matNum = (Globals::matNum + 1)%6;
+	if (key == 'c')	Globals::bumpNum = (Globals::bumpNum - 1)%5;
+	if (key == 'v')	Globals::bumpNum = (Globals::bumpNum + 1)%5;
+	if (key == '-')	Globals::ballReflect = (Globals::ballReflect - 0.1);
+	if (key == '=')	Globals::ballReflect = (Globals::ballReflect + 0.1);
+	if (Globals::matNum < 0) Globals::matNum = 5;
+	if (Globals::bumpNum < 0) Globals::bumpNum = 4;
+	if (Globals::ballReflect < 0) Globals::ballReflect = 0;
+	if (Globals::ballReflect > 1) Globals::ballReflect = 1;
+	if (key == 'h')	Globals::showHelp = !Globals::showHelp;
 }
 
 

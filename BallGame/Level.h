@@ -13,6 +13,8 @@
 #include "Frustum.h"
 #include "Profiler.h"
 #include "EnvironmentMap.h"
+#include "BallMaterial.h"
+#include "Globals.h"
 using namespace std;
 
 class PointLight;
@@ -29,8 +31,9 @@ private:
 	map<string, PointLight *> pLights;
 
 	Model *myBall;
-	Texture *ballTex;
-	Texture *ballNormal;
+	Texture *ballTexs[10];
+	Texture *ballNormals[10];
+	float ballColors[10][3];
 
 	btRigidBody* ballBody;
 	btDiscreteDynamicsWorld* dynamicsWorld;
