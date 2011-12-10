@@ -88,6 +88,9 @@ public:
 	void setToggleGravity(bool val) {toggleGravity = val;}
 
 	void getLastTransforms();
+
+	btVector3* getStart();
+	btVector3* getEnd();
 };
 
 #endif
