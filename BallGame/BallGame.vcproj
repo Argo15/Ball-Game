@@ -256,6 +256,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Particle.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ParticleCube.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\PointLight.cpp"
 				>
 			</File>
@@ -467,6 +475,14 @@
 			</File>
 			<File
 				RelativePath=".\Object.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Particle.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ParticleCube.h"
 				>
 			</File>
 			<File

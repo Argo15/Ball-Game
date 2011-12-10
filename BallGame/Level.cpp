@@ -1,4 +1,5 @@
 #include "Level.h"
+#include "ParticleCube.h"
 
 struct BallCallback : public btCollisionWorld::ContactResultCallback
 {
@@ -113,7 +114,7 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps, Profiler *p
 	}
 
 	ArgoVector3 dir = ArgoVector3(0);
-	if (keys['r']) {
+	if (keys['r']||keys['R']) {
 		ballBody->setLinearVelocity(btVector3(0,0,0));
 		ballBody->setAngularVelocity(btVector3(0,0,0));
 		btTransform startTransform;
@@ -121,7 +122,7 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps, Profiler *p
 		startTransform.setOrigin(start);
 		ballBody->setWorldTransform(startTransform);
 	}
-	if (keys['w']) {
+	if (keys['w'] || keys['W']) {
 		dir = camera->getLookAt()-camera->geteyeV();
 		dir.set(dir[0],0,dir[2]);
 		dir.normalize();
@@ -129,7 +130,7 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps, Profiler *p
 		ballBody->activate(true);
 		ballBody->applyCentralForce(velocity*100*(60.0/fps));
 	}
-	if (keys['s']) {
+	if (keys['s'] || keys['S']) {
 		dir = camera->geteyeV()-camera->getLookAt();
 		dir.set(dir[0],0.01,dir[2]);
 		dir.normalize();
@@ -137,7 +138,7 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps, Profiler *p
 		ballBody->activate(true);
 		ballBody->applyCentralForce(velocity*100*(60.0/fps));
 	}
-	if (keys['d']) {
+	if (keys['d'] || keys['D']) {
 		dir = camera->getRight();
 		dir.set(dir[0],0,dir[2]);
 		dir.normalize();
@@ -145,7 +146,7 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps, Profiler *p
 		ballBody->activate(true);
 		ballBody->applyCentralForce(velocity*100*(60.0/fps));
 	}
-	if (keys['a']) {
+	if (keys['a'] || keys['A']) {
 		dir = camera->getRight() * -1.0f;
 		dir.set(dir[0],0,dir[2]);
 		dir.normalize();
@@ -388,4 +389,14 @@ int Level::getAllPointLights(PointLight **lights) {
 		lights[numLights++] = it->second;
 	}
 	return numLights;
+}
+
+btVector3* Level::getStart()
+{
+	return &start;
+}
+
+btVector3* Level::getEnd()
+{
+	return &end;
 }

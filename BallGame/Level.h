@@ -83,6 +83,9 @@ public:
 	void drawBall(GLSLProgram *program, Frustum *frustum);
 
 	void getLastTransforms();
+
+	btVector3* getStart();
+	btVector3* getEnd();
 };
 
 #endif

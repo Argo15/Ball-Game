@@ -161,6 +161,7 @@ LevelState::LevelState() {
 	printf(log.c_str());
 
 	calcShadows = true;
+	pCube = new ParticleCube();
 }
 
 void LevelState::resize(int w, int h) {
@@ -200,9 +201,12 @@ void LevelState::update(int fps) {
 
 	profiler.profile("Build Point Light Shadow Maps");
 
+	pCube->Update(level->getStart(),level->getEnd());
 	if (level->distanceFromEnd() < endDistance) {
 		onFinish();
+		return;
 	}
+	
 }
 
 void LevelState::render() {
@@ -215,6 +219,7 @@ void LevelState::render() {
 	glEnable(GL_LIGHTING);
 
 	if (Globals::RENDERSTATE == NOSHADERS) {
+		glDisable(GL_BLEND);
 		glColor3f(1.0,1.0,1.0);
 		level->getDirectLight()->sendToShader(0);
 		PointLight **lights = new PointLight*[4];
@@ -224,6 +229,7 @@ void LevelState::render() {
 			lights[i]->sendToShader(0,GL_LIGHT1+i);
 		}
 		level->drawNoShaders(frustum);
+		pCube->Render();
 	} else {
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();
@@ -570,6 +576,7 @@ void LevelState::drawScreen(float x1, float y1, float x2, float y2)
 }
 
 void LevelState::onFinish() {
+	pCube->nullify();
 	glMatrixMode(GL_TEXTURE);
 	glActiveTextureARB(GL_TEXTURE0);
 	glLoadIdentity();

@@ -201,7 +201,7 @@ bool Texture::load(const char *filename)
 		if (colorMode==3)
 			gluBuild2DMipmaps(GL_TEXTURE_2D, 3, m_width, m_height, GL_RGB, GL_UNSIGNED_BYTE, m_pImageData);
 		else
-			gluBuild2DMipmaps(GL_TEXTURE_2D, 3, m_width, m_height, GL_RGBA, GL_UNSIGNED_BYTE, m_pImageData);
+			gluBuild2DMipmaps(GL_TEXTURE_2D, 4, m_width, m_height, GL_RGBA, GL_UNSIGNED_BYTE, m_pImageData);
 	}
 
 	return (m_pImageData != NULL);

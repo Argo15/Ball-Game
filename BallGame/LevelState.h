@@ -16,6 +16,7 @@
 #include "Frustum.h"
 #include "CascadedShadowMap.h"
 #include "Profiler.h"
+#include "ParticleCube.h"
 
 class LevelState : public GameState {
 private:
@@ -46,6 +47,8 @@ private:
 	Profiler profiler;
 
 	bool calcShadows;
+
+	ParticleCube* pCube;
 
 protected:
 	Camera *camera, *lastCamera;

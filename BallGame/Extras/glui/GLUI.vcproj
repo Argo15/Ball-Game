@@ -36,7 +36,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_DEBUG;USE_GRAPHICAL_BENCHMARK;_IRR_STATIC_LIB_;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\&quot;Debug\&quot;"
 				AssemblerListingLocation="Debug"
 				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="C:\Users\Bill\Desktop\CPP\My Projects\Ball-Game\BallGame\Debug/GLUI_Debug.pdb"
+				ProgramDataBaseFileName="C:\Users\Michael DeRoy\Desktop\ARGO_GAMES\Ball-Game\BallGame\Debug/GLUI_Debug.pdb"
 />
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -46,6 +46,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_DEBUG;USE_GRAPHICAL_BENCHMARK;_IRR_STATIC_LIB_;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\&quot;Debug\&quot;"/>
 			<Tool
 				Name="VCMIDLTool"
+				AdditionalIncludeDirectories="C:\bullet-2.79\Glut;C:\bullet-2.79\glut;C:\bullet-2.79\Extras\glui;"
 				MkTypLibCompatible="FALSE"
 				TargetEnvironment="1"
 				GenerateStublessProxies="TRUE"
@@ -63,7 +64,7 @@
 				Name="VCPostBuildEventTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="C:\Users\Bill\Desktop\CPP\My Projects\Ball-Game\BallGame\Debug\GLUI_Debug.lib"/>
+				OutputFile="C:\Users\Michael DeRoy\Desktop\ARGO_GAMES\Ball-Game\BallGame\Debug\GLUI_Debug.lib"/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
@@ -89,7 +90,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;USE_GRAPHICAL_BENCHMARK;_IRR_STATIC_LIB_;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\&quot;Release\&quot;"
 				AssemblerListingLocation="Release"
 				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="C:\Users\Bill\Desktop\CPP\My Projects\Ball-Game\BallGame\Release/GLUI.pdb"
+				ProgramDataBaseFileName="C:\Users\Michael DeRoy\Desktop\ARGO_GAMES\Ball-Game\BallGame\Release/GLUI.pdb"
 />
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -99,6 +100,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;USE_GRAPHICAL_BENCHMARK;_IRR_STATIC_LIB_;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\&quot;Release\&quot;"/>
 			<Tool
 				Name="VCMIDLTool"
+				AdditionalIncludeDirectories="C:\bullet-2.79\Glut;C:\bullet-2.79\glut;C:\bullet-2.79\Extras\glui;"
 				MkTypLibCompatible="FALSE"
 				TargetEnvironment="1"
 				GenerateStublessProxies="TRUE"
@@ -116,7 +118,7 @@
 				Name="VCPostBuildEventTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="C:\Users\Bill\Desktop\CPP\My Projects\Ball-Game\BallGame\Release\GLUI.lib"/>
+				OutputFile="C:\Users\Michael DeRoy\Desktop\ARGO_GAMES\Ball-Game\BallGame\Release\GLUI.lib"/>
 		</Configuration>
 		<Configuration
 			Name="MinSizeRel|Win32"
@@ -142,7 +144,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;USE_GRAPHICAL_BENCHMARK;_IRR_STATIC_LIB_;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"
 				AssemblerListingLocation="MinSizeRel"
 				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="C:\Users\Bill\Desktop\CPP\My Projects\Ball-Game\BallGame\MinSizeRel/GLUI_MinsizeRel.pdb"
+				ProgramDataBaseFileName="C:\Users\Michael DeRoy\Desktop\ARGO_GAMES\Ball-Game\BallGame\MinSizeRel/GLUI_MinsizeRel.pdb"
 />
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -152,6 +154,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;USE_GRAPHICAL_BENCHMARK;_IRR_STATIC_LIB_;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"/>
 			<Tool
 				Name="VCMIDLTool"
+				AdditionalIncludeDirectories="C:\bullet-2.79\Glut;C:\bullet-2.79\glut;C:\bullet-2.79\Extras\glui;"
 				MkTypLibCompatible="FALSE"
 				TargetEnvironment="1"
 				GenerateStublessProxies="TRUE"
@@ -169,7 +172,7 @@
 				Name="VCPostBuildEventTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="C:\Users\Bill\Desktop\CPP\My Projects\Ball-Game\BallGame\MinSizeRel\GLUI_MinsizeRel.lib"/>
+				OutputFile="C:\Users\Michael DeRoy\Desktop\ARGO_GAMES\Ball-Game\BallGame\MinSizeRel\GLUI_MinsizeRel.lib"/>
 		</Configuration>
 		<Configuration
 			Name="RelWithDebInfo|Win32"
@@ -196,7 +199,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;USE_GRAPHICAL_BENCHMARK;_IRR_STATIC_LIB_;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"
 				AssemblerListingLocation="RelWithDebInfo"
 				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="C:\Users\Bill\Desktop\CPP\My Projects\Ball-Game\BallGame\RelWithDebInfo/GLUI_RelWithDebugInfo.pdb"
+				ProgramDataBaseFileName="C:\Users\Michael DeRoy\Desktop\ARGO_GAMES\Ball-Game\BallGame\RelWithDebInfo/GLUI_RelWithDebugInfo.pdb"
 />
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -206,6 +209,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;USE_GRAPHICAL_BENCHMARK;_IRR_STATIC_LIB_;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"/>
 			<Tool
 				Name="VCMIDLTool"
+				AdditionalIncludeDirectories="C:\bullet-2.79\Glut;C:\bullet-2.79\glut;C:\bullet-2.79\Extras\glui;"
 				MkTypLibCompatible="FALSE"
 				TargetEnvironment="1"
 				GenerateStublessProxies="TRUE"
@@ -223,7 +227,7 @@
 				Name="VCPostBuildEventTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="C:\Users\Bill\Desktop\CPP\My Projects\Ball-Game\BallGame\RelWithDebInfo\GLUI_RelWithDebugInfo.lib"/>
+				OutputFile="C:\Users\Michael DeRoy\Desktop\ARGO_GAMES\Ball-Game\BallGame\RelWithDebInfo\GLUI_RelWithDebugInfo.lib"/>
 		</Configuration>
 	</Configurations>
 	<Files>
@@ -237,36 +241,36 @@
 					<Tool
 					Name="VCCustomBuildTool"
 					Description="Building Custom Rule C:/bullet-2.79/Extras/glui/CMakeLists.txt"
-					CommandLine="&quot;C:\Program Files (x86)\CMake 2.8\bin\cmake.exe&quot; -HC:/bullet-2.79 &quot;-BC:/Users/Bill/Desktop/CPP/My Projects/Ball-Game/BallGame&quot; --check-stamp-file &quot;C:\Users\Bill\Desktop\CPP\My Projects\Ball-Game\BallGame\Extras\glui\CMakeFiles\generate.stamp&quot;&#x0D;&#x0A;if errorlevel 1 goto :VCReportError"
+					CommandLine="&quot;C:\Program Files (x86)\CMake 2.8\bin\cmake.exe&quot; -HC:/bullet-2.79 &quot;-BC:/Users/Michael DeRoy/Desktop/ARGO_GAMES/Ball-Game/BallGame&quot; --check-stamp-file &quot;C:\Users\Michael DeRoy\Desktop\ARGO_GAMES\Ball-Game\BallGame\Extras\glui\CMakeFiles\generate.stamp&quot;&#x0D;&#x0A;if errorlevel 1 goto :VCReportError"
 					AdditionalDependencies="C:\bullet-2.79\Extras\glui\CMakeLists.txt;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindGLU.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindOpenGL.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindGLUT.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindOpenGL.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake&quot;;C:\bullet-2.79\Extras\glui\CMakeLists.txt;"
-					Outputs="C:\Users\Bill\Desktop\CPP\My Projects\Ball-Game\BallGame\Extras\glui\CMakeFiles\generate.stamp"/>
+					Outputs="C:\Users\Michael DeRoy\Desktop\ARGO_GAMES\Ball-Game\BallGame\Extras\glui\CMakeFiles\generate.stamp"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
 					Name="VCCustomBuildTool"
 					Description="Building Custom Rule C:/bullet-2.79/Extras/glui/CMakeLists.txt"
-					CommandLine="&quot;C:\Program Files (x86)\CMake 2.8\bin\cmake.exe&quot; -HC:/bullet-2.79 &quot;-BC:/Users/Bill/Desktop/CPP/My Projects/Ball-Game/BallGame&quot; --check-stamp-file &quot;C:\Users\Bill\Desktop\CPP\My Projects\Ball-Game\BallGame\Extras\glui\CMakeFiles\generate.stamp&quot;&#x0D;&#x0A;if errorlevel 1 goto :VCReportError"
+					CommandLine="&quot;C:\Program Files (x86)\CMake 2.8\bin\cmake.exe&quot; -HC:/bullet-2.79 &quot;-BC:/Users/Michael DeRoy/Desktop/ARGO_GAMES/Ball-Game/BallGame&quot; --check-stamp-file &quot;C:\Users\Michael DeRoy\Desktop\ARGO_GAMES\Ball-Game\BallGame\Extras\glui\CMakeFiles\generate.stamp&quot;&#x0D;&#x0A;if errorlevel 1 goto :VCReportError"
 					AdditionalDependencies="C:\bullet-2.79\Extras\glui\CMakeLists.txt;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindGLU.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindOpenGL.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindGLUT.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindOpenGL.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake&quot;;C:\bullet-2.79\Extras\glui\CMakeLists.txt;"
-					Outputs="C:\Users\Bill\Desktop\CPP\My Projects\Ball-Game\BallGame\Extras\glui\CMakeFiles\generate.stamp"/>
+					Outputs="C:\Users\Michael DeRoy\Desktop\ARGO_GAMES\Ball-Game\BallGame\Extras\glui\CMakeFiles\generate.stamp"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="MinSizeRel|Win32">
 					<Tool
 					Name="VCCustomBuildTool"
 					Description="Building Custom Rule C:/bullet-2.79/Extras/glui/CMakeLists.txt"
-					CommandLine="&quot;C:\Program Files (x86)\CMake 2.8\bin\cmake.exe&quot; -HC:/bullet-2.79 &quot;-BC:/Users/Bill/Desktop/CPP/My Projects/Ball-Game/BallGame&quot; --check-stamp-file &quot;C:\Users\Bill\Desktop\CPP\My Projects\Ball-Game\BallGame\Extras\glui\CMakeFiles\generate.stamp&quot;&#x0D;&#x0A;if errorlevel 1 goto :VCReportError"
+					CommandLine="&quot;C:\Program Files (x86)\CMake 2.8\bin\cmake.exe&quot; -HC:/bullet-2.79 &quot;-BC:/Users/Michael DeRoy/Desktop/ARGO_GAMES/Ball-Game/BallGame&quot; --check-stamp-file &quot;C:\Users\Michael DeRoy\Desktop\ARGO_GAMES\Ball-Game\BallGame\Extras\glui\CMakeFiles\generate.stamp&quot;&#x0D;&#x0A;if errorlevel 1 goto :VCReportError"
 					AdditionalDependencies="C:\bullet-2.79\Extras\glui\CMakeLists.txt;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindGLU.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindOpenGL.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindGLUT.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindOpenGL.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake&quot;;C:\bullet-2.79\Extras\glui\CMakeLists.txt;"
-					Outputs="C:\Users\Bill\Desktop\CPP\My Projects\Ball-Game\BallGame\Extras\glui\CMakeFiles\generate.stamp"/>
+					Outputs="C:\Users\Michael DeRoy\Desktop\ARGO_GAMES\Ball-Game\BallGame\Extras\glui\CMakeFiles\generate.stamp"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="RelWithDebInfo|Win32">
 					<Tool
 					Name="VCCustomBuildTool"
 					Description="Building Custom Rule C:/bullet-2.79/Extras/glui/CMakeLists.txt"
-					CommandLine="&quot;C:\Program Files (x86)\CMake 2.8\bin\cmake.exe&quot; -HC:/bullet-2.79 &quot;-BC:/Users/Bill/Desktop/CPP/My Projects/Ball-Game/BallGame&quot; --check-stamp-file &quot;C:\Users\Bill\Desktop\CPP\My Projects\Ball-Game\BallGame\Extras\glui\CMakeFiles\generate.stamp&quot;&#x0D;&#x0A;if errorlevel 1 goto :VCReportError"
+					CommandLine="&quot;C:\Program Files (x86)\CMake 2.8\bin\cmake.exe&quot; -HC:/bullet-2.79 &quot;-BC:/Users/Michael DeRoy/Desktop/ARGO_GAMES/Ball-Game/BallGame&quot; --check-stamp-file &quot;C:\Users\Michael DeRoy\Desktop\ARGO_GAMES\Ball-Game\BallGame\Extras\glui\CMakeFiles\generate.stamp&quot;&#x0D;&#x0A;if errorlevel 1 goto :VCReportError"
 					AdditionalDependencies="C:\bullet-2.79\Extras\glui\CMakeLists.txt;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindGLU.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindOpenGL.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindGLUT.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindOpenGL.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake&quot;;&quot;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake&quot;;C:\bullet-2.79\Extras\glui\CMakeLists.txt;"
-					Outputs="C:\Users\Bill\Desktop\CPP\My Projects\Ball-Game\BallGame\Extras\glui\CMakeFiles\generate.stamp"/>
+					Outputs="C:\Users\Michael DeRoy\Desktop\ARGO_GAMES\Ball-Game\BallGame\Extras\glui\CMakeFiles\generate.stamp"/>
 				</FileConfiguration>
 			</File>
 		<Filter
