@@ -1,4 +1,5 @@
 #include "Funhouse.h"
+#include "LevelFour.h"
 #include "MainMenuState.h"
 #include "Globals.h"
 
@@ -76,7 +77,7 @@ void FunHouse::update(int fps) {
 void FunHouse::onFinish() {
 	LevelState::onFinish();
 	Globals::LevelThreePassed = true;
-	Globals::GAMESTATE = new MainMenuState();
+	Globals::GAMESTATE = new LevelFour();
 	Globals::GAMESTATE->resize(width,height);
 	delete this;
 }

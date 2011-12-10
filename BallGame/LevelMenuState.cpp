@@ -17,7 +17,7 @@ LevelMenuState::LevelMenuState() : MenuState() {
 	//seed our random function
 	srand(time(NULL));
 
-	items = new MenuItem*[4];
+	items = new MenuItem*[5];
 	items[0] = new MenuItem();
 	items[0]->setDescription("Return To Main Menu");
 	items[0]->texture = new Texture();
@@ -45,6 +45,13 @@ LevelMenuState::LevelMenuState() : MenuState() {
 	items[3]->texture->load("Data/Textures/BallGraphics/BallGameSelectLevelThree.tga");
 	items[3]->current=false;
 	items[3]->link = "LevelThreeState";
+
+	items[4] = new MenuItem();
+	items[4]->setDescription("Level Four");
+	items[4]->texture = new Texture();
+	items[4]->texture->load("Data/Textures/BallGraphics/BallGameSelectLevelFour.tga");
+	items[4]->current=false;
+	items[4]->link = "LevelFourState";
 
 	//create our background object
 	background = new Background(width,height);
@@ -80,7 +87,7 @@ void LevelMenuState::update(int fps) {
 	if(keys['s']&& keyDown['s']==false)
 	{
 		keyDown['s']=true;
-		if(currentItem<=(sizeof(items)/sizeof(int))+1)
+		if(currentItem<=3)
 		{
 			items[currentItem]->current=false;
 			currentItem++;
@@ -112,26 +119,13 @@ void LevelMenuState::update(int fps) {
 	}
 	//Set the location of the menu items
 
-	//first column
-	items[0]->setTopLeft(width/4,height/2+height/8);
-	items[0]->setBottomRight(width/2+width/4-25,height/2+height/3-25);
-	
-	items[1]->setTopLeft(width/4,height/2+height/8);
-	items[1]->setBottomRight(width/2+width/4-25,height/2+height/3-25);
-
-	items[2]->setTopLeft(width/4,height/2+height/8);
-	items[2]->setBottomRight(width/2+width/4-25,height/2+height/3-25);
-
-	items[3]->setTopLeft(width/4,height/2+height/8);
-	items[3]->setBottomRight(width/2+width/4-25,height/2+height/3-25);
-
-
-
 	background->update();
-	items[0]->updateBob();
-	items[1]->updateBob();
-	items[2]->updateBob();
-	items[3]->updateBob();
+
+	for (int i = 0; i<5; i++) {
+		items[i]->setTopLeft(width/2.5,height/2+height/8);
+		items[i]->setBottomRight(width/2+width/6-25,height/2+height/3-25);
+		items[i]->updateBob();
+	}
 
 
 }

@@ -10,6 +10,7 @@
 #include "TrophieMenuState.h"
 #include "MainMenuState.h"
 #include "FunHouse.h"
+#include "LevelFour.h"
 #include "Globals.h"
 #include "MenuItem.h"
 #include <string>
@@ -142,7 +143,7 @@ void MenuItem::switchState()
 	}
 	else if(link == "LevelFourState")
 	{
-
+		Globals::GAMESTATE = new LevelFour();
 	}
 	else if(link == "GOglow")
 	{

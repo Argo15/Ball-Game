@@ -1,92 +1,92 @@
 init
 0.1%
-Average Time: 0.0267501
+Average Time: 0.0338782
 Minimum Time: 0
 Maximum Time: 1
 Clear Buffers
-0.9%
-Average Time: 0.162764
+2.2%
+Average Time: 0.431651
 Minimum Time: 0
-Maximum Time: 5
+Maximum Time: 3
 Step Simulation
-0.5%
-Average Time: 0.0900449
+0.8%
+Average Time: 0.159915
 Minimum Time: 0
 Maximum Time: 2
 Ball test
-0.6%
-Average Time: 0.118894
+0.9%
+Average Time: 0.180526
 Minimum Time: 0
-Maximum Time: 3
+Maximum Time: 2
 Camera test
-9.5%
-Average Time: 1.63525
+13.6%
+Average Time: 2.55532
 Minimum Time: 0
-Maximum Time: 11
+Maximum Time: 7
 Update Dynamics World
-11.4%
-Average Time: 1.96872
+13.3%
+Average Time: 2.51457
 Minimum Time: 0
-Maximum Time: 13
+Maximum Time: 7
 Build Cascaded Shadow Maps
-0.1%
-Average Time: 0.0293428
+5.9%
+Average Time: 1.11111
 Minimum Time: 0
-Maximum Time: 1
+Maximum Time: 5
 Build Point Light Shadow Maps
 0.1%
-Average Time: 0.019302
+Average Time: 0.0293839
 Minimum Time: 0
 Maximum Time: 1
 Start Render
-2.7%
-Average Time: 0.463865
-Minimum Time: 0
-Maximum Time: 6
-Gbuffer Render
-0.1%
-Average Time: 0.0314429
-Minimum Time: 0
-Maximum Time: 3
-Glow Blur
-0.7%
-Average Time: 0.136349
-Minimum Time: 0
-Maximum Time: 5
-Linear Depth Buffer
-1.8%
-Average Time: 0.319779
+4%
+Average Time: 0.759953
 Minimum Time: 0
 Maximum Time: 4
-Direct Light Shading
-0.3%
-Average Time: 0.0558071
+Gbuffer Render
+0.1%
+Average Time: 0.036019
 Minimum Time: 0
 Maximum Time: 1
-Point Light Shading
-4.7%
-Average Time: 0.815993
+Glow Blur
+0.8%
+Average Time: 0.150237
 Minimum Time: 0
-Maximum Time: 5
-SSAO
-0.6%
-Average Time: 0.103671
+Maximum Time: 1
+Linear Depth Buffer
+1.5%
+Average Time: 0.299763
 Minimum Time: 0
 Maximum Time: 2
-Final Buffer Generation
-0.1%
-Average Time: 0.0183966
+Direct Light Shading
+1.9%
+Average Time: 0.362322
+Minimum Time: 0
+Maximum Time: 2
+Point Light Shading
+0.4%
+Average Time: 0.0798578
 Minimum Time: 0
 Maximum Time: 1
+SSAO
+0.7%
+Average Time: 0.146682
+Minimum Time: 0
+Maximum Time: 1
+Final Buffer Generation
+0.6%
+Average Time: 0.128199
+Minimum Time: 0
+Maximum Time: 2
 Motion Blur
 0.3%
-Average Time: 0.0640382
+Average Time: 0.0708531
 Minimum Time: 0
-Maximum Time: 2
+Maximum Time: 1
 Finish Shader Render
-35.6%
-Average Time: 6.10351
+28.5%
+Average Time: 5.35308
 Minimum Time: 0
-Maximum Time: 93
+Maximum Time: 91
 Finish Render
-Average Fps: 58.4
+Average Fps: 53.2812

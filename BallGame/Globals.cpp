@@ -13,6 +13,6 @@ bool Globals::LevelOnePassed = false;
 bool Globals::LevelTwoPassed = false;
 bool Globals::LevelThreePassed = false;
 
-int Globals::matNum = 0;
+int Globals::matNum = 5;
 int Globals::bumpNum = 0;
-float Globals::ballReflect = 0.6f;
+float Globals::ballReflect = 0.3f;

@@ -37,8 +37,11 @@ private:
 
 	btRigidBody* ballBody;
 	btDiscreteDynamicsWorld* dynamicsWorld;
+	btVector3 gravity;
 	btVector3 start, end;
 	bool canJump;
+
+	bool toggleGravity;
 
 	EnvironmentMap *ballReflection;
 
@@ -81,6 +84,8 @@ public:
 	void draw(GLSLProgram *program, Frustum *frustum);
 	void drawPointShadows(Frustum *frustum);
 	void drawBall(GLSLProgram *program, Frustum *frustum);
+
+	void setToggleGravity(bool val) {toggleGravity = val;}
 
 	void getLastTransforms();
 };

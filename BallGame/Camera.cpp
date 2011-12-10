@@ -26,6 +26,10 @@ void Camera::zoom(float amt){
 
 void Camera::updateFromDistance()
 {
+	if (distance > expectedDistance) {
+		distance = expectedDistance;
+	}
+
 	eyePos[0]=lookAt[0]+distance*cos(hAngle)*abs(cos(vAngle));
 	eyePos[1]=lookAt[1]+distance*sin(vAngle);
 	eyePos[2]=lookAt[2]-distance*sin(hAngle)*abs(cos(vAngle));
@@ -123,5 +127,8 @@ void Camera::update(float fps)
 {
 	if (distance < expectedDistance) {
 		distance += 5.0/fps;
+	}
+	if (distance > expectedDistance) {
+		distance = expectedDistance;
 	}
 }

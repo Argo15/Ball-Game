@@ -290,6 +290,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\LevelFour.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\LevelState.cpp"
 						>
 					</File>
@@ -505,6 +509,10 @@
 					>
 					<File
 						RelativePath=".\FunHouse.h"
+						>
+					</File>
+					<File
+						RelativePath=".\LevelFour.h"
 						>
 					</File>
 					<File

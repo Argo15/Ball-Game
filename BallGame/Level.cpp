@@ -3,14 +3,18 @@
 struct BallCallback : public btCollisionWorld::ContactResultCallback
 {
 	bool canJump;
+	btVector3 gravity;
 
 	virtual	btScalar addSingleResult(btManifoldPoint& cp, const btCollisionObject* colObj0, int partId0, int index0, const btCollisionObject* colObj1, int partId1, int index1)
 	{
+		btVector3 negGravity = -1.0*gravity; 
+		negGravity = negGravity.normalize();
+
 		if (btVector3(
 			cp.m_normalWorldOnB.mVec128.m128_f32[0],
 			cp.m_normalWorldOnB.mVec128.m128_f32[1],
 			cp.m_normalWorldOnB.mVec128.m128_f32[2]
-		).dot(btVector3(0,1,0)) > 0.7) {
+		).dot(negGravity) > 0.7) {
 			canJump = true;
 		}
 
@@ -28,7 +32,8 @@ Level::Level() {
 	btBroadphaseInterface* overlappingPairCache = new btDbvtBroadphase();
 	btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
 	dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher,overlappingPairCache,solver,collisionConfiguration);
-	dynamicsWorld->setGravity(btVector3(0,-10,0));
+	gravity = btVector3(0,-10,0);
+	dynamicsWorld->setGravity(gravity);
 
 	myBall = new Model();
 	myBall->load("Data/Models/AOBJ/Sphere.aobj");
@@ -62,6 +67,8 @@ Level::Level() {
 	ballNormals[4]->load("Data/Textures/TGA/White.tga");
 
 	canJump=true;
+
+	toggleGravity = false;
 
 	ballReflection = new EnvironmentMap(512);
 }
@@ -99,6 +106,7 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps, Profiler *p
 
 	BallCallback ballCallback;
 	ballCallback.canJump = false;
+	ballCallback.gravity = gravity;
 	dynamicsWorld->contactTest(ballBody,ballCallback);
 	profiler->profile("Ball test");
 
@@ -120,6 +128,8 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps, Profiler *p
 		startTransform.setIdentity();
 		startTransform.setOrigin(start);
 		ballBody->setWorldTransform(startTransform);
+		gravity = btVector3(0,-10,0);
+		dynamicsWorld->setGravity(gravity);
 	}
 	if (keys['w']) {
 		dir = camera->getLookAt()-camera->geteyeV();
@@ -154,9 +164,14 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps, Profiler *p
 		ballBody->applyCentralForce(velocity*100*(60.0/fps));
 	}
 	if (keys[32] && ballCallback.canJump) {
-		btVector3 velocity(0,1,0);
-		ballBody->activate(true);
-		ballBody->applyCentralForce(velocity*3000);
+		if (toggleGravity) {
+			gravity *= -1.0;
+			dynamicsWorld->setGravity(gravity);
+		} else {
+			btVector3 velocity(0,1,0);
+			ballBody->activate(true);
+			ballBody->applyCentralForce(velocity*3000);
+		}
 	}
 
 	btTransform trans;
