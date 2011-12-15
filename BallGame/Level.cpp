@@ -174,6 +174,7 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps, Profiler *p
 			ballBody->activate(true);
 			ballBody->applyCentralForce(velocity*3000);
 		}
+		SoundManager::Instance()->startSound("Jump",false);
 	}
 
 	btTransform trans;

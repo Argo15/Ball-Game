@@ -10,6 +10,9 @@
 #include <time.h>
 #include <list>
 #include "SoundManager.h"
+#include <al.h>
+#include <alc.h>
+#include <AL/alut.h>
 using namespace std;
 /**
 creates all the menuItems, and populates them with their data
@@ -51,6 +54,11 @@ MainMenuState::MainMenuState() : MenuState() {
 	currentItem = 0;
 	
 //add sounds
+	ALfloat fl[3];
+	fl[0]=0;
+	fl[1]=0;
+	fl[2]=0;
+SoundManager::Instance()->updateListenerPosition(fl);
 SoundManager::Instance()->addSoundSource("Data/Sound/menuMusic.wav","MenuMusic",NULL);
 SoundManager::Instance()->addSoundSource("Data/Sound/menuSelect.wav","MenuSelect",NULL);
 SoundManager::Instance()->addSoundSource("Data/Sound/switchMenu.wav","SwitchMenu",NULL);
@@ -59,6 +67,7 @@ SoundManager::Instance()->addSoundSource("Data/Sound/BeatLevel.wav","BeatLevel",
 //start menu sound
 SoundManager::Instance()->startSound("MenuMusic",false);
 SoundManager::Instance()->makeLoop("MenuMusic");
+SoundManager::Instance()->updateSourcePosition("MenuMusic",fl);
 }
 /**
 deals with resizing the application
