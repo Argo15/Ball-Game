@@ -4,6 +4,9 @@
 #include "Globals.h"
 #include "LevelState.h"
 #include "MainMenuState.h"
+#include <AL/alut.h>
+#include <al.h>
+#include "SoundManager.h"
 
 int currentTime = 0;
 int vsync = 0;
@@ -62,7 +65,9 @@ void mouseWheel(int button, int dir, int x, int y)
 }
 
 int main(int argc, char **argv) {
-
+	//initialize openAL ALUT
+	alutInit(&argc, argv);
+	
 	// init GLUT and create window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);

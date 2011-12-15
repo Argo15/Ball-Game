@@ -9,13 +9,14 @@
 #include "MenuItem.h"
 #include <time.h>
 #include <list>
+#include "SoundManager.h"
 using namespace std;
 /**
 creates all the menuItems, and populates them with their data
 **/
 TrophieMenuState::TrophieMenuState() : MenuState() {
 	//seed our random function
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 
 	items = new MenuItem*[5];
 	items[0] = new MenuItem();
@@ -81,6 +82,7 @@ void TrophieMenuState::update(int fps) {
 			items[currentItem]->current = false;
 			currentItem--;
 			items[currentItem]->current = true;
+			SoundManager::Instance()->startSound("SwitchMenu",true);
 		}
 	}
 	//check if s is down
@@ -92,12 +94,14 @@ void TrophieMenuState::update(int fps) {
 			items[currentItem]->current=false;
 			currentItem++;
 			items[currentItem]->current=true;
+			SoundManager::Instance()->startSound("SwitchMenu",true);
 		}
 	}
 	//check if enter key is down
 		if(keys[13]&& keyDown[13]==false)
 		{
 			keyDown[13]=true;
+			SoundManager::Instance()->startSound("MenuSelect",true);
 			cout<<"enter down"<<endl;
 			items[currentItem]->switchState();
 			delete(background);
@@ -120,20 +124,20 @@ void TrophieMenuState::update(int fps) {
 	//Set the location of the menu items
 
 	//first column
-	items[0]->setTopLeft(width/4,height/2);
-	items[0]->setBottomRight(width/2+width/4-25,height/2+height/9);
+	items[0]->setTopLeft(width/4.0f,height/2.0f);
+	items[0]->setBottomRight(width/2.0f+width/4.0f-25,height/2.0f+height/9.0f);
 	
-	items[1]->setTopLeft(width/4,height/2+height/4);
-	items[1]->setBottomRight(width/2+width/4-25,height/2+height/9+height/9);
+	items[1]->setTopLeft(width/4.0f,height/2+height/4.0f);
+	items[1]->setBottomRight(width/2.0f+width/4.0f-25,height/2.0f+height/9.0f+height/9.0f);
 
-	items[2]->setTopLeft(width/4,height/2+height/4+25);
-	items[2]->setBottomRight(width/2+width/4-25,height/2+height/9+height/9+25);
+	items[2]->setTopLeft(width/4.0f,height/2.0f+height/4.0f+25);
+	items[2]->setBottomRight(width/2.0f+width/4.0f-25,height/2.0f+height/9.0f+height/9.0f+25);
 
-	items[3]->setTopLeft(width/4,height/2+height/4+50);
+	items[3]->setTopLeft(width/4.0f,height/2.0f+height/4.0f+50);
 	items[3]->setBottomRight(width/2+width/4-25,height/2+height/9+height/9+50);
 		
-	items[4]->setTopLeft(width/4,height/2+height/4+75);
-	items[4]->setBottomRight(width/2+width/4-25,height/2+height/9+height/9+75);
+	items[4]->setTopLeft(width/4.0f,height/2.0f+height/4.0f+75);
+	items[4]->setBottomRight(width/2.0f+width/4.0f-25,height/2.0f+height/9.0f+height/9.0f+75);
 
 
 	background->update();

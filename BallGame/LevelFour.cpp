@@ -1,6 +1,7 @@
 #include "LevelFour.h"
 #include "MainMenuState.h"
 #include "Globals.h"
+#include "SoundManager.h"
 
 LevelFour::LevelFour() : LevelState(){
 	levelFile = new LevelFile();
@@ -9,6 +10,11 @@ LevelFour::LevelFour() : LevelState(){
 	levelFile->initializeLevel(level);
 	level->setToggleGravity(true);
 	endDistance = 0.4;
+	SoundManager::Instance()->updateSourcePosition("BeatLevel",level->getEnd());
+	SoundManager::Instance()->addSoundSource("Data/Sound/LevelFour.wav","LevelFour",NULL);
+	SoundManager::Instance()->makeLoop("LevelFour");
+	SoundManager::Instance()->startSound("LevelFour",false);
+	SoundManager::Instance()->updateSourcePosition("BeatLevel",level->getEnd());
 }
 
 void LevelFour::update(int fps) {
@@ -16,6 +22,7 @@ void LevelFour::update(int fps) {
 }
 
 void LevelFour::onFinish() {
+	SoundManager::Instance()->stopSound("LevelFour");
 	LevelState::onFinish();
 	//Globals::LevelOnePassed = true;
 	Globals::GAMESTATE = new MainMenuState();

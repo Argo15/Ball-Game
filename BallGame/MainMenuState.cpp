@@ -9,13 +9,14 @@
 #include "MenuItem.h"
 #include <time.h>
 #include <list>
+#include "SoundManager.h"
 using namespace std;
 /**
 creates all the menuItems, and populates them with their data
 **/
 MainMenuState::MainMenuState() : MenuState() {
 	//seed our random function
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 
 	items = new MenuItem*[4];
 	items[0] = new MenuItem();
@@ -48,6 +49,16 @@ MainMenuState::MainMenuState() : MenuState() {
 	//create our background object
 	background = new Background(width,height);
 	currentItem = 0;
+	
+//add sounds
+SoundManager::Instance()->addSoundSource("Data/Sound/menuMusic.wav","MenuMusic",NULL);
+SoundManager::Instance()->addSoundSource("Data/Sound/menuSelect.wav","MenuSelect",NULL);
+SoundManager::Instance()->addSoundSource("Data/Sound/switchMenu.wav","SwitchMenu",NULL);
+
+SoundManager::Instance()->addSoundSource("Data/Sound/BeatLevel.wav","BeatLevel",NULL);
+//start menu sound
+SoundManager::Instance()->startSound("MenuMusic",false);
+SoundManager::Instance()->makeLoop("MenuMusic");
 }
 /**
 deals with resizing the application
@@ -73,6 +84,7 @@ void MainMenuState::update(int fps) {
 			items[currentItem]->current = false;
 			currentItem--;
 			items[currentItem]->current = true;
+			SoundManager::Instance()->startSound("SwitchMenu",true);
 		}
 	}
 	//check if s is down
@@ -84,12 +96,14 @@ void MainMenuState::update(int fps) {
 			items[currentItem]->current=false;
 			currentItem++;
 			items[currentItem]->current=true;
+			SoundManager::Instance()->startSound("SwitchMenu",true);
 		}
 	}
 	//check if enter key is down
 		if(keys[13]&& keyDown[13]==false)
 		{
 			keyDown[13]=true;
+			SoundManager::Instance()->startSound("MenuSelect",true);
 			cout<<"enter down"<<endl;
 			items[currentItem]->switchState();
 			delete(background);
@@ -112,18 +126,18 @@ void MainMenuState::update(int fps) {
 	//Set the location of the menu items
 
 	//first column
-	items[0]->setTopLeft(25,height/2);
-	items[0]->setBottomRight(width/2-25,height/2 + height/4-25);
+	items[0]->setTopLeft(25.0f,height/2.0f);
+	items[0]->setBottomRight(width/2.0f-25,height/2.0f + height/4.0f-25);
 	
-	items[1]->setTopLeft(25,height/2+height/4);
-	items[1]->setBottomRight(width/2-25,height-25);
+	items[1]->setTopLeft(25.0f,height/2.0f+height/4.0f);
+	items[1]->setBottomRight(width/2.0f-25,height-25.0f);
 	
 	//second column
-	items[2]->setTopLeft(width/2+25,height/2);
-	items[2]->setBottomRight(width-25,height/2+height/4-25);
+	items[2]->setTopLeft(width/2.0f+25,height/2.0f);
+	items[2]->setBottomRight(width-25.0f,height/2.0f+height/4.0f-25);
 
-	items[3]->setTopLeft(width/2+25,height/2+height/4);
-	items[3]->setBottomRight(width-25,height-25);
+	items[3]->setTopLeft(width/2.0f+25,height/2.0f+height/4.0f);
+	items[3]->setBottomRight(width-25.0f,height-25.0f);
 
 
 

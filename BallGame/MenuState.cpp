@@ -6,6 +6,7 @@
 #include "Globals.h"
 #include "MenuItem.h"
 #include <string>
+#include "SoundManager.h"
 using namespace std;
  int MenuState::screenHeight = 1;
  int MenuState::screenWidth = 1;
@@ -44,6 +45,7 @@ updates the menustate
 **/
 void MenuState::update(int fps) {
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+	SoundManager::Instance()->loop();
 }
 
 /**

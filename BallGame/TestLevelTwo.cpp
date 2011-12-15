@@ -2,6 +2,7 @@
 #include "MainMenuState.h"
 #include "Globals.h"
 #include "Funhouse.h"
+#include "SoundManager.h"
 
 TestLevelTwo::TestLevelTwo() : LevelState(){
 	levelFile = new LevelFile();
@@ -14,6 +15,13 @@ TestLevelTwo::TestLevelTwo() : LevelState(){
 	direction=false;
 	level->getObject("SpinningThing Actor")->getRigidBody()->setFriction(btScalar(20.0f));
 	Globals::glowEnabled = false;
+	SoundManager::Instance()->updateSourcePosition("BeatLevel",level->getEnd());
+	SoundManager::Instance()->addSoundSource("Data/Sound/MovingPlatform.wav","MovingPlatform",NULL);
+	SoundManager::Instance()->addSoundSource("Data/Sound/LevelTwo.wav","LevelTwo",NULL);
+	//SoundManager::Instance()->makeLoop("LevelOne");
+	SoundManager::Instance()->startSound("LevelTwo",true);
+	//SoundManager::Instance()->startSound("MovingPlatform",true);
+	//SoundManager::Instance()->makeLoop("MovingPlatform");
 }
 
 void TestLevelTwo::update(int fps) {
@@ -48,9 +56,16 @@ void TestLevelTwo::update(int fps) {
 		}
 	}
 	LevelState::update(fps);
+	SoundManager::Instance()->updateSourcePosition("MovingPlatform",&org);
+	if(position>0&&position<10)
+	{
+		SoundManager::Instance()->startSound("MovingPlatform",false);
+	}
 }
 
 void TestLevelTwo::onFinish() {
+	SoundManager::Instance()->startSound("BeatLevel",false);
+	SoundManager::Instance()->stopSound("LevelTwo");
 	LevelState::onFinish();
 	Globals::LevelTwoPassed = true;
 	Globals::GAMESTATE = new FunHouse();

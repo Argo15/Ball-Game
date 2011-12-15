@@ -4,9 +4,11 @@
 #include "LevelState.h"
 #include "Globals.h"
 #include "MainMenuState.h"
+#include "SoundManager.h"
 
 // init
 LevelState::LevelState() {
+
 	glShadeModel(GL_SMOOTH);				// GL_SMOOTH or GL_FLAT
 	glClearDepth(1.0f);						// depth cleared to
 	glEnable(GL_DEPTH_TEST);				// enable depth testing
@@ -172,6 +174,10 @@ LevelState::LevelState() {
 
 	calcShadows = true;
 	pCube = new ParticleCube();
+
+	//stop the menu music when any level is loaded
+	SoundManager::Instance()->stopSound("MenuMusic");
+
 }
 
 void LevelState::resize(int w, int h) {
@@ -187,6 +193,9 @@ void LevelState::resize(int w, int h) {
 void LevelState::update(int fps) {
 	profiler.init();
 	profiler.update(fps);
+	//update the location of the openal listener
+	SoundManager::Instance()->updateListenerPosition(camera);
+	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	profiler.profile("Clear Buffers");
 	level->getLastTransforms();
@@ -621,6 +630,7 @@ void LevelState::drawScreen(float x1, float y1, float x2, float y2)
 }
 
 void LevelState::onFinish() {
+	SoundManager::Instance()->startSound("BeatLevel",false);
 	pCube->nullify();
 	glMatrixMode(GL_TEXTURE);
 	glActiveTextureARB(GL_TEXTURE0);

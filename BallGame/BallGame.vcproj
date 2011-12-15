@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;C:\bullet-2.79\src&quot;"
+				AdditionalIncludeDirectories="&quot;C:\OpenAL 1.1 SDK\include&quot;;&quot;C:\freealut-1.1.0-bin\include&quot;;&quot;C:\bullet-2.79\src&quot;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -58,6 +58,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="alut.lib openAL32.lib"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -379,6 +380,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Sound"
+				>
+				<File
+					RelativePath=".\SoundManager.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -503,6 +512,10 @@
 			</File>
 			<File
 				RelativePath=".\Profiler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SoundManager.h"
 				>
 			</File>
 			<File
