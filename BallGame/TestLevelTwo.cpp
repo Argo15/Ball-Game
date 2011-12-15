@@ -60,6 +60,8 @@ void TestLevelTwo::update(int fps) {
 	if(position>0&&position<10)
 	{
 		SoundManager::Instance()->startSound("MovingPlatform",false);
+	} else {
+		SoundManager::Instance()->stopSound("MovingPlatform");
 	}
 }
 
