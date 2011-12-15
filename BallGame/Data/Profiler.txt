@@ -1,0 +1,92 @@
+init
+0%
+Average Time: 0.0129724
+Minimum Time: 0
+Maximum Time: 1
+Clear Buffers
+18.2%
+Average Time: 7.18613
+Minimum Time: 6
+Maximum Time: 71
+Step Simulation
+0.1%
+Average Time: 0.0451213
+Minimum Time: 0
+Maximum Time: 1
+Ball test
+0.1%
+Average Time: 0.071066
+Minimum Time: 0
+Maximum Time: 1
+Camera test
+36.6%
+Average Time: 14.4444
+Minimum Time: 11
+Maximum Time: 61
+Update Dynamics World
+30.5%
+Average Time: 12.0626
+Minimum Time: 7
+Maximum Time: 68
+Build Cascaded Shadow Maps
+2.2%
+Average Time: 0.874224
+Minimum Time: 0
+Maximum Time: 27
+Build Point Light Shadow Maps
+0%
+Average Time: 0.01693
+Minimum Time: 0
+Maximum Time: 1
+Start Render
+8%
+Average Time: 3.17551
+Minimum Time: 1
+Maximum Time: 26
+Gbuffer Render
+0.4%
+Average Time: 0.174198
+Minimum Time: 0
+Maximum Time: 1
+Glow Blur
+0%
+Average Time: 0.02685
+Minimum Time: 0
+Maximum Time: 1
+Linear Depth Buffer
+0.2%
+Average Time: 0.0831696
+Minimum Time: 0
+Maximum Time: 2
+Direct Light Shading
+0.1%
+Average Time: 0.0458415
+Minimum Time: 0
+Maximum Time: 2
+Point Light Shading
+0%
+Average Time: 0.00654879
+Minimum Time: 0
+Maximum Time: 1
+SSAO
+1.2%
+Average Time: 0.497053
+Minimum Time: 0
+Maximum Time: 10
+Final Buffer Generation
+0%
+Average Time: 0.0189915
+Minimum Time: 0
+Maximum Time: 1
+Motion Blur
+3.4%
+Average Time: 1.37197
+Minimum Time: 1
+Maximum Time: 12
+Finish Shader Render
+1.5%
+Average Time: 0.594808
+Minimum Time: 0
+Maximum Time: 22
+Finish Render
+Average Fps: 25.3582

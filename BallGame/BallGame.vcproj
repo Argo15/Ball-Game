@@ -307,6 +307,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\Minecraft.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\TestLevelOne.cpp"
 						>
 					</File>
@@ -550,6 +554,10 @@
 					</File>
 					<File
 						RelativePath=".\LevelState.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Minecraft.h"
 						>
 					</File>
 					<File

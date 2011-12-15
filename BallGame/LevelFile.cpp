@@ -119,33 +119,36 @@ void LevelFile::initializeLevel(Level *level) {
 	}
 
 	for (int i=0; i<numRigidBodies; i++) {
-		btTriangleMesh *mesh = new btTriangleMesh();
-		for (int j =0; j<bodies[i].numTriangles*9; j+=9) {
-			mesh->addTriangle(
-				btVector3(bodies[i].triangles[j],bodies[i].triangles[j+1],bodies[i].triangles[j+2]),
-				btVector3(bodies[i].triangles[j+3],bodies[i].triangles[j+4],bodies[i].triangles[j+5]),
-				btVector3(bodies[i].triangles[j+6],bodies[i].triangles[j+7],bodies[i].triangles[j+8])
-			);
-		}
-		btCollisionShape* bodyShape = new btBvhTriangleMeshShape(mesh,true);
-		btTransform bodyTransform;
-		bodyTransform.setIdentity();
-		ArgoVector3 org = level->getObject(bodies[i].objectName)->getTranslateV();
-		bodyTransform.setOrigin(btVector3(org[0],org[1],org[2]));
-		btScalar mass(0.);
-		btVector3 localInertia(0,0,0);
-		btDefaultMotionState* myMotionState = new btDefaultMotionState(bodyTransform);
-		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,myMotionState,bodyShape,localInertia);
-		btRigidBody *newBody = new btRigidBody(rbInfo);
+			btTriangleMesh *mesh = new btTriangleMesh();
+			if (objects[i].type == DYNAMIC) {
+				bodies[i].numTriangles = 1;
+			}
+			for (int j =0; j<bodies[i].numTriangles*9; j+=9) {
+				mesh->addTriangle(
+					btVector3(bodies[i].triangles[j],bodies[i].triangles[j+1],bodies[i].triangles[j+2]),
+					btVector3(bodies[i].triangles[j+3],bodies[i].triangles[j+4],bodies[i].triangles[j+5]),
+					btVector3(bodies[i].triangles[j+6],bodies[i].triangles[j+7],bodies[i].triangles[j+8])
+				);
+			}
+			btCollisionShape* bodyShape = new btBvhTriangleMeshShape(mesh,true);
+			btTransform bodyTransform;
+			bodyTransform.setIdentity();
+			ArgoVector3 org = level->getObject(bodies[i].objectName)->getTranslateV();
+			bodyTransform.setOrigin(btVector3(org[0],org[1],org[2]));
+			btScalar mass(0.);
+			btVector3 localInertia(0,0,0);
+			btDefaultMotionState* myMotionState = new btDefaultMotionState(bodyTransform);
+			btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,myMotionState,bodyShape,localInertia);
+			btRigidBody *newBody = new btRigidBody(rbInfo);
 
-		if (objects[i].type == KINEMATIC) {
-			newBody->setCollisionFlags( newBody->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT); 
-			newBody->setActivationState(DISABLE_DEACTIVATION);
-		}
+			if (objects[i].type == KINEMATIC) {
+				newBody->setCollisionFlags( newBody->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT); 
+				newBody->setActivationState(DISABLE_DEACTIVATION);
+			}
 
-		level->getObject(bodies[i].objectName)->setRigidBody(newBody);
-		level->setStart(entrance.object.translation);
-		level->setEnd(exit.object.translation);
+			level->getObject(bodies[i].objectName)->setRigidBody(newBody);
+			level->setStart(entrance.object.translation);
+			level->setEnd(exit.object.translation);
 	}
 
 	level->buildDynamicsWorld();
