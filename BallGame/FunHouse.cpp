@@ -2,6 +2,7 @@
 #include "LevelFour.h"
 #include "MainMenuState.h"
 #include "Globals.h"
+#include "SoundManager.h"
 
 FunHouse::FunHouse() : LevelState(){
 	levelFile = new LevelFile();
@@ -11,6 +12,10 @@ FunHouse::FunHouse() : LevelState(){
 	endDistance = 1.0;
 	irishSpinAngle = 0;
 	Globals::glowEnabled = false;
+	SoundManager::Instance()->updateSourcePosition("BeatLevel",level->getEnd());
+	SoundManager::Instance()->addSoundSource("Data/Sound/FunHouse.wav","FunHouse",NULL);
+	SoundManager::Instance()->startSound("FunHouse",false);
+	SoundManager::Instance()->makeLoop("FunHouse");
 }
 
 void FunHouse::resize(int w, int h) {
@@ -75,6 +80,7 @@ void FunHouse::update(int fps) {
 }
 
 void FunHouse::onFinish() {
+	SoundManager::Instance()->stopSound("FunHouse");
 	LevelState::onFinish();
 	Globals::LevelThreePassed = true;
 	Globals::GAMESTATE = new LevelFour();

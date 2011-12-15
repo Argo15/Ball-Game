@@ -1,5 +1,6 @@
 #include "Level.h"
 #include "ParticleCube.h"
+#include "SoundManager.h"
 
 struct BallCallback : public btCollisionWorld::ContactResultCallback
 {
@@ -197,6 +198,10 @@ void Level::updateDynamicsWorld(bool *keys, Camera *camera, int fps, Profiler *p
 
 	if (Globals::ballReflect > 0)
 		ballReflection->generateEnvironmentMap(ArgoVector3(ballPos.getX(),ballPos.getY(),ballPos.getZ()),15.0,this);
+	//update audio with velocity
+	SoundManager::Instance()->updateListenerVelocity(&(ballBody->getLinearVelocity()));
+	SoundManager::Instance()->loop();
+
 }
 
 float Level::distanceFromEnd() {

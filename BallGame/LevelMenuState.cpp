@@ -9,6 +9,7 @@
 #include "MenuItem.h"
 #include <time.h>
 #include <list>
+#include "SoundManager.h"
 using namespace std;
 /**
 creates all the menuItems, and populates them with their data
@@ -81,6 +82,7 @@ void LevelMenuState::update(int fps) {
 			items[currentItem]->current = false;
 			currentItem--;
 			items[currentItem]->current = true;
+			SoundManager::Instance()->startSound("SwitchMenu",true);
 		}
 	}
 	//check if s is down
@@ -92,16 +94,20 @@ void LevelMenuState::update(int fps) {
 			items[currentItem]->current=false;
 			currentItem++;
 			items[currentItem]->current=true;
+			SoundManager::Instance()->startSound("SwitchMenu",true);
 		}
 	}
 	//check if enter key is down
 		if(keys[13]&& keyDown[13]==false)
 		{
 			keyDown[13]=true;
+			SoundManager::Instance()->startSound("MenuSelect",true);
 			cout<<"enter down"<<endl;
 			items[currentItem]->switchState();
 			delete(background);
 			Globals::GAMESTATE->resize(width,height);
+
+			//add sounds
 			return;
 		}
 	//return keys to be unpressed if they are not pressed

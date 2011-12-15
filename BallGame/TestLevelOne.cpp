@@ -1,6 +1,7 @@
 #include "TestLevelOne.h"
 #include "TestLevelTwo.h"
 #include "Globals.h"
+#include "SoundManager.h"
 
 TestLevelOne::TestLevelOne() : LevelState(){
 	levelFile = new LevelFile();
@@ -13,6 +14,10 @@ TestLevelOne::TestLevelOne() : LevelState(){
 	level->getObject("Cube Actor(5)")->getRigidBody()->setFriction(btScalar(20.0f));
 	endDistance = 1.0;
 	Globals::glowEnabled = true;
+	SoundManager::Instance()->updateSourcePosition("BeatLevel",level->getEnd());
+	SoundManager::Instance()->addSoundSource("Data/Sound/LevelOne.wav","LevelOne",NULL);
+	SoundManager::Instance()->startSound("LevelOne",false);
+
 }
 
 void TestLevelOne::update(int fps) {
@@ -51,6 +56,7 @@ void TestLevelOne::update(int fps) {
 }
 
 void TestLevelOne::onFinish() {
+	SoundManager::Instance()->stopSound("LevelOne");
 	LevelState::onFinish();
 	Globals::LevelOnePassed = true;
 	Globals::GAMESTATE = new TestLevelTwo();

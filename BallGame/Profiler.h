@@ -19,10 +19,10 @@ struct ProfilePoint {
 		numSamples++;
 		totalTime += time;
 		if (time < minTimeChange) {
-			minTimeChange = time;
+			minTimeChange = (float)time;
 		}
 		if (time > maxTimeChange) {
-			maxTimeChange = time;
+			maxTimeChange = (float)time;
 		}
 	}
 };

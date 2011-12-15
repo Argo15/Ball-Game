@@ -170,7 +170,7 @@ glBegin(GL_QUADS);
 		
 		//top right
 		glTexCoord2f(1,1);
-		glVertex3f(posx+25,posy, -1.0);
+		glVertex3f(posx+25,posy,-1.0);
 
 		//top left
 		glTexCoord2f(0,1);
