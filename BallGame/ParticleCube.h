@@ -11,7 +11,7 @@ public:
 	ParticleCube();
 	~ParticleCube();
 	void Update(btVector3* start,btVector3* end);
-	void Render();
+	void Render(GLSLProgram *program);
 	void nullify();
 	
 

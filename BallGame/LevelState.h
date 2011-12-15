@@ -41,6 +41,7 @@ private:
 	GLSLProgram *vBlurProg;
 	GLSLProgram *mBlurProg;
 	GLSLProgram *mSSAOProg;
+	GLSLProgram *alphaProg;
 	Frustum *frustum;
 	CascadedShadowMap *cascadedShadowMap;
 

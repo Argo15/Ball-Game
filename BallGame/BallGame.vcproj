@@ -355,6 +355,10 @@
 				Name="Math"
 				>
 				<File
+					RelativePath=".\AlphaBuffer.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\ArgoMatrix3.cpp"
 					>
 				</File>
@@ -588,6 +592,10 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath=".\Data\Shaders\f_alpha.glsl"
+				>
+			</File>
+			<File
 				RelativePath=".\Data\Shaders\f_cubeshadow.glsl"
 				>
 			</File>
@@ -637,6 +645,10 @@
 			</File>
 			<File
 				RelativePath=".\Data\Shaders\f_ssao.glsl"
+				>
+			</File>
+			<File
+				RelativePath=".\Data\Shaders\v_alpha.glsl"
 				>
 			</File>
 			<File

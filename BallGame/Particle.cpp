@@ -38,17 +38,24 @@ frameCount++;
 
 }
 
-void Particle::Render(float x, float y, float z)
+void Particle::Render(float x, float y, float z, GLSLProgram *program)
 {
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
 	glEnable(GL_COLOR_MATERIAL);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-	glColor4f(1,1,1,1);
+	glActiveTexture(GL_TEXTURE0);
 
 	frames[currentFrame]->use();
+
+	if (program == 0) {
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+		glColor4f(1,1,1,1);
+	} else {
+		glDisable(GL_BLEND);
+		program->sendUniform("tex",0);
+	}
 
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST_MIPMAP_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);

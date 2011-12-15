@@ -134,9 +134,9 @@ void LevelMenuState::render() {
 	glLoadIdentity();
 	
 	background->drawBackground();
-
 	items[currentItem]->drawItem();
 //text if menu
+	glDisable(GL_TEXTURE_2D);
 	if(currentItem==0)
 	{
 	//set the text color to white
@@ -146,7 +146,7 @@ void LevelMenuState::render() {
 	//draw the text to the screen
 	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*)items[currentItem]->description.c_str());
 	}
-
+	glEnable(GL_TEXTURE_2D);
 	MenuState::render();
 }
 

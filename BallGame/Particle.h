@@ -4,6 +4,7 @@
 #include "btBulletDynamicsCommon.h"
 #include <vector>
 #include "Texture.h"
+#include "GLSLProgram.h"
 using namespace std;
 
 class Particle
@@ -12,7 +13,7 @@ public:
 	Particle();
 	Particle(int frame);
 	void Update();
-	void Render(float x, float y, float z);
+	void Render(float x, float y, float z, GLSLProgram *program);
 	void addTexture(string location);
 
 private:

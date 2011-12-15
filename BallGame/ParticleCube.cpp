@@ -1,5 +1,6 @@
 #include "ParticleCube.h"
 #include "btBulletDynamicsCommon.h"
+#include "GLSLProgram.h"
 #include <gl/glut.h>
 #include "Particle.h"
 
@@ -50,23 +51,23 @@ void ParticleCube::Update(btVector3* s, btVector3* e)
 	}
 }
 
-void ParticleCube::Render()
+void ParticleCube::Render(GLSLProgram *program)
 {
 	if(start == NULL || end == NULL)
 	{
 		return;
 	}
 
-		particles[0]->Render(end->getX(),end->getY(),end->getZ());
-		particles[1]->Render(end->getX()+.5f,end->getY(),end->getZ());
-		particles[2]->Render(end->getX()-.5f,end->getY(),end->getZ());
-		particles[3]->Render(end->getX()+.5f,end->getY(),end->getZ()+.5f);
-		particles[4]->Render(end->getX()-.5f,end->getY(),end->getZ()-.5f);
-		particles[5]->Render(end->getX()+.5f,end->getY(),end->getZ()-.5f);
-		particles[6]->Render(end->getX()-.5f,end->getY(),end->getZ()+.5f);
-		particles[7]->Render(end->getX(),end->getY(),end->getZ()+.5f);
-		particles[8]->Render(end->getX(),end->getY(),end->getZ()-.5f);
-		particles[9]->Render(end->getX(),end->getY(),end->getZ());
+		particles[0]->Render(end->getX(),end->getY(),end->getZ(),program);
+		particles[1]->Render(end->getX()+.5f,end->getY(),end->getZ(),program);
+		particles[2]->Render(end->getX()-.5f,end->getY(),end->getZ(),program);
+		particles[3]->Render(end->getX()+.5f,end->getY(),end->getZ()+.5f,program);
+		particles[4]->Render(end->getX()-.5f,end->getY(),end->getZ()-.5f,program);
+		particles[5]->Render(end->getX()+.5f,end->getY(),end->getZ()-.5f,program);
+		particles[6]->Render(end->getX()-.5f,end->getY(),end->getZ()+.5f,program);
+		particles[7]->Render(end->getX(),end->getY(),end->getZ()+.5f,program);
+		particles[8]->Render(end->getX(),end->getY(),end->getZ()-.5f,program);
+		particles[9]->Render(end->getX(),end->getY(),end->getZ(),program);
 }
 
 

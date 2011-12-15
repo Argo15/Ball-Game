@@ -160,6 +160,16 @@ LevelState::LevelState() {
 	}
 	printf(log.c_str());
 
+	log="";
+	alphaProg = new GLSLProgram("Data/Shaders/v_alpha.glsl","Data/Shaders/f_alpha.glsl");
+	if (!alphaProg->vertex_->isCompiled()){
+		alphaProg->vertex_->getShaderLog(log);
+	}
+	if (!alphaProg->fragment_->isCompiled()){	
+		alphaProg->fragment_->getShaderLog(log);
+	}
+	printf(log.c_str());
+
 	calcShadows = true;
 	pCube = new ParticleCube();
 }
@@ -229,7 +239,7 @@ void LevelState::render() {
 			lights[i]->sendToShader(0,GL_LIGHT1+i);
 		}
 		level->drawNoShaders(frustum);
-		pCube->Render();
+		pCube->Render(0);
 	} else {
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();
@@ -451,6 +461,41 @@ void LevelState::render() {
 				glPopAttrib();
 			finalProg->disable();
 		finalBuffer->unbind();
+
+		glActiveTextureARB(GL_TEXTURE0);
+		glMatrixMode(GL_TEXTURE);
+		glLoadIdentity();
+		glMatrixMode(GL_MODELVIEW);
+		glEnable(GL_BLEND);
+		glBlendEquationSeparate(GL_FUNC_ADD,GL_FUNC_ADD);
+
+		finalBuffer->bind();
+			alphaProg->use();
+			glClearColor(0,0,0,0);
+			glClear(GL_DEPTH_BUFFER_BIT);
+			glDrawBuffer(GL_COLOR_ATTACHMENT0_EXT);
+			glPushAttrib( GL_VIEWPORT_BIT );
+			glViewport( 0, 0, finalBuffer->getWidth(), finalBuffer->getHeight());
+			view->use3D(true);
+			glActiveTexture(GL_TEXTURE0); 
+			glEnable(GL_TEXTURE_2D);
+			glEnable(GL_COLOR_MATERIAL);
+			glActiveTexture(GL_TEXTURE1);
+			depthBuffer->bindLinearDepthTex();
+			alphaProg->sendUniform("depthTex",1);
+			alphaProg->sendUniform("near",view->getNear());
+			alphaProg->sendUniform("far",view->getFar());
+			glDisable(GL_LIGHTING);
+			glColor3f(1.0,1.0,1.0);
+			glMatrixMode(GL_MODELVIEW);
+			glLoadIdentity();
+			camera->transform();
+			pCube->Render(alphaProg);
+			glPopAttrib();
+			alphaProg->disable();
+		finalBuffer->unbind();
+
+		glDisable(GL_BLEND);
 
 		profiler.profile("Final Buffer Generation");
 

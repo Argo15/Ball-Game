@@ -148,7 +148,8 @@ void CreditsMenuState::render() {
 //text if menu
 
 	//set the text color to white
-	glColor3f(1.0f, 1.0f, 1.0f);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glDisable(GL_TEXTURE_2D);
 	//set the texts location
 	glRasterPos2f((items[0]->bottomRightX+items[0]->topLeftX)/2-150,(items[0]->topLeftY+items[0]->bottomRightY)/2);
 	//draw the text to the screen
@@ -162,6 +163,7 @@ for(int x =1;x<4;x++)
 	//draw the text to the screen
 	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*)items[x]->description.c_str());
 }
+	glEnable(GL_TEXTURE_2D);
 
 	MenuState::render();
 }

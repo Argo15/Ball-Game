@@ -157,7 +157,7 @@ void TrophieMenuState::render() {
 	items[3]->drawItem();
 	items[4]->drawItem();
 //text if menu
-
+	glDisable(GL_TEXTURE_2D);
 	//set the text color to white
 	glColor3f(1.0f, 1.0f, 1.0f);
 	//set the texts location
@@ -234,7 +234,7 @@ void TrophieMenuState::render() {
 		glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*)write.c_str());
 	}
 
-
+	glEnable(GL_TEXTURE_2D);
 	MenuState::render();
 }
 
