@@ -20,10 +20,12 @@ class SoundManager
 public:
 	static SoundManager* Instance();
 	void updateListenerPosition(Camera* cam);
+	void updateListenerPosition(ALfloat* fl);
 	void updateListenerVelocity(const btVector3* vel);
 	void addSoundSource(string filename,string id,ALfloat* position);
 	void addSoundSource(string filename,string id, btVector3* position,bool doesNothing);
 	void updateSourcePosition(string id,const btVector3* vec);
+	void updateSourcePosition(string id,ALfloat* vec);
 	void stopSound(string id);
 	void startSound(string id,bool restartIfPlaying);
 	bool isPlaying(string id);

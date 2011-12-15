@@ -85,6 +85,19 @@ void SoundManager::updateListenerPosition(Camera* cam)
 	}
 }
 
+void SoundManager::updateListenerPosition(ALfloat* fl)
+{
+	ALenum error;
+	alGetError();//clear error code
+	alListenerfv(AL_VELOCITY,fl);
+		if((error = alGetError()) != AL_NO_ERROR)
+	{
+		//DisplayALError("alListenerfv POSITION : ",error);
+		cout<<error<<endl;
+		return;
+	}
+}
+
 void SoundManager::updateListenerVelocity(const btVector3* vel)
 {
 	ALenum error;
@@ -234,4 +247,9 @@ void SoundManager::updateSourcePosition(string id,const btVector3* vec)
 	conv[1]= vec->getY();
 	conv[2]= vec->getZ();
 	alSourcefv(sources[id],AL_POSITION,conv);
+}
+
+void SoundManager::updateSourcePosition(string id,ALfloat* vec)
+{
+	alSourcefv(sources[id],AL_POSITION,vec);
 }

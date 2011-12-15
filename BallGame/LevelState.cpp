@@ -177,7 +177,7 @@ LevelState::LevelState() {
 
 	//stop the menu music when any level is loaded
 	SoundManager::Instance()->stopSound("MenuMusic");
-
+	SoundManager::Instance()->addSoundSource("Data/Sound/Jump.wav","Jump",NULL);
 }
 
 void LevelState::resize(int w, int h) {
