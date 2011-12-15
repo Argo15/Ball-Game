@@ -1,5 +1,6 @@
 #include "LevelFour.h"
 #include "MainMenuState.h"
+#include "Minecraft.h"
 #include "Globals.h"
 #include "SoundManager.h"
 
@@ -25,7 +26,6 @@ void LevelFour::onFinish() {
 	Globals::LevelFourPassed = true;
 	SoundManager::Instance()->stopSound("LevelFour");
 	LevelState::onFinish();
-	//Globals::LevelOnePassed = true;
 	Globals::GAMESTATE = new MainMenuState();
 	Globals::GAMESTATE->resize(width,height);
 	delete this;
