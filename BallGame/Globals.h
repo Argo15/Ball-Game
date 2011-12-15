@@ -18,6 +18,7 @@ public:
 	static bool LevelOnePassed;
 	static bool LevelTwoPassed;
 	static bool LevelThreePassed;
+	static bool LevelFourPassed;
 
 	static int matNum;
 	static int bumpNum;

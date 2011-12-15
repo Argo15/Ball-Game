@@ -12,6 +12,7 @@ bool Globals::OpenedMenu = true;
 bool Globals::LevelOnePassed = false;
 bool Globals::LevelTwoPassed = false;
 bool Globals::LevelThreePassed = false;
+bool Globals::LevelFourPassed = false;
 
 int Globals::matNum = 5;
 int Globals::bumpNum = 0;

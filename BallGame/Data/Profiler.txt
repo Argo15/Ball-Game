@@ -1,0 +1,47 @@
+init
+0%
+Average Time: 0
+Minimum Time: 0
+Maximum Time: 0
+Clear Buffers
+0%
+Average Time: 0.00643087
+Minimum Time: 0
+Maximum Time: 1
+Step Simulation
+0.2%
+Average Time: 0.044373
+Minimum Time: 0
+Maximum Time: 1
+Ball test
+0.6%
+Average Time: 0.113183
+Minimum Time: 0
+Maximum Time: 1
+Camera test
+22.2%
+Average Time: 3.70611
+Minimum Time: 2
+Maximum Time: 580
+Update Dynamics World
+16%
+Average Time: 2.67524
+Minimum Time: 1
+Maximum Time: 4
+Build Cascaded Shadow Maps
+6.6%
+Average Time: 1.10354
+Minimum Time: 0
+Maximum Time: 13
+Build Point Light Shadow Maps
+0.2%
+Average Time: 0.0353925
+Minimum Time: 0
+Maximum Time: 1
+Start Render
+6.1%
+Average Time: 1.02317
+Minimum Time: 0
+Maximum Time: 33
+Finish Render
+Average Fps: 59.9235

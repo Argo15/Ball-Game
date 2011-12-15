@@ -22,6 +22,7 @@ void LevelFour::update(int fps) {
 }
 
 void LevelFour::onFinish() {
+	Globals::LevelFourPassed = true;
 	SoundManager::Instance()->stopSound("LevelFour");
 	LevelState::onFinish();
 	//Globals::LevelOnePassed = true;

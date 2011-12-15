@@ -54,6 +54,13 @@ TrophieMenuState::TrophieMenuState() : MenuState() {
 	items[4]->current=false;
 	items[4]->link = "MainMenuState";
 
+	items[5] = new MenuItem();
+	items[5]->setDescription("Level Four ");
+	items[5]->texture = new Texture();
+	items[5]->texture->load("Data/Textures/BallGraphics/BallGameSelect.tga");
+	items[5]->current=false;
+	items[5]->link = "MainMenuState";
+
 	//create our background object
 	background = new Background(width,height);
 	currentItem = 0;
@@ -89,7 +96,7 @@ void TrophieMenuState::update(int fps) {
 	if(keys['s']&& keyDown['s']==false)
 	{
 		keyDown['s']=true;
-		if(currentItem<4)
+		if(currentItem<5)
 		{
 			items[currentItem]->current=false;
 			currentItem++;
@@ -139,6 +146,8 @@ void TrophieMenuState::update(int fps) {
 	items[4]->setTopLeft(width/4.0f,height/2.0f+height/4.0f+75);
 	items[4]->setBottomRight(width/2.0f+width/4.0f-25,height/2.0f+height/9.0f+height/9.0f+75);
 
+	items[5]->setTopLeft(width/4.0f,height/2.0f+height/4.0f+100);
+	items[5]->setBottomRight(width/2.0f+width/4.0f-25,height/2.0f+height/9.0f+height/9.0f+100);
 
 	background->update();
 	items[0]->updateBob();
@@ -146,6 +155,7 @@ void TrophieMenuState::update(int fps) {
 	items[2]->updateBob();
 	items[3]->updateBob();
 	items[4]->updateBob();
+	items[5]->updateBob();
 
 
 }
@@ -160,6 +170,7 @@ void TrophieMenuState::render() {
 	items[2]->drawItem();
 	items[3]->drawItem();
 	items[4]->drawItem();
+	items[5]->drawItem();
 //text if menu
 	glDisable(GL_TEXTURE_2D);
 	//set the text color to white
@@ -194,7 +205,7 @@ void TrophieMenuState::render() {
 	//set the texts location
 	glRasterPos2f((items[2]->bottomRightX+items[2]->topLeftX)/2-100,(items[2]->topLeftY+items[2]->bottomRightY)/2);
 	//draw the text to the screen
-	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*)items[2]->description.c_str());
+	//glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*)items[2]->description.c_str());
 	if(Globals::LevelOnePassed == true)
 	{
 		string write = items[2]->description.c_str() + on;
@@ -235,6 +246,22 @@ void TrophieMenuState::render() {
 	else
 	{
 		string write = items[4]->description.c_str() + off;
+		glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*)write.c_str());
+	}
+
+	//set the text color to white
+	glColor3f(1.0f, 1.0f, 1.0f);
+	//set the texts location
+	glRasterPos2f((items[5]->bottomRightX+items[5]->topLeftX)/2-100,(items[5]->topLeftY+items[5]->bottomRightY)/2);
+	//draw the text to the screen
+	if(Globals::LevelFourPassed == true)
+	{
+		string write = items[5]->description.c_str() + on;
+		glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*)write.c_str());
+	}
+	else
+	{
+		string write = items[5]->description.c_str() + off;
 		glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*)write.c_str());
 	}
 
